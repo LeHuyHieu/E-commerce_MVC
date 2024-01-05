@@ -1,0 +1,31 @@
+.product-variants .color-product span.color-product-image {
+  cursor: pointer;
+  padding: 3px;
+  display: inline-block;
+  overflow: hidden;
+}
+.product-variants .color-product span.color-product-image img {
+  transition: 0.3s;
+}
+.product-variants .color-product span.color-product-image:hover img {
+  transform: scale(1.1);
+}
+.product-variants .color-product span.color-product-image.active {
+  border: 1px solid #222;
+  border-radius: 3px;
+}
+
+.login-form {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+label.error {
+  color: red;
+  margin-bottom: 0;
+  font-size: 0.75rem;
+}/*# sourceMappingURL=custom.css.map */
