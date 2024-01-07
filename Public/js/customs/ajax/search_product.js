@@ -125,7 +125,6 @@ function handleFilterChange(filterId, itemClass, dataKey) {
                 currentURL = removeParam("page", currentURL);
             }
         }
-        console.log(data);
        
         $.ajax({
             url: currentURL,

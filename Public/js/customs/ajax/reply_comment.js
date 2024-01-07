@@ -4,7 +4,6 @@ $(document).ready(function () {
     $(document).on('click', '.replyComment',function () {
         formReplyComment.find('input[name="comment_id"]').val($(this).attr('data-comment-id'));
         formReplyComment.find('textarea[name="comment"]').val('@'+$(this).siblings('.name').text());
-        console.log($(this).siblings('.name').text());
     })
     button.on('click', function () {
         var commentId = formReplyComment.find('input[name="comment_id"]').val();
@@ -18,7 +17,6 @@ $(document).ready(function () {
             'comment': comment,
             'product_id': productId,
         };
-        console.log(data);
         $.ajax({
             url: "./index.php?action=comment&handle=reply_comment&product_id="+productId,
             type: 'post',
@@ -47,7 +45,6 @@ $(document).ready(function () {
             'comment': comment,
             'product_id': productId,
         };
-        console.log(data);
         $.ajax({
             url: "./index.php?action=comment&handle=comment_product_detail&product_id=" + productId,
             type: 'post',

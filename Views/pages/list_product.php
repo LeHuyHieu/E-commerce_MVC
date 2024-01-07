@@ -130,12 +130,14 @@ function replaceColor($color)
                                 <div class="row showListProductCol">
                                     <?php
                                     foreach ($result as $item) {
+                                        $list_color = $list_sp->getColorProduct($item['id'])->fetchAll();
                                     ?>
-                                        <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                        <div class="col-lg-4 mb-40">
+                                            <!-- single-product-wrap start -->
                                             <div class="single-product-wrap">
                                                 <div class="product-image">
                                                     <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                        <img src="<?php echo json_decode($item['images'])[0]; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="Li's Product Image">
+                                                        <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
                                                     </a>
                                                     <span class="sticker">New</span>
                                                 </div>
@@ -156,25 +158,28 @@ function replaceColor($color)
                                                             </div>
                                                         </div>
                                                         <h4><a class="product_name mb-15" href="index.php?action=detail_product&id=<?php echo $item['id'] ?>"><?php echo $item['title']; ?></a></h4>
-                                                        <div class="price-box">
-                                                            <?php if (isset($item['discountPercent'])) { ?>
-                                                                <span class="new-price new-price-2"><?php echo number_format($item['price'] - ($item['price'] * ($item['discountPercent'] / 100))); ?></span>
-                                                                <span class="old-price"><?php echo number_format($item['price']); ?> VND</span>
+                                                        <?php if (isset($item['discountPercent'])) { ?>
+                                                            <div class="featured-price-box">
+                                                                <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] * $item['discountPercent']) / 100);?></span>
+                                                                <span class="old-price" style="text-decoration: line-through;"><?php echo  number_format($list_color[0]['price']);?> VND</span>
                                                                 <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
-                                                            <?php } else { ?>
-                                                                <span class="new-price new-price-2"><?php echo number_format($item['price']); ?> VND</span>
-                                                            <?php } ?>
-                                                        </div>
+                                                            </div>
+                                                        <?php } else { ?>
+                                                            <div class="featured-price-box">
+                                                                <span class="new-price new-price-2"> <?php echo  number_format($list_color[0]['price']);?> VND</span>
+                                                            </div>
+                                                        <?php } ?>
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">
-                                                            <li class="add-cart active"><a href="">Add to cart</a></li>
-                                                            <li><a href="javascript:void(0)" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#viewModalCenter<?php echo $item['id'] ?>"><i class="fa fa-eye"></i></a></li>
+                                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id']?>"><i class="fa fa-eye"></i></a></li>
                                                             <li><a class="links-details" href=""><i class="fa fa-heart-o"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- single-product-wrap end -->
                                         </div>
                                     <?php }; ?>
                                 </div>
@@ -185,12 +190,13 @@ function replaceColor($color)
                                 <div class="col showListProductRow">
                                     <?php
                                     foreach ($result as $item) {
+                                        $list_color = $list_sp->getColorProduct($item['id'])->fetchAll();
                                     ?>
                                         <div class="row product-layout-list pb-10">
                                             <div class="col-lg-3 col-md-5">
                                                 <div class="product-image">
                                                     <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                        <img src="<?php echo json_decode($item['images'])[0]; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="Li's Product Image">
+                                                        <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
                                                     </a>
                                                     <span class="sticker">New</span>
                                                 </div>
@@ -215,11 +221,11 @@ function replaceColor($color)
                                                         <h4><a class="product_name mb-15" href="index.php?action=detail_product&id=<?php echo $item['id'] ?>"><?php echo $item['title']; ?></a></h4>
                                                         <div class="price-box">
                                                             <?php if (isset($item['discountPercent'])) { ?>
-                                                                <span class="new-price new-price-2"><?php echo number_format($item['price'] - ($item['price'] * ($item['discountPercent'] / 100))); ?></span>
-                                                                <span class="old-price"><?php echo number_format($item['price']); ?> VND</span>
+                                                                <span class="new-price new-price-2"><?php echo number_format($list_color[0]['price'] - ($list_color[0]['price'] * ($item['discountPercent'] / 100))); ?></span>
+                                                                <span class="old-price"><?php echo number_format($list_color[0]['price']); ?> VND</span>
                                                                 <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
                                                             <?php } else { ?>
-                                                                <span class="new-price new-price-2"><?php echo number_format($item['price']); ?> VND</span>
+                                                                <span class="new-price new-price-2"><?php echo number_format($list_color[0]['price']); ?> VND</span>
                                                             <?php } ?>
                                                         </div>
                                                         <p style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;"><?php echo $item['description']; ?></p>
@@ -231,7 +237,7 @@ function replaceColor($color)
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart"><a href="">Add to cart</a></li>
                                                         <li class="wishlist"><a href=""><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                        <li><a class="quick-view" data-toggle="modal" data-target="#viewModalCenter<?php echo $item['id'] ?>" href="javascript:void(0)"><i class="fa fa-eye"></i>Quick view</a></li>
+                                                        <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id'] ?>" href="javascript:void(0)"><i class="fa fa-eye"></i>Quick view</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -243,9 +249,11 @@ function replaceColor($color)
                         <div class="list_modal">
                             <?php 
                                 foreach ($result as $item) { 
+                                    $list_color = $list_sp->getColorProduct($item['id'])->fetchAll();
+                                    $images = $list_sp->getImageProduct($item['id'])->fetchAll();
                             ?>
-                                <!-- Begin Quick View | Modal Area -->
-                                <div class="modal fade modal-wrapper" id="viewModalCenter<?php echo $item['id'] ?>">
+                                 <!-- Begin Quick View | Modal Area -->
+                                 <div class="modal fade modal-wrapper" id="exampleModalCenter<?php echo $item['id'] ?>">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-body">
@@ -257,23 +265,30 @@ function replaceColor($color)
                                                         <!-- Product Details Left -->
                                                         <div class="product-details-left">
                                                             <div class="product-details-images slider-navigation-1">
-                                                                <?php
-                                                                foreach (json_decode($item['images']) as $key => $image_item) {
-                                                                    if ($key != 0) {
+                                                                <?php 
+                                                                    foreach ($list_color as $key => $image_item) {
+                                                                    if($key != 0) {
                                                                 ?>
-                                                                        <div class="lg-image">
-                                                                            <img src="<?php echo $image_item; ?>" alt="product image">
-                                                                        </div>
-                                                                    <?php } else { ?>
-                                                                        <div class="lg-image">
-                                                                            <img src="<?php echo $image_item; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
-                                                                        </div>
-                                                                <?php }
-                                                                } ?>
+                                                                    <div class="lg-image">
+                                                                        <img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image">
+                                                                    </div>
+                                                                <?php }else { ?> 
+                                                                    <div class="lg-image">
+                                                                        <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="show-image-product<?php echo $item['id'];?>" alt="product image">
+                                                                    </div>
+                                                                <?php } } ?>
+                                                                <?php foreach ($images as $key => $image_item) { ?>
+                                                                    <div class="lg-image">
+                                                                        <img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image">
+                                                                    </div>
+                                                                <?php } ?>
                                                             </div>
                                                             <div class="product-details-thumbs slider-thumbs-1">
-                                                                <?php foreach (json_decode($item['images']) as $image_item) { ?>
-                                                                    <div class="sm-image"><img src="<?php echo $image_item; ?>" alt="product image thumb"></div>
+                                                                <?php foreach ($list_color as $key => $image_item) { ?>
+                                                                    <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image thumb"></div>
+                                                                <?php } ?>
+                                                                <?php foreach ($images as $key => $image_item) { ?>
+                                                                    <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image thumb"></div>
                                                                 <?php } ?>
                                                             </div>
                                                         </div>
@@ -294,7 +309,11 @@ function replaceColor($color)
                                                                     </ul>
                                                                 </div>
                                                                 <div class="price-box pt-20">
-                                                                    <span class="new-price new-price-2"><span class="new-price new-price-2"><?php echo number_format($item['price'] - ($item['price'] * ($item['discountPercent'] / 100))); ?></span> VND</span>
+                                                                    <?php if (isset($item['discountPercent'])) { ?>
+                                                                        <span class="new-price new-price-2" id="showPrice<?php echo $item['id'];?>"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] * $item['discountPercent']) / 100);?> VND</span>
+                                                                    <?php }else { ?>
+                                                                        <span class="new-price new-price-2" id="showPrice<?php echo $item['id'];?>"><?php echo  number_format($list_color[0]['price']);?> VND</span>
+                                                                    <?php } ?>
                                                                 </div>
                                                                 <div class="product-desc">
                                                                     <p>
@@ -303,32 +322,56 @@ function replaceColor($color)
                                                                 </div>
                                                                 <div class="product-variants">
                                                                     <?php
-                                                                    $listColor = $list_sp->getColorProduct($item['id']);
-                                                                    if ($listColor->rowCount() > 0) {
+                                                                        if(count($list_color) > 0) {
                                                                     ?>
                                                                         <div class="produt-variants-size color-product">
                                                                             <label>Color</label>
-                                                                            <span class="color-product-image"><img width="50px" src="<?php echo json_decode($item['images'])[0]; ?>" data-id-product="<?php echo $item['id']; ?>" class="change-image-product product-active active" alt=""></span>
-                                                                            <?php
-                                                                            foreach ($listColor as $color_image) {
+                                                                            <?php 
+                                                                                foreach($list_color as $key => $color_image) {
+                                                                                    if ($item['discountPercent'] != 0) {
                                                                             ?>
-                                                                                <span class="color-product-image"><img width="50px" src="<?php echo $color_image['image_product']; ?>" data-id-product="<?php echo $item['id']; ?>" class="change-image-product" alt=""></span>
-                                                                            <?php } ?>
+                                                                                <span class="color-product-image">
+                                                                                    <img width="50px" 
+                                                                                        onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
+                                                                                        src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                        data-size-id="<?php echo $color_image['size_id'];?>" 
+                                                                                        data-color-id="<?php echo $color_image['color_id'];?>" 
+                                                                                        data-discount-percent="<?php echo $item['discountPercent'];?>"
+                                                                                        data-id-product="<?php echo $item['id'];?>" 
+                                                                                        data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100);?>" 
+                                                                                        class="change-image-product <?php echo ($key == 0) ? 'product-active active' : '';?>" 
+                                                                                    alt="">
+                                                                                </span>
+                                                                            <?php } else { ?>
+                                                                                <span class="color-product-image">
+                                                                                    <img width="50px" 
+                                                                                        onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
+                                                                                        src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                        data-size-id="<?php echo $color_image['size_id'];?>" 
+                                                                                        data-color-id="<?php echo $color_image['color_id'];?>" 
+                                                                                        data-id-product="<?php echo $item['id'];?>" 
+                                                                                        data-price-image="<?php echo number_format($color_image['price']);?>" 
+                                                                                        class="change-image-product <?php echo ($key == 0) ? 'product-active active' : '';?>" 
+                                                                                    alt="">
+                                                                                </span>
+                                                                            <?php } } ?>
                                                                         </div>
                                                                     <?php } ?>
-                                                                    <?php
-                                                                    $list_size_product = $list_sp->getSizeProduct($item['id']);
-                                                                    if ($list_size_product->rowCount() > 0) {
+                                                                    <?php 
+                                                                    $list_size = $list_sp->getSizeChangeColor($list_color[0]['color_id'],$item['id'])->fetchAll();
+                                                                        if(count($list_size) > 0 && $list_size[0]['size_id'] !== 0) {
                                                                     ?>
                                                                         <div class="produt-variants-size">
                                                                             <label>Dimension</label>
-                                                                            <select class="form-select select-product" name="size_product">
-                                                                                <option value="">Please choose!!</option>
+                                                                            <select class="list_size" name="size_id" id="selectSizeId<?php echo $item['id'];?>">
                                                                                 <?php
-                                                                                while ($size_product = $list_size_product->fetch()) :
+                                                                                foreach ($list_size as $size) {
+                                                                                    if (!isset($item['discountPercent']) && $item['discountPercent'] == 0) {
                                                                                 ?>
-                                                                                    <option value="<?php echo $size_product['id']; ?>"><?php echo $size_product['name']; ?></option>
-                                                                                <?php endwhile; ?>
+                                                                                    <option value="<?php echo $size['size_id']; ?>" data-id-product="<?php echo $item['id'];?>" data-price-size="<?php echo number_format($size['price']);?>" data-color-id="<?php echo $list_color[0]['color_id'];?>"><?php echo $size['name']; ?></option>
+                                                                                <?php }else  { ?>
+                                                                                    <option value="<?php echo $size['size_id']; ?>" data-id-product="<?php echo $item['id'];?>" data-price-size="<?php echo number_format($size['price'] - ($size['price'] * $item['discountPercent']) / 100);?>" data-color-id="<?php echo $list_color[0]['color_id'];?>"><?php echo $size['name']; ?></option>
+                                                                                <?php } } ?>
                                                                             </select>
                                                                         </div>
                                                                     <?php } ?>

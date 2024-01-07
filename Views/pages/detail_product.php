@@ -16,13 +16,13 @@
         <?php 
         $id = isset($_GET['id']) ? $_GET['id'] : 1;
         $detail_product = new DetailProduct();
-        $detail_product_size = new ListProduct();
+        $list_product = new ListProduct();
 
         $get_detail_product = $detail_product->getDetailProduct($id);
         $category_id = $get_detail_product['category_id'];
-        $list_size = $detail_product_size->getSizeProduct($id);
-        $list_color = $detail_product_size->getColorProduct($id);
-        $color = $list_color->fetchAll();
+        $list_size = $list_product->getSizeProduct($id)->fetchAll();
+        $list_color = $list_product->getColorProduct($id)->fetchAll();
+        $list_images = $list_product->getImageProduct($id)->fetchAll();
         ?>
         <div class="row single-product-area">
             <div class="col-lg-5 col-md-6">
@@ -30,21 +30,29 @@
                 <div class="product-details-left">
                     <div class="product-details-images slider-navigation-1">
                         <?php 
-                            foreach (json_decode($get_detail_product['images']) as $key => $image_item) {
+                            foreach ($list_color as $key => $image_item) {
                             if($key != 0) {
                         ?>
                             <div class="lg-image">
-                                <img src="<?php echo $image_item;?>" alt="product image">
+                                <img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image">
                             </div>
                         <?php }else { ?> 
                             <div class="lg-image">
-                                <img src="<?php echo $image_item;?>" class="show-image-product<?php echo $id;?>" alt="product image">
+                                <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="show-image-product<?php echo $get_detail_product['id'];?>" alt="product image">
                             </div>
                         <?php } } ?>
+                        <?php foreach ($list_images as $key => $image_item) { ?>
+                            <div class="lg-image">
+                                <img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image">
+                            </div>
+                        <?php } ?>
                     </div>
                     <div class="product-details-thumbs slider-thumbs-1">
-                        <?php foreach (json_decode($get_detail_product['images']) as $image_item) { ?>
-                            <div class="sm-image"><img src="<?php echo $image_item;?>" alt="product image thumb"></div>
+                        <?php foreach ($list_color as $key => $image_item) { ?>
+                            <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image thumb"></div>
+                        <?php } ?>
+                        <?php foreach ($list_images as $key => $image_item) { ?>
+                            <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image thumb"></div>
                         <?php } ?>
                     </div>
                 </div>
@@ -54,56 +62,91 @@
             <div class="col-lg-7 col-md-6">
                 <div class="product-details-view-content pt-60">
                     <div class="product-info">
-                        <h2 class="mb-0"><?php echo $get_detail_product['title'];?></h2>
-                        <div class="rating-box pt-20">
-                            <ul class="rating rating-with-review-item">
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div>
-                        <div class="price-box pt-20">
-                            <span class="new-price new-price-2"><?php echo number_format($get_detail_product['price'] - ($get_detail_product['price'] * ($get_detail_product['discountPercent'] / 100))); ?> VND</span>
-                        </div>
-                        <div class="product-desc">
-                            <p>
-                                <span><?php echo $get_detail_product['description'];?></span>
-                            </p>
-                        </div>
-                        <div class="product-variants">
-                            <?php
-                                if(count($color) > 0) {
-                            ?>
-                                <div class="produt-variants-size color-product">
-                                    <label>Color</label>
-                                    <span class="color-product-image"><img width="50px" src="<?php echo json_decode($get_detail_product['images'])[0];?>" data-id-product="<?php echo $id;?>" class="change-image-product product-active active" alt=""></span>
-                                    <?php 
-                                        foreach($color as $color_image) {
-                                    ?>
-                                        <span class="color-product-image"><img width="50px" src="<?php echo $color_image['image_product'];?>" data-id-product="<?php echo $id;?>" class="change-image-product" alt=""></span>
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
-                            <?php 
-                                if($list_size->rowCount() > 0) {
-                            ?>
-                                <div class="produt-variants-size">
-                                    <label>Dimension</label>
-                                    <select class="nice-select">
-                                        <option value="">Chọn size</option>
+                        <form action="index.php?action=cart&handel=cart_process" method="post" class="cart-quantity">
+                            <h2 class="mb-0"><?php echo $get_detail_product['title'];?></h2>
+                            <div class="rating-box pt-20">
+                                <ul class="rating rating-with-review-item">
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                            </div>
+                            <div class="price-box pt-20">
+                                <?php
+                                    if ($get_detail_product['discountPercent'] != 0) {
+                                        $discountedPrice = $list_color[0]['price'] - ($list_color[0]['price'] * $get_detail_product['discountPercent']) / 100;
+                                        echo '<span class="new-price new-price-2" id="showPrice' . $id . '">' . number_format($discountedPrice) . ' VND</span>';
+                                    } else {
+                                        echo '<span class="new-price new-price-2" id="showPrice' . $id . '">' . number_format($list_color[0]['price']) . ' VND</span>';
+                                    }
+                                ?>
+                            </div>
+                            <div class="product-desc">
+                                <p>
+                                    <span><?php echo $get_detail_product['description'];?></span>
+                                </p>
+                            </div>
+                            <div class="product-variants">
+                                <?php
+                                    if(count($list_color) > 0) {
+                                ?>
+                                    <div class="produt-variants-size color-product">
+                                        <label>Color</label>
                                         <?php 
-                                            while($size = $list_size->fetch()):
+                                            foreach($list_color as $key => $color_image) {
+                                                if ($get_detail_product['discountPercent'] != 0) {
                                         ?>
-                                            <option value="1" title="S"><?php echo $size['name'];?></option>
-                                        <?php endwhile;?>
-                                    </select>
-                                </div>
-                            <?php } ?>
-                        </div>
-                        <div class="single-add-to-cart">
-                            <form action="#" class="cart-quantity">
+                                            <span class="color-product-image">
+                                                <img width="50px" 
+                                                    onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
+                                                    src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                    data-size-id="<?php echo $color_image['size_id'];?>" 
+                                                    data-color-id="<?php echo $color_image['color_id'];?>" 
+                                                    data-discount-percent="<?php echo $get_detail_product['discountPercent'];?>"
+                                                    data-id-product="<?php echo $get_detail_product['id'];?>" 
+                                                    data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $get_detail_product['discountPercent']) / 100);?>" 
+                                                    class="change-image-product <?php echo ($key == 0) ? 'product-active active' : '';?>" 
+                                                alt="">
+                                            </span>
+                                        <?php } else { ?>
+                                            <span class="color-product-image">
+                                                <img width="50px" 
+                                                    onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
+                                                    src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                    data-size-id="<?php echo $color_image['size_id'];?>" 
+                                                    data-color-id="<?php echo $color_image['color_id'];?>" 
+                                                    data-id-product="<?php echo $get_detail_product['id'];?>" 
+                                                    data-price-image="<?php echo number_format($color_image['price']);?>" 
+                                                    class="change-image-product <?php echo ($key == 0) ? 'product-active active' : '';?>" 
+                                                alt="">
+                                            </span>
+                                        <?php } } ?>
+                                    </div>
+                                <?php } ?>
+                                <?php 
+                                    $list_size = $list_product->getSizeChangeColor($list_color[0]['color_id'],$get_detail_product['id'])->fetchAll();
+                                        if(count($list_size) > 0 && $list_size[0]['size_id'] !== 0) {
+                                ?>
+                                    <div class="produt-variants-size">
+                                        <label>Dimension</label>
+                                        <select class="list_size" name="size_id" id="selectSizeId<?php echo $get_detail_product['id'];?>">
+                                            <?php
+                                            foreach ($list_size as $size) {
+                                                if (!isset($get_detail_product['discountPercent']) && $get_detail_product['discountPercent'] == 0) {
+                                            ?>
+                                                <option value="<?php echo $size['size_id']; ?>" data-id-product="<?php echo $get_detail_product['id'];?>" data-price-size="<?php echo number_format($size['price']);?>" data-color-id="<?php echo $list_color[0]['color_id'];?>"><?php echo $size['name']; ?></option>
+                                            <?php }else  { ?>
+                                                <option value="<?php echo $size['size_id']; ?>" data-id-product="<?php echo $get_detail_product['id'];?>" data-price-size="<?php echo number_format($size['price'] - ($size['price'] * $get_detail_product['discountPercent']) / 100);?>" data-color-id="<?php echo $list_color[0]['color_id'];?>"><?php echo $size['name']; ?></option>
+                                            <?php } } ?>
+                                        </select>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <div class="single-add-to-cart">
+                                <input type="hidden" name="product_id" value="<?php echo $get_detail_product['id'];?>">
+                                <input type="hidden" id="color_id" name="color_id" value="0">
                                 <div class="quantity">
                                     <label>Quantity</label>
                                     <div class="cart-plus-minus">
@@ -112,48 +155,48 @@
                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                     </div>
                                 </div>
-                                <button class="add-to-cart" type="submit">Add to cart</button>
-                            </form>
-                        </div>
-                        <div class="product-additional-info pt-25">
-                            <a class="wishlist-btn" href=""><i class="fa fa-heart-o"></i>Add to wishlist</a>
-                            <div class="product-social-sharing pt-25">
+                                <button class="add-to-cart" name="submit" type="submit">Add to cart</button>
+                            </div>
+                            <div class="product-additional-info pt-25">
+                                <a class="wishlist-btn" href="index.php?action=wishlist"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                <div class="product-social-sharing pt-25">
+                                    <ul>
+                                        <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+                                        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                                        <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>
+                                        <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="block-reassurance">
                                 <ul>
-                                    <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
-                                    <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
-                                    <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>
-                                    <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-check-square-o"></i>
+                                            </div>
+                                            <p>Security policy (edit with Customer reassurance module)</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-truck"></i>
+                                            </div>
+                                            <p>Delivery policy (edit with Customer reassurance module)</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-exchange"></i>
+                                            </div>
+                                            <p> Return policy (edit with Customer reassurance module)</p>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="block-reassurance">
-                            <ul>
-                                <li>
-                                    <div class="reassurance-item">
-                                        <div class="reassurance-icon">
-                                            <i class="fa fa-check-square-o"></i>
-                                        </div>
-                                        <p>Security policy (edit with Customer reassurance module)</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="reassurance-item">
-                                        <div class="reassurance-icon">
-                                            <i class="fa fa-truck"></i>
-                                        </div>
-                                        <p>Delivery policy (edit with Customer reassurance module)</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="reassurance-item">
-                                        <div class="reassurance-icon">
-                                            <i class="fa fa-exchange"></i>
-                                        </div>
-                                        <p> Return policy (edit with Customer reassurance module)</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -226,7 +269,7 @@
                         </div>
                         <?php if (!isset($_SESSION['user'])) { ?>
                             <div class="review-btn">
-                                <a class="review-links" href="javascript:void(0)">Login to comment</a>
+                                <a class="review-links" href="index.php?action=login">Login to comment</a>
                             </div>
                         <?php } else { ?>
                              <!-- Begin Quick View | Modal Area -->
@@ -280,7 +323,7 @@
                                             <div class="modal-inner-area row">
                                                 <div class="col-lg-6">
                                                     <div class="li-review-product">
-                                                        <img src="<?php echo json_decode($get_detail_product['images'])[0];?>" alt="Li's Product">
+                                                        <img src="./Public/images/uploads/<?php echo json_decode($get_detail_product['images'])[0];?>" alt="Li's Product">
                                                         <div class="li-review-product-desc">
                                                             <p class="li-product-name"><b><?php echo $get_detail_product['title'];?></b></p>
                                                             <p>
@@ -343,7 +386,6 @@
 <!-- Begin Li's Laptop Product Area -->
 <?php 
     $list_product_same_category = $detail_product->getListProductGetCategory($category_id, $id);
-    $list_sp_item = new ListProduct();
 ?>
 <section class="product-area li-laptop-product pt-30 pb-50">
     <div class="container">
@@ -364,13 +406,16 @@
                         <?php
                             $result = $list_product_same_category->fetchAll();
                             foreach ($result as $item) {
+                                $list_size = $list_product->getSizeProduct($item['id'])->fetchAll();
+                                $list_color = $list_product->getColorProduct($item['id'])->fetchAll();
+                                $images = $list_product->getImageProduct($item['id'])->fetchAll();
                         ?>
                         <div class="col-lg-3 mb-30">
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="index.php?action=detail_product&id=<?php echo $item['id']?>">
-                                        <img src="<?php echo json_decode($item['images'])[0];?>" class="show-image-product<?php echo $item['id'];?>" alt="Li's Product Image">
+                                        <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" alt="Li's Product Image">
                                     </a>
                                     <span class="sticker">New</span>
                                 </div>
@@ -393,13 +438,13 @@
                                         <h4><a class="product_name" href="index.php?action=detail_product&id=<?php echo $item['id']?>"><?php echo $item['title'];?></a></h4>
                                         <?php if (isset($item['discountPercent'])) { ?>
                                             <div class="featured-price-box">
-                                                <span class="new-price new-price-2"><?php echo number_format($item['price'] - ($item['price'] * ($item['discountPercent'] / 100))); ?></span>
-                                                <span class="old-price" style="text-decoration: line-through;"><?php echo number_format($item['price']); ?> VND</span>
+                                                <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] / $item['discountPercent']));?></span>
+                                                <span class="old-price" style="text-decoration: line-through;"><?php echo  number_format($list_color[0]['price']);?> VND</span>
                                                 <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
                                             </div>
                                         <?php } else { ?>
                                             <div class="featured-price-box">
-                                                <span class="new-price new-price-2"><?php echo number_format($item['price']); ?> VND</span>
+                                                <span class="new-price new-price-2"> <?php echo  number_format($list_color[0]['price']);?> VND</span>
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -427,23 +472,30 @@
                                                 <!-- Product Details Left -->
                                                 <div class="product-details-left">
                                                     <div class="product-details-images slider-navigation-1">
-                                                        <?php
-                                                        foreach (json_decode($item['images']) as $key => $image_item) {
-                                                            if ($key != 0) {
+                                                        <?php 
+                                                            foreach ($images as $key => $image_item) {
+                                                            if($key != 0) {
                                                         ?>
                                                             <div class="lg-image">
-                                                                <img src="<?php echo $image_item; ?>" alt="product image">
+                                                                <img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image">
                                                             </div>
-                                                        <?php } else { ?>
+                                                        <?php }else { ?> 
                                                             <div class="lg-image">
-                                                                <img src="<?php echo $image_item; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
+                                                                <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="show-image-product<?php echo $id;?>" alt="product image">
                                                             </div>
-                                                        <?php }
-                                                        } ?>
+                                                        <?php } } ?>
+                                                        <?php foreach ($list_color as $key => $image_item) { ?>
+                                                            <div class="lg-image">
+                                                                <img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image">
+                                                            </div>
+                                                        <?php } ?>
                                                     </div>
                                                     <div class="product-details-thumbs slider-thumbs-1">
-                                                        <?php foreach (json_decode($item['images']) as $image_item) { ?>
-                                                            <div class="sm-image"><img src="<?php echo $image_item; ?>" alt="product image thumb"></div>
+                                                        <?php foreach ($images as $key => $image_item) { ?>
+                                                            <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image thumb"></div>
+                                                        <?php } ?>
+                                                        <?php foreach ($list_color as $key => $image_item) { ?>
+                                                            <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image thumb"></div>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -464,7 +516,11 @@
                                                             </ul>
                                                         </div>
                                                         <div class="price-box pt-20">
-                                                            <span class="new-price new-price-2"><span class="new-price new-price-2"><?php echo number_format($item['price'] - ($item['price'] * ($item['discountPercent'] / 100))); ?></span> VND</span>
+                                                            <?php if (isset($item['discountPercent'])) { ?>
+                                                                <span class="new-price new-price-2" id="showPrice<?php echo $item['id'];?>"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] / $item['discountPercent']));?> VND</span>
+                                                            <?php }else { ?>
+                                                                <span class="new-price new-price-2" id="showPrice<?php echo $item['id'];?>"><?php echo  number_format($list_color[0]['price']);?> VND</span>
+                                                            <?php } ?>
                                                         </div>
                                                         <div class="product-desc">
                                                             <p>
@@ -473,32 +529,56 @@
                                                         </div>
                                                         <div class="product-variants">
                                                             <?php
-                                                            $listColor = $list_sp_item->getColorProduct($item['id']);
-                                                            if ($listColor->rowCount() > 0) {
+                                                                if(count($list_color) > 0) {
                                                             ?>
                                                                 <div class="produt-variants-size color-product">
                                                                     <label>Color</label>
-                                                                    <span class="color-product-image"><img width="50px" src="<?php echo json_decode($item['images'])[0]; ?>" data-id-product="<?php echo $item['id']; ?>" class="change-image-product product-active active" alt=""></span>
-                                                                    <?php
-                                                                    foreach ($listColor as $color_image) {
+                                                                    <?php 
+                                                                        foreach($list_color as $key => $color_image) {
+                                                                            if ($item['discountPercent'] != 0) {
                                                                     ?>
-                                                                        <span class="color-product-image"><img width="50px" src="<?php echo $color_image['image_product']; ?>" data-id-product="<?php echo $item['id']; ?>" class="change-image-product" alt=""></span>
-                                                                    <?php } ?>
+                                                                        <span class="color-product-image">
+                                                                            <img width="50px" 
+                                                                                onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
+                                                                                src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                data-size-id="<?php echo $color_image['size_id'];?>" 
+                                                                                data-color-id="<?php echo $color_image['color_id'];?>" 
+                                                                                data-discount-percent="<?php echo $item['discountPercent'];?>"
+                                                                                data-id-product="<?php echo $item['id'];?>" 
+                                                                                data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100);?>" 
+                                                                                class="change-image-product <?php echo ($key == 0) ? 'product-active active' : '';?>" 
+                                                                            alt="">
+                                                                        </span>
+                                                                    <?php } else { ?>
+                                                                        <span class="color-product-image">
+                                                                            <img width="50px" 
+                                                                                onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
+                                                                                src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                data-size-id="<?php echo $color_image['size_id'];?>" 
+                                                                                data-color-id="<?php echo $color_image['color_id'];?>" 
+                                                                                data-id-product="<?php echo $item['id'];?>" 
+                                                                                data-price-image="<?php echo number_format($color_image['price']);?>" 
+                                                                                class="change-image-product <?php echo ($key == 0) ? 'product-active active' : '';?>" 
+                                                                            alt="">
+                                                                        </span>
+                                                                    <?php } } ?>
                                                                 </div>
                                                             <?php } ?>
-                                                            <?php
-                                                            $list_size_product = $list_sp_item->getSizeProduct($item['id']);
-                                                            if ($list_size_product->rowCount() > 0) {
+                                                            <?php 
+                                                                $list_size = $list_product->getSizeChangeColor($list_color[0]['color_id'],$item['id'])->fetchAll();
+                                                                    if(count($list_size) > 0 && $list_size[0]['size_id'] !== 0) {
                                                             ?>
                                                                 <div class="produt-variants-size">
                                                                     <label>Dimension</label>
-                                                                    <select class="form-select select-product" name="size_product">
-                                                                        <option value="">Please choose!!</option>
+                                                                    <select class="list_size" name="size_id" id="selectSizeId<?php echo $item['id'];?>">
                                                                         <?php
-                                                                        while ($size_product = $list_size_product->fetch()) :
+                                                                        foreach ($list_size as $size) {
+                                                                            if (!isset($item['discountPercent']) && $item['discountPercent'] == 0) {
                                                                         ?>
-                                                                            <option value="<?php echo $size_product['id']; ?>"><?php echo $size_product['name']; ?></option>
-                                                                        <?php endwhile; ?>
+                                                                            <option value="<?php echo $size['size_id']; ?>" data-id-product="<?php echo $item['id'];?>" data-price-size="<?php echo number_format($size['price']);?>" data-color-id="<?php echo $list_color[0]['color_id'];?>"><?php echo $size['name']; ?></option>
+                                                                        <?php }else  { ?>
+                                                                            <option value="<?php echo $size['size_id']; ?>" data-id-product="<?php echo $item['id'];?>" data-price-size="<?php echo number_format($size['price'] - ($size['price'] * $get_detail_product['discountPercent']) / 100);?>" data-color-id="<?php echo $list_color[0]['color_id'];?>"><?php echo $size['name']; ?></option>
+                                                                        <?php } } ?>
                                                                     </select>
                                                                 </div>
                                                             <?php } ?>

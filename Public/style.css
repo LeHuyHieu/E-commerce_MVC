@@ -2150,9 +2150,9 @@ textarea:focus {
   transition: all 300ms ease-in 0s;
 }
 .single-product-wrap:hover {
-  margin: 0 0 -75px;
-  padding: 0 0 75px;
   z-index: 9;
+  padding-bottom: 75px;
+  margin-bottom: -75px;
 }
 .single-product-wrap.mt-40:hover {
   margin: 40px 0 -85px;
