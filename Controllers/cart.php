@@ -1,20 +1,34 @@
 <?php
 $handel = isset($_GET['handel']) ? $_GET['handel'] : 'cart';
+// unset($_SESSION['cart']);
+// print_r($_SESSION['cart']);
 
 switch ($handel) {
     case 'cart':
         include_once './Views/pages/cart.php';
         break;
     case 'cart_process':
-        print_r($_POST);
         if (isset($_POST['submit'])) {
-            $product_id = $_POST['product_id'];
-            $size_id = $_POST['size_id'];
-            $color_id = $_POST['color_id'];
+            $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : 1;
+            $size_id = isset($_POST['size_id']) ? $_POST['size_id'] : 1;
+            $color_id = isset($_POST['color_id']) ? $_POST['color_id'] : 1;
+            $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
             $cart_db = new Cart();
-            $cart = $cart_db->addCart($product_id, $size_id, $color_id);
+            $cart = $cart_db->addCart($product_id, $size_id, $color_id, $quantity);
+            echo '<meta http-equiv="refresh" content="0;url=index.php?action=cart"/>';
         }
-        include_once './Views/pages/cart.php';
+        echo '<meta http-equiv="refresh" content="0;url=index.php?action=cart"/>';
+        break;
+    case 'delete_cart':
+        if (isset($_GET['id'])) {
+            if (!isset($_SESSION['user'])) {
+                unset($_SESSION['cart'][$_GET['id']]);
+            }else {
+                $cart_db = new Cart();
+                $cart_db->deleteCart($_GET['id']);
+            }
+            echo '<meta http-equiv="refresh" content="0;url=index.php?action=cart"/>';
+        }
         break;
     default:
         include_once './Views/pages/cart.php';  

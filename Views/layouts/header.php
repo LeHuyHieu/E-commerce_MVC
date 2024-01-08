@@ -100,52 +100,66 @@
                             </li>
                             <!-- Header Middle Wishlist Area End Here -->
                             <!-- Begin Header Mini Cart Area -->
+                            <?php 
+                                $cart = new Cart();
+                                if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+                            ?>
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    <span class="item-text">£80.00
-                                        <span class="cart-item-count">2</span>
+                                    <span class="item-text"><?php echo $cart->subTotal();?>
+                                        <span class="cart-item-count"><?php echo count($_SESSION['cart']);?></span>
+                                    </span>
+                                </div>
+                                <span></span>
+                                <div class="minicart">
+                                    <ul class="minicart-product-list">
+                                        <?php 
+                                            foreach ($_SESSION['cart'] as $key => $cart_item) {
+                                        ?>
+                                        <li>
+                                            <a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>" class="minicart-product-image">
+                                                <img src="./Public/images/uploads/<?php echo $cart_item['image'];?>" alt="cart products">
+                                            </a>
+                                            <div class="minicart-product-details">
+                                                <h6><a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>">Aenean eu tristique</a></h6>
+                                                <span><?php echo formatPrice($cart_item['price']);?> x <?php echo $cart_item['quantity'];?></span>
+                                            </div>
+                                            <a href="index.php?action=cart&handel=delete_cart&id=<?php echo $key;?>" class="close" style="font-size: 1rem;">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </li>
+                                        <?php } ?>
+                                    </ul>
+                                    <p class="minicart-total">SUBTOTAL: <span><?php echo $cart->subTotal();?> VND</span></p>
+                                    <div class="minicart-button">
+                                        <a href="index.php?action=cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
+                                            <span>View Full Cart</span>
+                                        </a>
+                                        <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login';?>" class="li-button li-button-fullwidth li-button-sm">
+                                            <span>Checkout</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php } else { ?>
+                                <li class="hm-minicart">
+                                <div class="hm-minicart-trigger">
+                                    <span class="item-icon"></span>
+                                    <span class="item-text"> 0 VND
+                                        <span class="cart-item-count">0</span>
                                     </span>
                                 </div>
                                 <span></span>
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
                                         <li>
-                                            <a href="single-product.html" class="minicart-product-image">
-                                                <img src="./Public/images/product/small-size/1.jpg" alt="cart products">
-                                            </a>
-                                            <div class="minicart-product-details">
-                                                <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                                                <span>£40 x 1</span>
-                                            </div>
-                                            <button class="close">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <a href="single-product.html" class="minicart-product-image">
-                                                <img src="./Public/images/product/small-size/2.jpg" alt="cart products">
-                                            </a>
-                                            <div class="minicart-product-details">
-                                                <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                                                <span>£40 x 1</span>
-                                            </div>
-                                            <button class="close">
-                                                <i class="fa fa-close"></i>
-                                            </button>
+                                            <span>Please add to cart</span>
                                         </li>
                                     </ul>
-                                    <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
-                                    <div class="minicart-button">
-                                        <a href="index.php?action=cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
-                                            <span>View Full Cart</span>
-                                        </a>
-                                        <a href="" class="li-button li-button-fullwidth li-button-sm">
-                                            <span>Checkout</span>
-                                        </a>
-                                    </div>
                                 </div>
                             </li>
+                            <?php } ?>
                             <!-- Header Mini Cart Area End Here -->
                         </ul>
                     </div>

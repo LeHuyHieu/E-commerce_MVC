@@ -9,86 +9,149 @@
         </div>
     </div>
 </div>
+<?php 
+$cart = new Cart();
+$list_cart = [];
+if (isset($_SESSION['user'])) {
+    $list_cart = $cart->getListCartUser($_SESSION['user']['user_id'])->fetchAll();
+}
+?>
 <!-- Li's Breadcrumb Area End Here -->
 <!--Shopping Cart Area Strat-->
 <div class="Shopping-cart-area pt-60 pb-60">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <?php if (isset($_SESSION['cart'])) { ?>
-                    <form action="#">
-                        <div class="table-content table-responsive">
-                            <table class="table">
-                                <thead>
+                <?php 
+                    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) { 
+                ?>
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;" class="li-product-remove">Action</th>
+                                    <th style="width: 150px;" class="li-product-thumbnail">images</th>
+                                    <th style="width: 300px;" class="cart-product-name">Product</th>
+                                    <th style="width: 150px;" class="li-product-quantity">Price</th>
+                                    <th style="width: 150px;" class="li-product-quantity">Quantity</th>
+                                    <th style="width: 150px;" class="li-product-subtotal">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                    foreach ($_SESSION['cart'] as $key => $cart_item) {
+                                ?>
                                     <tr>
-                                        <th class="li-product-remove">remove</th>
-                                        <th class="li-product-thumbnail">images</th>
-                                        <th class="cart-product-name">Product</th>
-                                        <th class="li-product-price">Unit Price</th>
-                                        <th class="li-product-quantity">Quantity</th>
-                                        <th class="li-product-subtotal">Total</th>
+                                        <form action="index.php?action=cart&handel=cart_process" method="post">
+                                            <td class="li-product-remove">
+                                                <a class="btn" href="index.php?action=cart&handel=delete_cart&id=<?php echo $key;?>"><i class="fa fa-times"></i></a> <br />
+                                                <button type="submit" name="submit" class="btn btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
+                                            </td>
+                                            <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['image'];?>" alt="Li's Product Image"></a></td>
+                                            <td class="li-product-name"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><?php echo $cart_item['title'];?></a></td>
+                                            <?php if ($cart_item['discount_percent'] !== null) { ?>
+                                                <td class="li-product-price"><span><?php echo formatPrice($cart_item['price'] - ($cart_item['price'] * $cart_item['discount_percent']) / 100);?> VND</span></td>
+                                            <?php } else { ?>
+                                                <td class="li-product-price"><span><?php echo formatPrice($cart_item['price']);?> VND</span></td>
+                                            <?php } ?>
+                                            <td class="quantity">
+                                                <label>Quantity</label>
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" name="quantity" value="<?php echo $cart_item['quantity'];?>" type="text">
+                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                </div>
+                                            </td>
+                                            <input type="hidden" name="size_id" value=<?php echo $cart_item['size_id'];?> />
+                                            <input type="hidden" name="color_id" value=<?php echo $cart_item['color_id'];?> />
+                                            <input type="hidden" name="product_id" value=<?php echo $cart_item['product_id'];?> />
+                                            <td class="product-subtotal"><span class="amount"><?php echo formatPrice($cart_item['total']);?> VND</span></td>
+                                        </form>
                                     </tr>
-                                </thead>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 ml-auto">
+                            <div class="cart-page-total">
+                                <h2>Cart totals</h2>
+                                <ul>
+                                    <li>Subtotal <span><?php echo $cart->subTotal();?> VND</span></li>
+                                    <li>Total <span><?php echo $cart->subTotal();?> VND</span></li>
+                                </ul>
+                                <?php if (!isset($_SESSION['user'])) { ?>
+                                    <p class="mb-0">Please log in to pay</p>
+                                <?php } ?>
+                                <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login';?>">Proceed to checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php }
+                    if (count($list_cart) > 0) { 
+                ?>
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;" class="li-product-remove">Action</th>
+                                    <th style="width: 150px;" class="li-product-thumbnail">images</th>
+                                    <th style="width: 300px;" class="cart-product-name">Product</th>
+                                    <th style="width: 150px;" class="li-product-quantity">Price</th>
+                                    <th style="width: 150px;" class="li-product-quantity">Quantity</th>
+                                    <th style="width: 150px;" class="li-product-subtotal">Total</th>
+                                </tr>
+                            </thead>
                                 <tbody>
+                            <?php
+                                foreach ($list_cart as $key => $cart_item) {    
+                            ?> 
                                     <tr>
-                                        <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                        <td class="li-product-thumbnail"><a href="#"><img src="./public/images/product/small-size/5.jpg" alt="Li's Product Image"></a></td>
-                                        <td class="li-product-name"><a href="#">Accusantium dolorem1</a></td>
-                                        <td class="li-product-price"><span class="amount">$46.80</span></td>
-                                        <td class="quantity">
-                                            <label>Quantity</label>
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                            </div>
-                                        </td>
-                                        <td class="product-subtotal"><span class="amount">$70.00</span></td>
+                                        <form action="index.php?action=cart&handel=cart_process" method="post">
+                                            <td class="li-product-remove">
+                                                <a class="btn" href="index.php?action=cart&handel=delete_cart&id=<?php echo $cart_item['id'];?>"><i class="fa fa-times"></i></a> <br />
+                                                <button type="submit" name="submit" class="btn btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
+                                            </td>
+                                            <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['images'];?>" alt="Li's Product Image"></a></td>
+                                            <td class="li-product-name"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><?php echo $cart_item['title'];?></a></td>
+                                            <?php if ($cart_item['discount_percent'] !== null) { ?>
+                                                <td class="li-product-price"><span><?php echo formatPrice($cart_item['price'] - ($cart_item['price'] * $cart_item['discount_percent']) / 100);?> VND</span></td>
+                                            <?php } else { ?>
+                                                <td class="li-product-price"><span><?php echo formatPrice($cart_item['price']);?> VND</span></td>
+                                            <?php } ?>
+                                            <td class="quantity">
+                                                <label>Quantity</label>
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" name="quantity" value="<?php echo $cart_item['quantity'];?>" type="text">
+                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                </div>
+                                            </td>
+                                            <input type="hidden" name="size_id" value=<?php echo $cart_item['size_id'];?> />
+                                            <input type="hidden" name="color_id" value=<?php echo $cart_item['color_id'];?> />
+                                            <input type="hidden" name="product_id" value=<?php echo $cart_item['product_id'];?> />
+                                            <td class="product-subtotal"><span class="amount"><?php echo formatPrice($cart_item['total']);?> VND</span></td>
+                                        </form>
                                     </tr>
-                                    <tr>
-                                        <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                        <td class="li-product-thumbnail"><a href="#"><img src="./public/images/product/small-size/6.jpg" alt="Li's Product Image"></a></td>
-                                        <td class="li-product-name"><a href="#">Mug Today is a good day</a></td>
-                                        <td class="li-product-price"><span class="amount">$71.80</span></td>
-                                        <td class="quantity">
-                                            <label>Quantity</label>
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="1" type="text">
-                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                            </div>
-                                        </td>
-                                        <td class="product-subtotal"><span class="amount">$60.50</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="coupon-all">
-                                    <div class="coupon">
-                                        <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                        <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                    </div>
-                                    <div class="coupon2">
-                                        <input class="button" name="update_cart" value="Update cart" type="submit">
-                                    </div>
-                                </div>
+                                <?php } ?> 
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 ml-auto">
+                            <div class="cart-page-total">
+                                <h2>Cart totals</h2>
+                                <ul>
+                                    <li>Subtotal <span><?php echo $cart->subTotal();?> VND</span></li>
+                                    <li>Total <span><?php echo $cart->subTotal();?> VND</span></li>
+                                </ul>
+                                <?php if (!isset($_SESSION['user'])) { ?>
+                                    <p class="mb-0">Please log in to pay</p>
+                                <?php } ?>
+                                <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login';?>">Proceed to checkout</a>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-5 ml-auto">
-                                <div class="cart-page-total">
-                                    <h2>Cart totals</h2>
-                                    <ul>
-                                        <li>Subtotal <span>$130.00</span></li>
-                                        <li>Total <span>$130.00</span></li>
-                                    </ul>
-                                    <a href="#">Proceed to checkout</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 <?php } else { ?>
                     <h2>There are no products in the cart</h2>
                 <?php } ?>

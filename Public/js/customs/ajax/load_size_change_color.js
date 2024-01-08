@@ -2,8 +2,12 @@ $(document).ready(function() {
     $(document).on('click', '.change-image-product', function() {
         var _this = $(this);
         var color_id = _this.attr('data-color-id');
+        var size_id = _this.attr('data-size-id');
         var product_id = _this.attr('data-id-product');
         var discount_percent = _this.attr('data-discount-percent');
+        $('#dataPostProductIdView'+product_id).val(product_id);
+        $('#dataPostColorIdView'+product_id).val(color_id);
+        $('#dataPostSizeIdView'+product_id).val(size_id);
         $.ajax({
             url: "index.php?action=home&handel=home_process",
             method: 'POST',
@@ -22,6 +26,9 @@ $(document).ready(function() {
         var product_id = $(this).find('option:selected').attr('data-id-product');
         var color_id = $(this).find('option:selected').attr('data-color-id');
         var price = $(this).find('option:selected').attr('data-price-size');
+        $('#dataPostProductIdView'+product_id).val(product_id);
+        $('#dataPostColorIdView'+product_id).val(color_id);
+        $('#dataPostSizeIdView'+product_id).val($(this).val());
         $('#showPrice'+product_id).html(price + ' VND');
     });
 })

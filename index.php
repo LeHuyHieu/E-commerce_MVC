@@ -26,6 +26,18 @@
         include_once $path . $className . '.php';
     }
 
+    //replace price
+    function formatPrice($price) {
+        if ($price >= 1000000 && $price <= 1000000000) {
+            $price = number_format($price / 1000) . " Tr";
+        } elseif ($price < 1000000) {
+            $price = number_format($price / 1000) . " N";
+        } elseif ($price >= 1000000000) {
+            $price = number_format($price / 1000000) . " Tỷ ";
+        }
+        return $price;
+    }
+
     //show alert message
     function alert($title, $message, $method) {
         return "

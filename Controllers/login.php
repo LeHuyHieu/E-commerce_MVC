@@ -88,12 +88,38 @@ switch ($handle) {
                 echo '<meta http-equiv="refresh" content="0; url=index.php?action=login&data_empty=1">';
             }else {
                 $user = new User();
+                $cart_db = new Cart();
                 $check = $user->login($userName, md5($passleft.$password.$passright));
                 if($check->rowCount() > 0) {
                     $data_user = $check->fetchAll();
                     foreach ($data_user as $item) {
                         $_SESSION['user']['fullname'] = $item['fullname'];
                         $_SESSION['user']['user_id'] = $item['id'];
+                    }
+                    $flag = false;
+                    
+                    if (isset($_SESSION['user']) && isset($_SESSION['cart'])) {
+                        $user_id = $_SESSION['user']['user_id'];
+                        foreach ($_SESSION['cart'] as $key => $value) {
+                            $_SESSION['cart'][$key]['user_id'] = $user_id;
+                            $cart = $cart_db->getCart($value['product_id'], $value['color_id'], $value['size_id']);
+                            if ($cart->rowCount() == 0) {
+                                $check_insert_acrt = $cart_db->insertCart($_SESSION['cart'][$key]);
+                                $flag = true;
+                            }else {
+                                $list_cart = $cart->fetchAll();
+                                foreach ($list_cart as $cart_item) {
+                                    if ($cart_item['product_id'] == $product_id && $cart_item['size_id'] == $size_id && $cart_item['color_id'] == $color_id) {
+                                        $cart_db->updateCartDB($quantity, $cart_item['price'], $cart_item['discount_percent'] ,$cart_item['id']);
+                                        $flag = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if ($flag == true && isset($_SESSION['cart'])) {
+                            unset($_SESSION['cart']);
+                        }
                     }
                     echo '<meta http-equiv="refresh" content="0; url=index.php?action=home&login_success=1">';
                 }else {
@@ -110,8 +136,6 @@ switch ($handle) {
         $confirm_email = $user->confirmEmail(urldecode($email_confirm), $confirm);
         //get user where email
         $get_user = $user->getUser($email_confirm)->fetchAll();
-        // print_r($email_confirm);
-        // print_r($confirm_email);
         
         if ($confirm_email == 1) {
             foreach ($get_user as $item) {
