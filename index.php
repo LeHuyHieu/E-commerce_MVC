@@ -66,7 +66,7 @@
 </head>
 
 <body>
-    <div class="spinner center" style="display: none;">
+    <div class="spinner center">
         <div class="spinner-blade"></div>
         <div class="spinner-blade"></div>
         <div class="spinner-blade"></div>

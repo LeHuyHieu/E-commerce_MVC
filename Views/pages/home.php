@@ -243,7 +243,7 @@
                                                         </div>
                                                         <div class="product-variants">
                                                             <?php
-                                                                if(count($list_color) > 0) {
+                                                                if(count($list_color) > 0 && $list_color[0]['color_id'] !== 1) {
                                                             ?>
                                                                 <div class="produt-variants-size color-product">
                                                                     <label>Color</label>
@@ -384,50 +384,55 @@
                                 $images = $list_sp_item->getImageProduct($item['id'])->fetchAll();
                             ?>
                              <div class="col-lg-6">
-                                 <div class="featured-product-bundle">
-                                     <div class="featured-pro-wrapper mb-30 mb-sm-25">
-                                         <div class="product-img">
-                                             <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                 <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload img-fluid" alt="Li's Product Image">
-                                             </a>
-                                         </div>
-                                         <div class="featured-pro-content">
-                                             <div class="product-review">
-                                                 <h5 class="manufacturer">
-
-                                                 </h5>
-                                             </div>
-                                             <div class="rating-box">
-                                                 <ul class="rating">
-                                                     <li><i class="fa fa-star-o"></i></li>
-                                                     <li><i class="fa fa-star-o"></i></li>
-                                                     <li><i class="fa fa-star-o"></i></li>
-                                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                 </ul>
-                                             </div>
-                                             <h4><a class="featured-product-name" href="index.php?action=detail_product&id=<?php echo $item['id'] ?>"><?php echo $item['title']; ?></a></h4>
-                                             <?php if (isset($item['discountPercent'])) { ?>
-                                                <div class="featured-price-box">
-                                                    <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] * $item['discountPercent']) / 100);?></span>
-                                                    <span class="old-price" style="text-decoration: line-through;"><?php echo  number_format($list_color[0]['price']);?> VND</span>
-                                                    <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
-                                                </div>
-                                            <?php } else { ?>
-                                                <div class="featured-price-box">
-                                                    <span class="new-price new-price-2"> <?php echo  number_format($list_color[0]['price']);?> VND</span>
-                                                </div>
-                                            <?php } ?>
-                                            <div class="featured-product-action">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                    <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id'];?>" href="#"><i class="fa fa-eye"></i></a></li>
-                                                </ul>
+                                <form action="index.php?action=cart&handel=cart_process" method="post">
+                                    <input type="hidden" name="product_id" id="dataPostProductId<?php echo $item['id'];?>" value="<?php echo $item['id'];?>">
+                                    <input type="hidden" name="color_id" id="dataPostColorId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['color_id'];?>">
+                                    <input type="hidden" name="size_id" id="dataPostSizeId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['size_id'];?>">
+                                    <div class="featured-product-bundle">
+                                        <div class="featured-pro-wrapper mb-30 mb-sm-25">
+                                            <div class="product-img">
+                                                <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
+                                                    <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload img-fluid" alt="Li's Product Image">
+                                                </a>
                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
+                                            <div class="featured-pro-content">
+                                                <div class="product-review">
+                                                    <h5 class="manufacturer">
+
+                                                    </h5>
+                                                </div>
+                                                <div class="rating-box">
+                                                    <ul class="rating">
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    </ul>
+                                                </div>
+                                                <h4><a class="featured-product-name" href="index.php?action=detail_product&id=<?php echo $item['id'] ?>"><?php echo $item['title']; ?></a></h4>
+                                                <?php if (isset($item['discountPercent'])) { ?>
+                                                    <div class="featured-price-box">
+                                                        <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] * $item['discountPercent']) / 100);?></span>
+                                                        <span class="old-price" style="text-decoration: line-through;"><?php echo  number_format($list_color[0]['price']);?> VND</span>
+                                                        <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="featured-price-box">
+                                                        <span class="new-price new-price-2"> <?php echo  number_format($list_color[0]['price']);?> VND</span>
+                                                    </div>
+                                                <?php } ?>
+                                                <div class="featured-product-action">
+                                                    <ul class="add-actions-link">
+                                                        <li class="add-cart active"><button type="submit" name="submit" class="btn text-dark p-1" style="background: transparent;">Add to cart</button></li>
+                                                        <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id'];?>" href="#"><i class="fa fa-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                              </div>
                             <!-- Begin Quick View | Modal Area -->
                             <div class="modal fade modal-wrapper" id="exampleModalCenter<?php echo $item['id'] ?>">
@@ -499,7 +504,7 @@
                                                             </div>
                                                             <div class="product-variants">
                                                                 <?php
-                                                                    if(count($list_color) > 0) {
+                                                                    if(count($list_color) > 0 && $list_color[0]['color_id'] !== 1) {
                                                                 ?>
                                                                     <div class="produt-variants-size color-product">
                                                                         <label>Color</label>
@@ -536,7 +541,7 @@
                                                                 <?php } ?>
                                                                 <?php 
                                                                 $list_size = $list_sp_item->getSizeChangeColor($list_color[0]['color_id'],$item['id'])->fetchAll();
-                                                                    if(count($list_size) > 0 && $list_size[0]['size_id'] !== 0) {
+                                                                    if(count($list_size) > 0 && $list_size[0]['size_id'] !== 1) {
                                                                 ?>
                                                                     <div class="produt-variants-size">
                                                                         <label>Dimension</label>
@@ -554,16 +559,19 @@
                                                                 <?php } ?>
                                                             </div>
                                                             <div class="single-add-to-cart">
-                                                                <form action="#" class="cart-quantity">
+                                                                <form action="index.php?action=cart&handel=cart_process" method="post" class="cart-quantity">
+                                                                    <input type="hidden" name="product_id" id="dataPostProductIdView<?php echo $item['id'];?>" value="<?php echo $item['id'];?>">
+                                                                    <input type="hidden" name="color_id" id="dataPostColorIdView<?php echo $item['id'];?>" value="<?php echo $list_color[0]['color_id'];?>">
+                                                                    <input type="hidden" name="size_id" id="dataPostSizeIdView<?php echo $item['id'];?>" value="<?php echo $list_color[0]['size_id'];?>">
                                                                     <div class="quantity">
                                                                         <label>Quantity</label>
                                                                         <div class="cart-plus-minus">
-                                                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                                                            <input class="cart-plus-minus-box" value="1" name="quantity" type="text">
                                                                             <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                                             <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                                         </div>
                                                                     </div>
-                                                                    <button class="add-to-cart" type="submit">Add to cart</button>
+                                                                    <button class="add-to-cart" name="submit" type="submit">Add to cart</button>
                                                                 </form>
                                                             </div>
                                                             <div class="product-additional-info pt-25">
@@ -644,51 +652,56 @@
                             ?>
                                  <div class="col-lg-3 mb-40">
                                     <!-- single-product-wrap start -->
-                                    <div class="single-product-wrap">
-                                        <div class="product-image">
-                                            <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
-                                            </a>
-                                            <span class="sticker">New</span>
-                                        </div>
-                                        <div class="product_desc">
-                                            <div class="product_desc_info">
-                                                <div class="product-review">
-                                                    <h5 class="manufacturer">
+                                    <form action="index.php?action=cart&handel=cart_process" method="post">
+                                        <input type="hidden" name="product_id" id="dataPostProductId<?php echo $item['id'];?>" value="<?php echo $item['id'];?>">
+                                        <input type="hidden" name="color_id" id="dataPostColorId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['color_id'];?>">
+                                        <input type="hidden" name="size_id" id="dataPostSizeId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['size_id'];?>">
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
+                                                    <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
+                                                </a>
+                                                <span class="sticker">New</span>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info">
+                                                    <div class="product-review">
+                                                        <h5 class="manufacturer">
 
-                                                    </h5>
-                                                    <div class="rating-box pb-5">
-                                                        <ul class="rating">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                        </ul>
+                                                        </h5>
+                                                        <div class="rating-box pb-5">
+                                                            <ul class="rating">
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
+                                                    <h4><a class="product_name mb-15" href="index.php?action=detail_product&id=<?php echo $item['id'] ?>"><?php echo $item['title']; ?></a></h4>
+                                                    <?php if (isset($item['discountPercent'])) { ?>
+                                                        <div class="featured-price-box">
+                                                            <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] * $item['discountPercent']) / 100);?></span>
+                                                            <span class="old-price" style="text-decoration: line-through;"><?php echo  number_format($list_color[0]['price']);?> VND</span>
+                                                            <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="featured-price-box">
+                                                            <span class="new-price new-price-2"> <?php echo  number_format($list_color[0]['price']);?> VND</span>
+                                                        </div>
+                                                    <?php } ?>
                                                 </div>
-                                                <h4><a class="product_name mb-15" href="index.php?action=detail_product&id=<?php echo $item['id'] ?>"><?php echo $item['title']; ?></a></h4>
-                                                <?php if (isset($item['discountPercent'])) { ?>
-                                                    <div class="featured-price-box">
-                                                        <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] * $item['discountPercent']) / 100);?></span>
-                                                        <span class="old-price" style="text-decoration: line-through;"><?php echo  number_format($list_color[0]['price']);?> VND</span>
-                                                        <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
-                                                    </div>
-                                                <?php } else { ?>
-                                                    <div class="featured-price-box">
-                                                        <span class="new-price new-price-2"> <?php echo  number_format($list_color[0]['price']);?> VND</span>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
-                                            <div class="add-actions">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id']?>"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a class="links-details" href=""><i class="fa fa-heart-o"></i></a></li>
-                                                </ul>
+                                                <div class="add-actions">
+                                                    <ul class="add-actions-link">
+                                                    <li class="add-cart active"><button type="submit" name="submit" class="btn text-dark p-1" style="background: transparent;">Add to cart</button></li>
+                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id']?>"><i class="fa fa-eye"></i></a></li>
+                                                        <li><a class="links-details" href=""><i class="fa fa-heart-o"></i></a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                     <!-- single-product-wrap end -->
                                 </div>
                                 <!-- Begin Quick View | Modal Area -->
@@ -761,7 +774,7 @@
                                                                 </div>
                                                                 <div class="product-variants">
                                                                     <?php
-                                                                        if(count($list_color) > 0) {
+                                                                        if(count($list_color) > 0 && $list_color[0]['color_id'] !== 1) {
                                                                     ?>
                                                                         <div class="produt-variants-size color-product">
                                                                             <label>Color</label>
@@ -798,7 +811,7 @@
                                                                     <?php } ?>
                                                                     <?php 
                                                                     $list_size = $list_sp_item->getSizeChangeColor($list_color[0]['color_id'],$item['id'])->fetchAll();
-                                                                        if(count($list_size) > 0 && $list_size[0]['size_id'] !== 0) {
+                                                                        if(count($list_size) > 0 && $list_size[0]['size_id'] !== 1) {
                                                                     ?>
                                                                         <div class="produt-variants-size">
                                                                             <label>Dimension</label>
@@ -816,16 +829,19 @@
                                                                     <?php } ?>
                                                                 </div>
                                                                 <div class="single-add-to-cart">
-                                                                    <form action="#" class="cart-quantity">
+                                                                    <form action="index.php?action=cart&handel=cart_process" method="post" class="cart-quantity">
+                                                                        <input type="hidden" name="product_id" id="dataPostProductIdView<?php echo $item['id'];?>" value="<?php echo $item['id'];?>">
+                                                                        <input type="hidden" name="color_id" id="dataPostColorIdView<?php echo $item['id'];?>" value="<?php echo $list_color[0]['color_id'];?>">
+                                                                        <input type="hidden" name="size_id" id="dataPostSizeIdView<?php echo $item['id'];?>" value="<?php echo $list_color[0]['size_id'];?>">
                                                                         <div class="quantity">
                                                                             <label>Quantity</label>
                                                                             <div class="cart-plus-minus">
-                                                                                <input class="cart-plus-minus-box" value="1" type="text">
+                                                                                <input class="cart-plus-minus-box" value="1" name="quantity" type="text">
                                                                                 <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                                                 <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                                             </div>
                                                                         </div>
-                                                                        <button class="add-to-cart" type="submit">Add to cart</button>
+                                                                        <button class="add-to-cart" name="submit" type="submit">Add to cart</button>
                                                                     </form>
                                                                 </div>
                                                                 <div class="product-additional-info pt-25">

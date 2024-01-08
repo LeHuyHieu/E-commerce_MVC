@@ -47,7 +47,7 @@ class Cart
                         'color_id' => $color_id,
                         'title' => $value['title'],
                         'price' => $value['price'],
-                        'discount_percent' => $value['discount_percent'],
+                        'discount_percent' => ($value['discount_percent'] == '') ? 0 : $value['discount_percent'],
                         'image' => $value['image_product'],
                         'quantity' => $quantity,
                         'user_id' => isset($_SESSION['user']['user_id']) ? $_SESSION['user']['user_id'] : 0,

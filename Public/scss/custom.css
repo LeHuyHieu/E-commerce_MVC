@@ -28,4 +28,33 @@ label.error {
   color: red;
   margin-bottom: 0;
   font-size: 0.75rem;
+}
+
+.toast-item-wrapper p {
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #838383;
+}
+
+::-moz-selection {
+  background: #fed700;
+}
+
+::selection {
+  background: #fed700;
 }/*# sourceMappingURL=custom.css.map */
