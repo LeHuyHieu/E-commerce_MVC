@@ -109,6 +109,7 @@
                  </div>
                  <div class="row py-3">
                      <?php
+                        $comment_db = new Comment();
                         $hotDealProduct = new HotProduct();
                         $list_sp_item = new ListProduct();
                         $result = $hotDealProduct->getHotProducts();
@@ -136,12 +137,15 @@
 
                                                 </h5>
                                                 <div class="rating-box pb-5">
-                                                    <ul class="rating">
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    <?php 
+                                                    $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                    $stat = 0;
+                                                    $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                    ?>
+                                                    <ul class="rating rating-with-review-item">
+                                                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                            <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                        <?php } ?>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -163,7 +167,7 @@
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><button type="submit" name="submit" class="btn text-dark p-1" style="background: transparent;">Add to cart</button></li>
+                                                <li class="add-cart active"><button type="submit" name="submit" class="btn btn-add-to-cart text-dark p-1" style="background: transparent;">Add to cart</button></li>
                                                 <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id']?>"><i class="fa fa-eye"></i></a></li>
                                                 <li><a class="links-details" href=""><i class="fa fa-heart-o"></i></a></li>
                                             </ul>
@@ -221,12 +225,15 @@
                                                     <div class="product-info">
                                                         <h2 class="mb-5"><?php echo $item['title']; ?></h2>
                                                         <div class="rating-box pt-20">
+                                                            <?php 
+                                                            $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                            $stat = 0;
+                                                            $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                            ?>
                                                             <ul class="rating rating-with-review-item">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                    <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                                <?php } ?>
                                                             </ul>
                                                         </div>
                                                         <div class="price-box pt-20">
@@ -402,12 +409,15 @@
                                                     </h5>
                                                 </div>
                                                 <div class="rating-box">
-                                                    <ul class="rating">
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    <?php 
+                                                    $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                    $stat = 0;
+                                                    $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                    ?>
+                                                    <ul class="rating rating-with-review-item">
+                                                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                            <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                        <?php } ?>
                                                     </ul>
                                                 </div>
                                                 <h4><a class="featured-product-name" href="index.php?action=detail_product&id=<?php echo $item['id'] ?>"><?php echo $item['title']; ?></a></h4>
@@ -482,12 +492,15 @@
                                                         <div class="product-info">
                                                             <h2 class="mb-5"><?php echo $item['title']; ?></h2>
                                                             <div class="rating-box pt-20">
+                                                                <?php 
+                                                                $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                                $stat = 0;
+                                                                $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                                ?>
                                                                 <ul class="rating rating-with-review-item">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                        <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                                    <?php } ?>
                                                                 </ul>
                                                             </div>
                                                             <div class="price-box pt-20">
@@ -670,12 +683,15 @@
 
                                                         </h5>
                                                         <div class="rating-box pb-5">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            <?php 
+                                                            $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                            $stat = 0;
+                                                            $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                            ?>
+                                                            <ul class="rating rating-with-review-item">
+                                                                <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                    <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                                <?php } ?>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -752,12 +768,15 @@
                                                             <div class="product-info">
                                                                 <h2 class="mb-5"><?php echo $item['title']; ?></h2>
                                                                 <div class="rating-box pt-20">
+                                                                    <?php 
+                                                                    $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                                    $stat = 0;
+                                                                    $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                                    ?>
                                                                     <ul class="rating rating-with-review-item">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                            <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                                        <?php } ?>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="price-box pt-20">

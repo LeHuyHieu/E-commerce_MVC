@@ -35,4 +35,11 @@ class Comment {
         $result = $db->getList($select);
         return $result;
     }
+
+    function ratingProduct($product_id) {
+        $db = new Connect();
+        $select = "SELECT DISTINCT AVG(rating) as rating FROM comments WHERE product_id = $product_id AND comment_id = 0";
+        $result = $db->getInstance($select);
+        return $result;
+    }
 }

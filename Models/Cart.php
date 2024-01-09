@@ -19,14 +19,18 @@ class Cart
 
             if ($flag === false) {
                 foreach ($get_data as $value) {
-                    $total = ($value['price'] - ($value['price'] * $value['discount_percent']) / 100) * $quantity;
+                    if ($value['discount_percent'] !== 0) {
+                        $total = ($value['price'] - ($value['price'] * $value['discount_percent']) / 100) * $quantity;
+                    }else {
+                        $total = $value['price'] * $quantity;
+                    }
                     $data = [
                         'product_id' => $product_id,
                         'size_id' => $size_id,
                         'color_id' => $color_id,
                         'title' => $value['title'],
                         'price' => $value['price'],
-                        'discount_percent' => $value['discount_percent'],
+                        'discount_percent' => ($value['discount_percent'] === '') ? 0 : $value['discount_percent'],
                         'image' => $value['image_product'],
                         'quantity' => $quantity,
                         'user_id' => isset($_SESSION['user']['user_id']) ? $_SESSION['user']['user_id'] : 0,
@@ -40,7 +44,11 @@ class Cart
             $total = 0;
             foreach ($get_data as $value) {
                 if ($cart->rowCount() == 0) {
-                    $total = ($value['price'] - ($value['price'] * $value['discount_percent']) / 100) * $quantity;
+                    if ($value['discount_percent'] !== 0) {
+                        $total = ($value['price'] - ($value['price'] * $value['discount_percent']) / 100) * $quantity;
+                    }else {
+                        $total = $value['price'] * $quantity;
+                    }
                     $data = [
                         'product_id' => $product_id,
                         'size_id' => $size_id,
@@ -95,27 +103,26 @@ class Cart
             $user_id = $_SESSION['user']['user_id'];
             $query = "SELECT SUM(total) AS subtotal FROM cart WHERE user_id = $user_id";
             $result = $db->getInstance($query);
-            $subtotal = formatPrice($result['subtotal']);
+            $subtotal = $result['subtotal'];
         }else {
             foreach ($_SESSION['cart'] as $cart) {
                 $subtotal += $cart['total'];
             }
-            $subtotal = formatPrice($subtotal);
         }
         return $subtotal;
     }
 
     function insertCart($data) {
-        $product_id = $data['product_id'];
-        $size_id = $data['size_id'];
-        $color_id = $data['color_id'];
-        $title = $data['title'];
-        $image = $data['image'];
-        $price = $data['price'];
-        $quantity = $data['quantity'];
-        $user_id = $data['user_id'];
-        $discount_percent = $data['discount_percent'];
-        $total = $data['total'];
+        $product_id = ($data['product_id'] != '') ? $data['product_id'] : 0;
+        $size_id = ($data['size_id'] != '') ? $data['size_id'] : 0;
+        $color_id = ($data['color_id'] != '') ? $data['color_id'] : 0;
+        $title = ($data['title'] != '') ? $data['title'] : '';
+        $image = ($data['image'] != '') ? $data['image'] : '';
+        $price = ($data['price'] != '') ? $data['price'] : 0;
+        $quantity = ($data['quantity'] != '') ? $data['quantity'] : 0;
+        $user_id = ($data['user_id'] != '') ? $data['user_id'] : 0;
+        $discount_percent = ($data['discount_percent'] != '') ? $data['discount_percent'] : 0;
+        $total = ($data['total'] != '') ? $data['total'] : 0;
         $db = new Connect();
         $query = "INSERT INTO cart (title, product_id, user_id, size_id, color_id, images, price, quantity, discount_percent, total) VALUES ('$title', $product_id, $user_id, $size_id, $color_id, '$image', $price, $quantity, $discount_percent, $total)";
         $result = $db->exec($query);
@@ -124,7 +131,7 @@ class Cart
 
     function getCart($product_id, $color_id, $size_id) {
         $db = new Connect();
-        $select = "SELECT DISTINCT product_id, size_id, color_id, id, price, discount_percent FROM cart WHERE product_id = $product_id AND size_id = $size_id AND color_id = $color_id";
+        $select = "SELECT DISTINCT product_id, size_id, color_id, id, price, discount_percent, quantity FROM cart WHERE product_id = $product_id AND size_id = $size_id AND color_id = $color_id";
         $result = $db->getList($select);
         return $result;
     }
@@ -156,6 +163,13 @@ class Cart
         $db = new Connect();
         $select = "SELECT title, product_id, size_id, color_id, discount_percent, images, price, total, quantity, id FROM cart WHERE user_id = $user_id";
         $result = $db->getList($select);
+        return $result;
+    }
+
+    function getQuantity($product_id, $size_id, $color_id) {
+        $db = new Connect();
+        $select = "SELECT DISTINCT quantity from detail_product where product_id = $product_id and size_id = $size_id and color_id = $color_id";
+        $result = $db->getInstance($select);
         return $result;
     }
 }

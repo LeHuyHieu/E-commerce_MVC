@@ -77,8 +77,8 @@ if (isset($_SESSION['user'])) {
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
                                 <ul>
-                                    <li>Subtotal <span><?php echo $cart->subTotal();?> VND</span></li>
-                                    <li>Total <span><?php echo $cart->subTotal();?> VND</span></li>
+                                    <li>Subtotal <span><?php echo formatPrice($cart->subTotal());?> VND</span></li>
+                                    <li>Total <span><?php echo formatPrice($cart->subTotal());?> VND</span></li>
                                 </ul>
                                 <?php if (!isset($_SESSION['user'])) { ?>
                                     <p class="mb-0">Please log in to pay</p>
@@ -142,8 +142,8 @@ if (isset($_SESSION['user'])) {
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
                                 <ul>
-                                    <li>Subtotal <span><?php echo $cart->subTotal();?> VND</span></li>
-                                    <li>Total <span><?php echo $cart->subTotal();?> VND</span></li>
+                                    <li>Subtotal <span><?php echo formatPrice($cart->subTotal());?> VND</span></li>
+                                    <li>Total <span><?php echo formatPrice($cart->subTotal());?> VND</span></li>
                                 </ul>
                                 <?php if (!isset($_SESSION['user'])) { ?>
                                     <p class="mb-0">Please log in to pay</p>

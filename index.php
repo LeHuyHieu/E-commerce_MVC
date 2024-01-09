@@ -66,7 +66,7 @@
 </head>
 
 <body>
-    <div class="spinner center">
+    <div class="spinner center" style="display: none;">
         <div class="spinner-blade"></div>
         <div class="spinner-blade"></div>
         <div class="spinner-blade"></div>
@@ -87,7 +87,15 @@
         if(isset($_GET['action'])) {
             $ctrl = $_GET['action'];
         }
-        include_once "Controllers/$ctrl.php";
+        // include_once "Controllers/$ctrl.php";
+        $controllerFilePath = "Controllers/$ctrl.php";
+
+        if(file_exists($controllerFilePath)) {
+            include_once $controllerFilePath;
+        } else {
+            http_response_code(404);
+            include_once "Views/pages/404.php";
+        }
     ?>
     <?php include_once './Views/layouts/footer.php'; ?>
     <?php include_once './Views/layouts/js.php'; ?>

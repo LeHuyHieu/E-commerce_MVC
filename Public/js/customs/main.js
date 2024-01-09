@@ -14,6 +14,10 @@ $(document).ready(function() {
         var price = _this.attr('data-price-image');
         $('#showPrice'+id).html(price + ' VND');
     });
+
+    $('.btn__filter').click(function() {
+        $('.sidebar-categores-box').toggleClass('active');
+    })
 });
 window.addEventListener("load",function(){
     var load = document.querySelector('.spinner');

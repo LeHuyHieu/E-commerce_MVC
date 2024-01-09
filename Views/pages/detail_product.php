@@ -17,6 +17,7 @@
         $id = isset($_GET['id']) ? $_GET['id'] : 1;
         $detail_product = new DetailProduct();
         $list_product = new ListProduct();
+        $list_comments = new Comment();
 
         $get_detail_product = $detail_product->getDetailProduct($id);
         $category_id = $get_detail_product['category_id'];
@@ -65,12 +66,15 @@
                         <form action="index.php?action=cart&handel=cart_process" method="post" class="cart-quantity">
                             <h2 class="mb-0"><?php echo $get_detail_product['title'];?></h2>
                             <div class="rating-box pt-20">
+                                <?php 
+                                $rating_comment = $list_comments->ratingProduct($get_detail_product['id']);
+                                $stat = 0;
+                                $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                ?>
                                 <ul class="rating rating-with-review-item">
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                        <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                    <?php } ?>
                                 </ul>
                             </div>
                             <div class="price-box pt-20">
@@ -226,7 +230,6 @@
                     <div class="product-details-comment-block">
                         <div class="list_comment">
                         <?php 
-                        $list_comments = new Comment();
                         $comments = $list_comments->getListComments($id)->fetchAll();
                         if (count($comments) > 0) {
                             foreach ($comments as $comment) {
@@ -326,7 +329,7 @@
                                             <div class="modal-inner-area row">
                                                 <div class="col-lg-6">
                                                     <div class="li-review-product">
-                                                        <img src="./Public/images/uploads/<?php echo json_decode($get_detail_product['images'])[0];?>" alt="Li's Product">
+                                                        <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="img-fluid" alt="Li's Product">
                                                         <div class="li-review-product-desc">
                                                             <p class="li-product-name"><b><?php echo $get_detail_product['title'];?></b></p>
                                                             <p>
@@ -489,7 +492,7 @@
                                                             </div>
                                                         <?php }else { ?> 
                                                             <div class="lg-image">
-                                                                <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="show-image-product<?php echo $id;?>" alt="product image">
+                                                                <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="show-image-product<?php echo $item['id'];?>" alt="product image">
                                                             </div>
                                                         <?php } } ?>
                                                         <?php foreach ($list_color as $key => $image_item) { ?>

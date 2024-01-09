@@ -1,7 +1,7 @@
 <?php
 $list_sp = new ListProduct();
 $pages = new Page();
-
+$comment_db = new Comment();
 //get parameters
 $where = isset($_GET['where']) ? $_GET['where'] : '';
 $curent_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -126,13 +126,13 @@ function replaceColor($color)
                 <div class="shop-products-wrapper">
                     <div class="tab-content">
                         <div id="grid-view" class="tab-pane fade <?php echo (isset($_COOKIE['view']) && $_COOKIE['view'] == 'grid-view') ? 'active show' : '' ?>" role="tabpanel">
-                            <div class="product-area shop-product-area">
+                            <div class="product-area shop-product-area my-5">
                                 <div class="row showListProductCol">
                                     <?php
                                     foreach ($result as $item) {
                                         $list_color = $list_sp->getColorProduct($item['id'])->fetchAll();
                                     ?>
-                                        <div class="col-lg-4 mb-40">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12 mb-40">
                                             <!-- single-product-wrap start -->
                                             <div class="single-product-wrap">
                                                 <form action="index.php?action=cart&handel=cart_process" method="post">
@@ -152,12 +152,15 @@ function replaceColor($color)
 
                                                                 </h5>
                                                                 <div class="rating-box pb-5">
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <?php 
+                                                                    $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                                    $stat = 0;
+                                                                    $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                                    ?>
+                                                                    <ul class="rating rating-with-review-item">
+                                                                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                            <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                                        <?php } ?>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -197,12 +200,12 @@ function replaceColor($color)
                                     foreach ($result as $item) {
                                         $list_color = $list_sp->getColorProduct($item['id'])->fetchAll();
                                     ?>
-                                        <div class="row product-layout-list pb-10">
-                                            <form action="index.php?action=cart&handel=cart_process" method="post">
+                                        <form action="index.php?action=cart&handel=cart_process" method="post">
+                                            <div class="row product-layout-list pb-10">
                                                 <input type="hidden" name="product_id" id="dataPostProductId<?php echo $item['id'];?>" value="<?php echo $item['id'];?>">
                                                 <input type="hidden" name="color_id" id="dataPostColorId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['color_id'];?>">
                                                 <input type="hidden" name="size_id" id="dataPostSizeId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['size_id'];?>">
-                                                <div class="col-lg-3 col-md-5">
+                                                <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12 col-12">
                                                     <div class="product-image">
                                                         <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
                                                             <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
@@ -210,7 +213,7 @@ function replaceColor($color)
                                                         <span class="sticker">New</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-5 col-md-7">
+                                                <div class="col-lg-5 col-md-7 col-sm-7 col-xs-12 col-12">
                                                     <div class="product_desc">
                                                         <div class="product_desc_info">
                                                             <div class="product-review">
@@ -218,12 +221,15 @@ function replaceColor($color)
 
                                                                 </h5>
                                                                 <div class="rating-box pb-5">
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                    <?php 
+                                                                    $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                                    $stat = 0;
+                                                                    $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                                    ?>
+                                                                    <ul class="rating rating-with-review-item">
+                                                                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                            <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                                        <?php } ?>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -241,7 +247,7 @@ function replaceColor($color)
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 col-12">
                                                     <div class="shop-add-action mb-xs-30">
                                                         <ul class="add-actions-link">
                                                             <li class="add-cart active"><button type="submit" name="submit" class="btn text-dark p-1" style="background: transparent;">Add to cart</button></li>
@@ -250,8 +256,8 @@ function replaceColor($color)
                                                         </ul>
                                                     </div>
                                                 </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                        </form>
                                     <?php }; ?>
                                 </div>
                             </div>
@@ -310,12 +316,15 @@ function replaceColor($color)
                                                             <div class="product-info">
                                                                 <h2 class="mb-5"><?php echo $item['title']; ?></h2>
                                                                 <div class="rating-box pt-20">
+                                                                    <?php 
+                                                                    $rating_comment = $comment_db->ratingProduct($item['id']);
+                                                                    $stat = 0;
+                                                                    $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                                                    ?>
                                                                     <ul class="rating rating-with-review-item">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                            <li class="<?php echo ($stat < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                                                        <?php } ?>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="price-box pt-20">
@@ -471,6 +480,7 @@ function replaceColor($color)
                 <!-- shop-products-wrapper end -->
             </div>
             <div class="col-lg-3 order-2 order-lg-1">
+                <button class="btn btn__filter"><i class="fa fa-filter"></i></button>
                 <div class="sidebar-categores-box">
                     <div class="sidebar-title">
                         <h2>Filter By</h2>
