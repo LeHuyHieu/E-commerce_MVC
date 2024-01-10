@@ -20,35 +20,35 @@ function loadModalView() {
         var $this = $(this);
         var $thumb = $this.siblings('.product-details-thumbs, .tab-style-left');
         $this.slick({
-           arrows: false,
-           slidesToShow: 1,
-           slidesToScroll: 1,
-           autoplay: false,
-           autoplaySpeed: 5000,
-           dots: false,
-           infinite: true,
-           centerMode: false,
-           centerPadding: 0,
-           asNavFor: $thumb,
-       });
+            arrows: false,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            autoplaySpeed: 5000,
+            dots: false,
+            infinite: true,
+            centerMode: false,
+            centerPadding: 0,
+            asNavFor: $thumb,
+        });
     });
     $('.product-details-thumbs').each(function(){
         var $this = $(this);
         var $details = $this.siblings('.product-details-images');
         $this.slick({
-           slidesToShow: 4,
-           slidesToScroll: 1,
-           autoplay: false,
-           autoplaySpeed: 5000,
-           dots: false,
-           infinite: true,
-           focusOnSelect: true,
-           centerMode: true,
-           centerPadding: 0,
-           prevArrow: '<span class="slick-prev"><i class="fa fa-angle-left"></i></span>',
-           nextArrow: '<span class="slick-next"><i class="fa fa-angle-right"></i></span>',
-           asNavFor: $details,
-       });
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            autoplaySpeed: 5000,
+            dots: false,
+            infinite: true,
+            focusOnSelect: true,
+            centerMode: true,
+            centerPadding: 0,
+            prevArrow: '<span class="slick-prev"><i class="fa fa-angle-left"></i></span>',
+            nextArrow: '<span class="slick-next"><i class="fa fa-angle-right"></i></span>',
+            asNavFor: $details,
+        });
     });
 }
 function handleFilterChange(filterId, itemClass, dataKey) {
@@ -102,7 +102,6 @@ function handleFilterChange(filterId, itemClass, dataKey) {
                         data['orderby'] = 'DESC';
                         break;
                     case 'name_id':
-                        // data = {'condition': 'id', 'orderby': 'DESC'};
                         data['condition'] = 'id';
                         data['orderby'] = 'DESC';
                         break;
@@ -144,10 +143,8 @@ function handleFilterChange(filterId, itemClass, dataKey) {
                 for (const key in data) {
                     currentURL = removeParam(key, currentURL);
                 }
+                console.log(data['condition']);
                 window.history.pushState('', '', currentURL + '&arr_category_id=' + data['arr_category_id'] + '&arr_size_id=' + data['arr_size_id'] + '&arr_color_id=' + data['arr_color_id'] + '&condition=' + data['condition'] + '&orderby=' + data['orderby']);
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
             }
         });
     });

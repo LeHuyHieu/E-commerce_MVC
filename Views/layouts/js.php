@@ -42,6 +42,8 @@
 <script src="./Public/js/main.js"></script>
 <!-- jquery validate -->
 <script src="./Public/js/jquery.validate.min.js"></script>
+<!-- jquery confirm -->
+<script src="./Public/js/jquery-confirm.min.js"></script>
 
 <!-- Custom -->
 <script src="./Public/js/customs/validate_form.js?<?php echo time();?>"></script>

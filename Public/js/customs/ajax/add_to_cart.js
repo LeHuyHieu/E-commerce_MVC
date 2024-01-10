@@ -55,19 +55,41 @@ $(document).ready(function() {
 
     $(document).on('click', '.delete-cart-item-product',function(e) {
         e.preventDefault();
-        let showConfirm = confirm('Are you sure you want to delete');
-        if (showConfirm) {
-            $.ajax({
-                url: $(this).attr('href'),
-                method: 'GET',
-                data: '',
-                success: (function(response) {
-                    let title = 'Success';
-                    let alert = 'success';
-                    let message = 'Delete cart item successfully';
-                    getCart(title, alert, message)
-                })
-            })
-        }
+        let deleteLink = $(this).attr('href');
+        $.confirm({
+            theme: 'jconfirm-my-theme',
+            title: 'Confirm!',
+            content: 'You definitely want to delete!',
+            icon: 'fa fa-exclamation-circle', 
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            autoClose: 'cancel|8000',
+            buttons: {
+                confirm: {
+                    text: 'Delete',
+                    btnClass: 'btn-danger',
+                    action: function () {
+                        $.ajax({
+                            url: deleteLink,
+                            method: 'GET',
+                            data: '',
+                            success: function (response) {
+                                let title = 'Success';
+                                let alert = 'success';
+                                let message = 'Delete cart item successfully';
+                                getCart(title, alert, message);
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    text: 'Cancel',
+                    btnClass: 'btn-primary',
+                    action: function () {
+                    }
+                }
+            },
+            draggable: false
+        });
     });
 });

@@ -37,14 +37,17 @@
 <link rel="stylesheet" href="./Public/style.css">
 <!-- Responsive CSS -->
 <link rel="stylesheet" href="./Public/css/responsive.css">
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href="./Public/css/jqueryscripttop.css" rel="stylesheet" type="text/css">
+<!-- jquery confirm -->
+<link rel="stylesheet" href="./Public/css/jquery-confirm.min.css">
+<!-- custom -->
+<link rel="stylesheet" href="./Public/scss/custom.css?<?php time();?>">
 <!-- Modernizr js -->
-<script src="./Public/js/vendor/modernizr-2.8.3.min.js?<?php time();?>"></script>
+<script src="./Public/js/vendor/modernizr-2.8.3.min.js?"></script>
 <!-- jquery -->
 <script src="./Public/js/jquery-3.2.1.min.js"></script>
 <!-- toast js -->
 <script src="./Public/js/toast.script.js"></script>
-<link rel="stylesheet" href="./Public/scss/custom.css?<?php time();?>">
 <!-- lazysizes -->
 <script src="./Public/js/lazyload.js"></script>
 <script>

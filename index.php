@@ -44,7 +44,7 @@
             <script type='text/javascript'>
                 $(document).ready(function() {
                     $.Toast('', '".$message."', '".$method."', {
-                        has_icon:false,
+                        has_icon:true,
                         has_close_btn:true,
                         stack: true,
                         timeout:3000,

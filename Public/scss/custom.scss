@@ -138,3 +138,28 @@ label.error {
   background-color: #ffd645;
   border: 1px solid #f0c948;
 }
+
+.jconfirm.jconfirm-my-theme {
+  .jconfirm-bg {
+    background-color: rgba($color: #000, $alpha: .2);
+  }
+  .jconfirm-box {
+    box-shadow: 0 0 10px rgba($color: #000, $alpha: .3);
+    border-top: 5px solid #f1c616;
+    div.jconfirm-closeIcon {
+      color: #000;
+    }
+    div.jconfirm-title-c {
+      .jconfirm-icon-c {
+        color: #f1c616;
+        margin-right: 5px;
+      }
+      .jconfirm-title {
+        font-weight: 400;
+      }
+    }
+    .jconfirm-buttons {
+      text-align: end;
+    }
+  }
+}

@@ -153,7 +153,7 @@
                                         </div>
                                     </div>
                                 </li>
-                            <?php } elseif(isset($_SESSION['user']) && count($list_cart) > 0 && !isset($_SESSION['cart'])) { ?>
+                            <?php } elseif(isset($_SESSION['user']) && count($list_cart) > 0) { ?>
                                 <li class="hm-minicart">
                                     <div class="hm-minicart-trigger">
                                         <span class="item-icon"></span>
