@@ -43,8 +43,8 @@
         return "
             <script type='text/javascript'>
                 $(document).ready(function() {
-                    $.Toast('".$title."', '".$message."', '".$method."', {
-                        has_icon:true,
+                    $.Toast('', '".$message."', '".$method."', {
+                        has_icon:false,
                         has_close_btn:true,
                         stack: true,
                         timeout:3000,
@@ -66,7 +66,7 @@
 </head>
 
 <body>
-    <div class="spinner center" style="display: none;">
+    <div class="spinner center">
         <div class="spinner-blade"></div>
         <div class="spinner-blade"></div>
         <div class="spinner-blade"></div>

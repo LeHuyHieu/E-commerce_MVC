@@ -179,7 +179,7 @@ function replaceColor($color)
                                                         </div>
                                                         <div class="add-actions">
                                                             <ul class="add-actions-link">
-                                                                <li class="add-cart active"><button type="submit" name="submit" class="btn text-dark p-1" style="background: transparent;">Add to cart</button></li>
+                                                                <li class="add-cart active"><button type="submit" name="submit" class="btn btn-add-to-cart text-dark p-1" style="background: transparent;">Add to cart</button></li>
                                                                 <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id']?>"><i class="fa fa-eye"></i></a></li>
                                                                 <li><a class="links-details" href=""><i class="fa fa-heart-o"></i></a></li>
                                                             </ul>
@@ -250,7 +250,7 @@ function replaceColor($color)
                                                 <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 col-12">
                                                     <div class="shop-add-action mb-xs-30">
                                                         <ul class="add-actions-link">
-                                                            <li class="add-cart active"><button type="submit" name="submit" class="btn text-dark p-1" style="background: transparent;">Add to cart</button></li>
+                                                            <li class="add-cart active"><button type="submit" name="submit" class="btn btn-add-to-cart text-dark p-1" style="background: transparent;">Add to cart</button></li>
                                                             <li class="wishlist"><a href=""><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
                                                             <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter<?php echo $item['id'] ?>" href="javascript:void(0)"><i class="fa fa-eye"></i>Quick view</a></li>
                                                         </ul>
@@ -408,7 +408,7 @@ function replaceColor($color)
                                                                                 <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                                             </div>
                                                                         </div>
-                                                                        <button class="add-to-cart" name="submit" type="submit">Add to cart</button>
+                                                                        <button class="add-to-cart btn-add-to-cart" name="submit" type="submit">Add to cart</button>
                                                                     </form>
                                                                 </div>
                                                                 <div class="product-additional-info pt-25">

@@ -121,3 +121,20 @@ label.error {
     }
   }
 }
+
+.toast-item-wrapper {
+  .toast-icon {
+    font-size: 1.3rem !important;
+  }
+  .toast-icon, .toast-close {
+    color: #fff;
+  }
+}
+.toast-item-wrapper.success {
+  background-color: #00af66;
+  border: 1px solid #00af66;
+}
+.toast-item-wrapper.warning {
+  background-color: #ffd645;
+  border: 1px solid #f0c948;
+}

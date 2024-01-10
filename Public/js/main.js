@@ -50,7 +50,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 	/*  02. Header Dropdown
 	/*----------------------------------------*/
 	// Li's Dropdown Menu
-	$('.ht-setting-trigger, .ht-currency-trigger, .ht-language-trigger, .hm-minicart-trigger, .cw-sub-menu').on('click', function (e) {
+	$(document).on('click', '.ht-setting-trigger, .ht-currency-trigger, .ht-language-trigger, .hm-minicart-trigger, .cw-sub-menu',function (e) {
 		e.preventDefault();
 		$(this).toggleClass('is-active');
 		$(this).siblings('.ht-setting, .ht-currency, .ht-language, .minicart, .cw-sub-menu li').slideToggle();

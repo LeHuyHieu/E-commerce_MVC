@@ -106,7 +106,7 @@
                                 if (isset($_SESSION['user'])) {
                                     $list_cart = $cart->getListCartUser($_SESSION['user']['user_id'])->fetchAll();
                                 }
-                                if (isset($_SESSION['cart']) && !isset($_SESSION['user'])) {
+                                if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0 && !isset($_SESSION['user'])) {
                             ?>
                                 <li class="hm-minicart">
                                     <div class="hm-minicart-trigger">
@@ -136,7 +136,7 @@
                                                         <span><?php echo formatPrice($cart_item['price'] - ($cart_item['price'] * $cart_item['discount_percent']) / 100);?> x <?php echo $cart_item['quantity'];?></span>
                                                     <?php } ?>
                                                 </div>
-                                                <a href="index.php?action=cart&handel=delete_cart&id=<?php echo $key;?>" class="close" style="font-size: 1rem;">
+                                                <a href="index.php?action=cart&handel=delete_cart&id=<?php echo $key;?>" class="close delete-cart-item-product" style="font-size: 1rem;">
                                                     <i class="fa fa-close"></i>
                                                 </a>
                                             </li>
@@ -153,7 +153,7 @@
                                         </div>
                                     </div>
                                 </li>
-                            <?php } elseif(isset($_SESSION['user'])) { ?>
+                            <?php } elseif(isset($_SESSION['user']) && count($list_cart) > 0 && !isset($_SESSION['cart'])) { ?>
                                 <li class="hm-minicart">
                                     <div class="hm-minicart-trigger">
                                         <span class="item-icon"></span>
@@ -165,7 +165,6 @@
                                     <div class="minicart">
                                         <ul class="minicart-product-list">
                                             <?php 
-                                                if (count($list_cart) > 0) {
                                                 foreach ($list_cart as $key => $cart_item) {
                                             ?>
                                             <li>
@@ -182,11 +181,11 @@
                                                         <span><?php echo formatPrice($cart_item['price'] - ($cart_item['price'] * $cart_item['discount_percent']) / 100);?> x <?php echo $cart_item['quantity'];?></span>
                                                     <?php } ?>
                                                 </div>
-                                                <a href="index.php?action=cart&handel=delete_cart&id=<?php echo $cart_item['id'];?>" class="close" style="font-size: 1rem;">
+                                                <a href="index.php?action=cart&handel=delete_cart&id=<?php echo $cart_item['id'];?>" class="close delete-cart-item-product" style="font-size: 1rem;">
                                                     <i class="fa fa-close"></i>
                                                 </a>
                                             </li>
-                                            <?php } } ?>
+                                            <?php } ?>
                                         </ul>
                                         <p class="minicart-total">SUBTOTAL: <span><?php echo formatPrice($cart->subTotal());?> VND</span></p>
                                         <div class="minicart-button">
@@ -210,16 +209,8 @@
                                     <span></span>
                                     <div class="minicart">
                                         <ul class="minicart-product-list">
+                                            <li>Please add to cart</li>
                                         </ul>
-                                        <p class="minicart-total">SUBTOTAL: <span>0 VND</span></p>
-                                        <div class="minicart-button">
-                                            <a href="index.php?action=cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
-                                                <span>View Full Cart</span>
-                                            </a>
-                                            <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login';?>" class="li-button li-button-fullwidth li-button-sm">
-                                                <span>Checkout</span>
-                                            </a>
-                                        </div>
                                     </div>
                                 </li>
                             <?php } ?>

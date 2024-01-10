@@ -18,12 +18,12 @@ if (isset($_SESSION['user'])) {
 ?>
 <!-- Li's Breadcrumb Area End Here -->
 <!--Shopping Cart Area Strat-->
-<div class="Shopping-cart-area pt-60 pb-60">
+<div class="Shopping-cart-area load-list-cart pt-60 pb-60">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <?php 
-                    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) { 
+                    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0 && !isset($_SESSION['user'])) { 
                 ?>
                     <div class="table-content table-responsive">
                         <table class="table">
@@ -44,7 +44,7 @@ if (isset($_SESSION['user'])) {
                                     <tr>
                                         <form action="index.php?action=cart&handel=cart_process" method="post">
                                             <td class="li-product-remove">
-                                                <a class="btn" href="index.php?action=cart&handel=delete_cart&id=<?php echo $key;?>"><i class="fa fa-times"></i></a> <br />
+                                                <a class="btn delete-cart-item-product" href="index.php?action=cart&handel=delete_cart&id=<?php echo $key;?>"><i class="fa fa-times"></i></a> <br />
                                                 <button type="submit" name="submit" class="btn btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
                                             </td>
                                             <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['image'];?>" alt="Li's Product Image"></a></td>
@@ -87,8 +87,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
                     </div>
-                <?php }
-                    if (count($list_cart) > 0) { 
+                <?php } elseif (count($list_cart) > 0 && isset($_SESSION['user']) && (!isset($_SESSION['cart']))) { 
                 ?>
                     <div class="table-content table-responsive">
                         <table class="table">
@@ -109,7 +108,7 @@ if (isset($_SESSION['user'])) {
                                     <tr>
                                         <form action="index.php?action=cart&handel=cart_process" method="post">
                                             <td class="li-product-remove">
-                                                <a class="btn" href="index.php?action=cart&handel=delete_cart&id=<?php echo $cart_item['id'];?>"><i class="fa fa-times"></i></a> <br />
+                                                <a class="btn delete-cart-item-product" href="index.php?action=cart&handel=delete_cart&id=<?php echo $cart_item['id'];?>"><i class="fa fa-times"></i></a> <br />
                                                 <button type="submit" name="submit" class="btn btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
                                             </td>
                                             <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['images'];?>" alt="Li's Product Image"></a></td>

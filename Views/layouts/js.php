@@ -49,7 +49,7 @@
 <script src="./Public/js/customs/ajax/reply_comment.js?<?php echo time();?>"></script>
 <script src="./Public/js/customs/ajax/load_size_change_color.js?<?php echo time();?>"></script>
 <script src="./Public/js/customs/ajax/load_district.js?<?php echo time();?>"></script>
-<!-- <script src="./Public/js/customs/ajax/add_to_cart.js?<?php echo time();?>"></script> -->
+<script src="./Public/js/customs/ajax/add_to_cart.js?<?php echo time();?>"></script>
 <script src="./Public/js/Customs/main.js?<?php echo time();?>"></script>
 
 <script src="./Public/js/custom.js?<?php echo time();?>"></script>

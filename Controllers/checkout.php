@@ -36,29 +36,30 @@ switch ($handel) {
                 // echo ($check_isset_order == '') ? 1 : 0;die;
                 if ($check_isset_order == '') {
                     $order_db->insertOrder($data);
-                    $check_insert_order = $order_db->getUserOrder($user_id);
-                    if ($check_insert_order != '') {
-                        $list_user_order = $order_db->getProductOrder($user_id)->fetchAll();
-                        $data_detail['order_id'] = $check_insert_order['id'];
-                        foreach ($list_user_order as $item) {
-                            $data_detail['title'] = $item['title'];
-                            $data_detail['quantity'] = $item['quantity'];
-                            $data_detail['unit_price'] = $item['total'];
-                            $data_detail['product_id'] = $item['product_id'];
-                            $data_detail['size_name'] = $item['size_name'];
-                            $data_detail['color_name'] = $item['color_name'];
-                            $data_detail['note'] = $note; 
-                            $check = $order_db->insertOrderDetail($data_detail);
-                            if ($check) {
-                                $count_quantity = $cart->getQuantity($item['product_id'], $item['size_id'], $item['color_id']);
-                                $order_db->updateProductDetailQuantity($item['product_id'], $item['size_id'], $item['color_id'], $item['quantity'], $count_quantity['quantity']);
-                                $cart_db->deleteCart($item['cart_id']);
-                            }
-                        }
-                        echo '<meta http-equiv="refresh" content="0; url=index.php?action=checkout&success=1">';
-                    }
                 }else {
                     $order_db->updateOrder($data);
+                }
+
+                $check_insert_order = $order_db->getUserOrder($user_id);
+                if ($check_insert_order != '') {
+                    $list_user_order = $order_db->getProductOrder($user_id)->fetchAll();
+                    $data_detail['order_id'] = $check_insert_order['id'];
+                    foreach ($list_user_order as $item) {
+                        $data_detail['title'] = $item['title'];
+                        $data_detail['quantity'] = $item['quantity'];
+                        $data_detail['unit_price'] = $item['total'];
+                        $data_detail['product_id'] = $item['product_id'];
+                        $data_detail['size_name'] = $item['size_name'];
+                        $data_detail['color_name'] = $item['color_name'];
+                        $data_detail['note'] = $note; 
+                        $check = $order_db->insertOrderDetail($data_detail);
+                        if ($check) {
+                            $count_quantity = $cart->getQuantity($item['product_id'], $item['size_id'], $item['color_id']);
+                            $order_db->updateProductDetailQuantity($item['product_id'], $item['size_id'], $item['color_id'], $item['quantity'], $count_quantity['quantity']);
+                            $cart_db->deleteCart($item['cart_id']);
+                        }
+                    }
+                    echo '<meta http-equiv="refresh" content="0; url=index.php?action=checkout&success=1">';
                 }
             }
         }
