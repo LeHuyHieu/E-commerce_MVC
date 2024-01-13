@@ -13,6 +13,7 @@ class Cart
             foreach ($_SESSION['cart'] as $key => $item) {
                 if ($item['product_id'] == $product_id && $item['size_id'] == $size_id && $item['color_id'] == $color_id) {
                     $flag = true;
+                    $quantity += $_SESSION['cart'][$key]['quantity'];
                     $this->updateCart($key, $quantity);
                 }
             }
@@ -67,6 +68,7 @@ class Cart
                     $list_cart = $cart->fetchAll();
                     foreach ($list_cart as $cart_item) {
                         if ($cart_item['product_id'] == $product_id && $cart_item['size_id'] == $size_id && $cart_item['color_id'] == $color_id) {
+                            $quantity += $cart_item['quantity'];
                             $this->updateCartDB($quantity, $cart_item['price'], $cart_item['discount_percent'] ,$cart_item['id']);
                         }
                     }

@@ -164,4 +164,11 @@ label.error {
 }
 .jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-buttons {
   text-align: end;
+}
+
+.bill-area .bill-detail ul li > span:first-child {
+  min-width: 125px;
+}
+.bill-area .bill-detail ul li span {
+  display: inline-block;
 }/*# sourceMappingURL=custom.css.map */

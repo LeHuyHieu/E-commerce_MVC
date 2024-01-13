@@ -26,26 +26,26 @@ if (isset($_SESSION['user'])) {
                     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0 && !isset($_SESSION['user'])) { 
                 ?>
                     <div class="table-content table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 100px;" class="li-product-remove">Action</th>
-                                    <th style="width: 150px;" class="li-product-thumbnail">images</th>
-                                    <th style="width: 300px;" class="cart-product-name">Product</th>
-                                    <th style="width: 150px;" class="li-product-quantity">Price</th>
-                                    <th style="width: 150px;" class="li-product-quantity">Quantity</th>
-                                    <th style="width: 150px;" class="li-product-subtotal">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
-                                    foreach ($_SESSION['cart'] as $key => $cart_item) {
-                                ?>
+                        <form action="index.php?action=cart&handel=cart_update" method="post">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <form action="index.php?action=cart&handel=cart_process" method="post">
+                                        <th style="width: 100px;" class="li-product-remove">Action</th>
+                                        <th style="width: 150px;" class="li-product-thumbnail">images</th>
+                                        <th style="width: 300px;" class="cart-product-name">Product</th>
+                                        <th style="width: 150px;" class="li-product-quantity">Price</th>
+                                        <th style="width: 150px;" class="li-product-quantity">Quantity</th>
+                                        <th style="width: 150px;" class="li-product-subtotal">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        foreach ($_SESSION['cart'] as $key => $cart_item) {
+                                    ?>
+                                        <tr>
                                             <td class="li-product-remove">
                                                 <a class="btn delete-cart-item-product" href="index.php?action=cart&handel=delete_cart&id=<?php echo $key;?>"><i class="fa fa-times"></i></a> <br />
-                                                <button type="submit" name="submit" class="btn btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
+                                                <button type="submit" name="submit" data-key="<?php echo $key;?>" class="btn btn-save-cart-item btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
                                             </td>
                                             <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['image'];?>" alt="Li's Product Image"></a></td>
                                             <td class="li-product-name"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><?php echo $cart_item['title'];?></a></td>
@@ -57,20 +57,20 @@ if (isset($_SESSION['user'])) {
                                             <td class="quantity">
                                                 <label>Quantity</label>
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" name="quantity" value="<?php echo $cart_item['quantity'];?>" type="text">
+                                                    <input class="cart-plus-minus-box quantity_input" name="quantity[<?php echo $key;?>][]" value="<?php echo $cart_item['quantity'];?>" type="text">
                                                     <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </td>
-                                            <input type="hidden" name="size_id" value=<?php echo $cart_item['size_id'];?> />
-                                            <input type="hidden" name="color_id" value=<?php echo $cart_item['color_id'];?> />
-                                            <input type="hidden" name="product_id" value=<?php echo $cart_item['product_id'];?> />
+                                            <input type="hidden" class="size_id_input" name="size_id[<?php echo $key;?>][]" value="<?php echo $cart_item['size_id'];?>" />
+                                            <input type="hidden" class="color_id_input" name="color_id[<?php echo $key;?>][]" value="<?php echo $cart_item['color_id'];?>" />
+                                            <input type="hidden" class="product_id_input" name="product_id[<?php echo $key;?>][]" value="<?php echo $cart_item['product_id'];?>" />
                                             <td class="product-subtotal"><span class="amount"><?php echo formatPrice($cart_item['total']);?> VND</span></td>
-                                        </form>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                     <div class="row">
                         <div class="col-md-5 ml-auto">
@@ -87,29 +87,29 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
                     </div>
-                <?php } elseif (count($list_cart) > 0 && isset($_SESSION['user']) && (!isset($_SESSION['cart']))) { 
+                <?php } elseif (count($list_cart) > 0 && isset($_SESSION['user'])) { 
                 ?>
                     <div class="table-content table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 100px;" class="li-product-remove">Action</th>
-                                    <th style="width: 150px;" class="li-product-thumbnail">images</th>
-                                    <th style="width: 300px;" class="cart-product-name">Product</th>
-                                    <th style="width: 150px;" class="li-product-quantity">Price</th>
-                                    <th style="width: 150px;" class="li-product-quantity">Quantity</th>
-                                    <th style="width: 150px;" class="li-product-subtotal">Total</th>
-                                </tr>
-                            </thead>
-                                <tbody>
-                            <?php
-                                foreach ($list_cart as $key => $cart_item) {    
-                            ?> 
+                        <form action="index.php?action=cart&handel=cart_update" method="post">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <form action="index.php?action=cart&handel=cart_process" method="post">
+                                        <th style="width: 100px;" class="li-product-remove">Action</th>
+                                        <th style="width: 150px;" class="li-product-thumbnail">images</th>
+                                        <th style="width: 300px;" class="cart-product-name">Product</th>
+                                        <th style="width: 150px;" class="li-product-quantity">Price</th>
+                                        <th style="width: 150px;" class="li-product-quantity">Quantity</th>
+                                        <th style="width: 150px;" class="li-product-subtotal">Total</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                <?php
+                                    foreach ($list_cart as $key => $cart_item) {    
+                                ?> 
+                                        <tr>
                                             <td class="li-product-remove">
                                                 <a class="btn delete-cart-item-product" href="index.php?action=cart&handel=delete_cart&id=<?php echo $cart_item['id'];?>"><i class="fa fa-times"></i></a> <br />
-                                                <button type="submit" name="submit" class="btn btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
+                                                <button type="submit" name="submit" data-key="<?php echo $key;?>" class="btn btn-save-cart-item btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
                                             </td>
                                             <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['images'];?>" alt="Li's Product Image"></a></td>
                                             <td class="li-product-name"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><?php echo $cart_item['title'];?></a></td>
@@ -121,20 +121,20 @@ if (isset($_SESSION['user'])) {
                                             <td class="quantity">
                                                 <label>Quantity</label>
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" name="quantity" value="<?php echo $cart_item['quantity'];?>" type="text">
+                                                    <input class="cart-plus-minus-box quantity_input" name="quantity[<?php echo $key;?>][]" value="<?php echo $cart_item['quantity'];?>" type="text">
                                                     <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </td>
-                                            <input type="hidden" name="size_id" value=<?php echo $cart_item['size_id'];?> />
-                                            <input type="hidden" name="color_id" value=<?php echo $cart_item['color_id'];?> />
-                                            <input type="hidden" name="product_id" value=<?php echo $cart_item['product_id'];?> />
+                                            <input type="hidden" class="size_id_input" name="size_id[<?php echo $key;?>][]" value="<?php echo $cart_item['size_id'];?>" />
+                                            <input type="hidden" class="color_id_input" name="color_id[<?php echo $key;?>][]" value="<?php echo $cart_item['color_id'];?>" />
+                                            <input type="hidden" class="product_id_input" name="product_id[<?php echo $key;?>][]" value="<?php echo $cart_item['product_id'];?>" />
                                             <td class="product-subtotal"><span class="amount"><?php echo formatPrice($cart_item['total']);?> VND</span></td>
-                                        </form>
-                                    </tr>
-                                <?php } ?> 
-                            </tbody>
-                        </table>
+                                        </tr>
+                                    <?php } ?> 
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                     <div class="row">
                         <div class="col-md-5 ml-auto">

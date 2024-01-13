@@ -163,3 +163,18 @@ label.error {
     }
   }
 }
+
+.bill-area {
+  .bill-detail {
+    ul {
+      li>span:first-child {
+        min-width: 125px;
+      }
+      li {
+        span {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

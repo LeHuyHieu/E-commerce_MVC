@@ -95,6 +95,15 @@
      </div>
  </div>
  <!-- Li's Static Banner Area End Here -->
+ <?php 
+ $comment_db = new Comment();
+ $hotProduct = new HotProduct();
+ $list_sp_item = new ListProduct();
+ $result = $hotProduct->getHotProducts();
+ ?>
+ <?php 
+ if ($result->rowCount() > 0) {
+ ?>
  <!-- Begin Li's Special Product Area -->
  <section class="product-area li-laptop-product Special-product pt-60 pb-45">
      <div class="container">
@@ -109,10 +118,6 @@
                  </div>
                  <div class="row py-3">
                      <?php
-                        $comment_db = new Comment();
-                        $hotDealProduct = new HotProduct();
-                        $list_sp_item = new ListProduct();
-                        $result = $hotDealProduct->getHotProducts();
                         while ($item = $result->fetch()) :
                             $list_color = $list_sp_item->getColorProduct($item['id'])->fetchAll();
                             $images = $list_sp_item->getImageProduct($item['id'])->fetchAll();
@@ -347,6 +352,7 @@
          </div>
      </div>
  </section>
+ <?php } ?>
  <!-- Li's Special Product Area End Here -->
  <div class="li-static-banner pt-20 pt-sm-30">
      <div class="container">
@@ -369,6 +375,10 @@
      </div>
  </div>
  <!-- Li's Static Banner Area End Here -->
+ <?php 
+ $result = $hotProduct->getFeaturedProducts();
+ if ($result->rowCount() > 0) {
+ ?>
  <!-- Begin Featured Product With Banner Area -->
  <div class="featured-pro-with-banner mt-sm-5 pb-sm-10 mt-xs-5 pb-xs-10">
      <div class="container">
@@ -384,8 +394,6 @@
                      </div>
                      <div class="row">
                          <?php
-                            $getFeaturedProducts = new HotProduct();
-                            $result = $getFeaturedProducts->getFeaturedProducts();
                             while ($item = $result->fetch()) :
                                 $list_color = $list_sp_item->getColorProduct($item['id'])->fetchAll();
                                 $images = $list_sp_item->getImageProduct($item['id'])->fetchAll();
@@ -616,6 +624,7 @@
      </div>
  </div>
  <!-- Featured Product With Banner Area End Here -->
+ <?php } ?>
  <!-- Li's Special Product Area End Here -->
  <div class="li-static-banner pt-20 pt-sm-30">
      <div class="container">
@@ -639,10 +648,9 @@
  </div>
  <!-- Begin Li's Laptop Product Area -->
  <?php
-    $listProductLaptop = new HotProduct();
     $titleCategory = $list_categories->getCategory();
     while ($item = $titleCategory->fetch()) :
-        $countListProduct = $listProductLaptop->getCategoryListProduct($item['id'])->rowCount();
+        $countListProduct = $hotProduct->getCategoryListProduct($item['id'])->rowCount();
         if ($countListProduct > 0) {
 ?>
          <section class="product-area li-laptop-product pt-60 pb-45">
@@ -658,7 +666,7 @@
                          </div>
                          <div class="row">
                              <?php
-                                $result = $listProductLaptop->getCategoryListProduct($item['id']);
+                                $result = $hotProduct->getCategoryListProduct($item['id']);
                                 while ($item = $result->fetch()) :
                                     $list_color = $list_sp_item->getColorProduct($item['id'])->fetchAll();
                                     $images = $list_sp_item->getImageProduct($item['id'])->fetchAll();

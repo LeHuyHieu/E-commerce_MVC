@@ -22,7 +22,7 @@
                                 <div class="ht-setting-trigger"><span>Setting</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
-                                        <li><a href="index.php?action=<?php echo isset($_SESSION['user']) ? 'checkout' : 'login';?>">Checkout</a></li>
+                                        <li><a href="index.php?action=<?php echo isset($_SESSION['user']) ? 'checkout' : 'login&next_page=checkout';?>">Checkout</a></li>
                                         <?php if(isset($_SESSION['user'])) { ?>
                                             <li><a href="index.php?action=login&handle=logout">logout</a></li>
                                             <li><a href="index.php?action=user"><?php echo $_SESSION['user']['fullname'];?></a></li>
@@ -147,7 +147,7 @@
                                             <a href="index.php?action=cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                                 <span>View Full Cart</span>
                                             </a>
-                                            <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login';?>" class="li-button li-button-fullwidth li-button-sm">
+                                            <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login&next_page=checkout';?>" class="li-button li-button-fullwidth li-button-sm">
                                                 <span>Checkout</span>
                                             </a>
                                         </div>
@@ -192,7 +192,7 @@
                                             <a href="index.php?action=cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                                 <span>View Full Cart</span>
                                             </a>
-                                            <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login';?>" class="li-button li-button-fullwidth li-button-sm">
+                                            <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login&next_page=checkout';?>" class="li-button li-button-fullwidth li-button-sm">
                                                 <span>Checkout</span>
                                             </a>
                                         </div>

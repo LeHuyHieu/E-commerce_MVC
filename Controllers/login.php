@@ -78,6 +78,9 @@ switch ($handle) {
         }
         break;
     case 'login_process':
+        if (isset($_GET['next_page'])) {
+            $next_page = $_GET['next_page'];
+        }
         if(isset($_POST['submit'])) {
             $userName = $_POST['username'];
             $password = $_POST['password'];
@@ -123,7 +126,11 @@ switch ($handle) {
                     if ($flag == true && isset($_SESSION['cart'])) {
                         unset($_SESSION['cart']);
                     }
-                    echo '<meta http-equiv="refresh" content="0; url=index.php?action=home&login_success=1">';
+                    if ($next_page != '') {
+                        echo '<meta http-equiv="refresh" content="0; url=index.php?action='.$next_page.'&login_success=1">';
+                    }else{
+                        echo '<meta http-equiv="refresh" content="0; url=index.php?action=home&login_success=1">';
+                    }
                 }else {
                     echo '<meta http-equiv="refresh" content="0; url=index.php?action=login&login_failed=1">';
                 }

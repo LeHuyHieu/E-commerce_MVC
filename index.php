@@ -31,7 +31,7 @@
         if ($price >= 1000000 && $price <= 1000000000) {
             $price = number_format($price / 1000) . " Tr";
         } elseif ($price < 1000000) {
-            $price = number_format($price / 1000) . " N";
+            $price = number_format($price / 1000) . " K";
         } elseif ($price >= 1000000000) {
             $price = number_format($price / 1000000) . " Tỷ ";
         }

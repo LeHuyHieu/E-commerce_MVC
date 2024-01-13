@@ -15,6 +15,7 @@ $order_db = new Orders();
 $cart_db = new Cart();
 $list_city = $order_db->getCity();
 $list_product_order = $order_db->getProductOrder($_SESSION['user']['user_id']);
+$user = $order_db->getUser($_SESSION['user']['user_id']);
 ?>
 <?php if (isset($_SESSION['user']) && $list_product_order->rowCount() > 0) { ?>
 <!--Checkout Area Strat-->
@@ -49,7 +50,7 @@ $list_product_order = $order_db->getProductOrder($_SESSION['user']['user_id']);
                                 <div class="country-select clearfix">
                                     <label>City <span class="required">*</span></label>
                                     <select class="nice-select wide" id="selectCity" name="city" required>
-                                        <option data-display="0">Please choose</option>
+                                        <option value="">Please choose</option>
                                         <?php foreach ($list_city as $city) { ?>
                                             <option value="<?php echo $city['id'];?>"><?php echo $city['name'];?></option>
                                         <?php } ?>
@@ -60,32 +61,32 @@ $list_product_order = $order_db->getProductOrder($_SESSION['user']['user_id']);
                                 <div class="country-select clearfix district">
                                     <label>District <span class="required">*</span></label>
                                     <select class="nice-select wide" name="district" id="selectDistrict" required>
-                                        <option data-display="" selected>Choose city</option>
+                                        <option value="">Choose city</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="checkout-form-list">
                                     <label>Full Name <span class="required">*</span></label>
-                                    <input type="text" name="fullname" placeholder="Full name" required>
+                                    <input type="text" name="fullname" value="<?php echo $user['fullname'];?>" placeholder="Full name" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="checkout-form-list">
                                     <label>Address <span class="required">*</span></label>
-                                    <input type="text" name="shipping_address" placeholder="Street address" required>
+                                    <input type="text" name="shipping_address" value="<?php echo $user['address'];?>" placeholder="Street address" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>Email Address <span class="required">*</span></label>
-                                    <input type="email" name="email_address" placeholder="Enter your address" required>
+                                    <input type="email" name="email_address" value="<?php echo $user['email'];?>" placeholder="Enter your address" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>Phone <span class="required">*</span></label>
-                                    <input type="text" name="phone_number" placeholder="Enter your phone number" required>
+                                    <input type="text" name="phone_number" value="<?php echo $user['phone'];?>" placeholder="Enter your phone number" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -191,7 +192,7 @@ $list_product_order = $order_db->getProductOrder($_SESSION['user']['user_id']);
                                     </div>
                                 </div>
                                 <div class="order-button-payment">
-                                    <input value="Place order" name="submit" type="submit">
+                                    <input value="Place order" name="submit" class="btn-order-product" type="submit">
                                 </div>
                             </div>
                         </div>
@@ -222,4 +223,38 @@ $list_product_order = $order_db->getProductOrder($_SESSION['user']['user_id']);
             </div>
         </div>
     </div>
+<?php } ?>
+
+<?php 
+    $condision = isset($_GET['action']) && $_GET['action'] == 'checkout' && isset($_GET['success']) && $_GET['success'] == 1;
+    if ($condision) { 
+?>
+    <script>
+        $(document).ready(function() {
+            $.confirm({
+                theme: 'jconfirm-my-theme',
+                columnClass: 'small',
+                title: '<img class="img-fluid" src="./Public/images/uploads/check-success.jpg" alt="" />',
+                autoClose: 'Close|8000',
+                content: `<h5 class="text-center">Order Success</h5> <p class="text-center">We will send the invoice to your email or you can see details <a href="index.php?action=bill">here</a></p>`,
+                buttons: {
+                    Home: {
+                        btnClass: 'btn-blue',
+                        action: function () {
+                            window.location.href = "index.php?action=home";
+                        }
+                    },
+                    Bill: {
+                        btnClass: 'btn-green',
+                        action: function () {
+                            window.location.href = "index.php?action=bill";
+                        }
+                    },
+                    Close: {
+                        btnClass: 'btn-red',
+                    },
+                }
+            });
+        })
+    </script>
 <?php } ?>

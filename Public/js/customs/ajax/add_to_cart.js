@@ -92,4 +92,36 @@ $(document).ready(function() {
             draggable: false
         });
     });
+
+    $(document).on('click', '.btn-save-cart-item', function(e) {
+        e.preventDefault();
+        var data = {};
+        var dataKey = $(this).attr('data-key');
+        let updateLink = $(this).parents('form').attr('action');
+        let form = $(this).parents('form');
+        let quantity = form.find('.quantity_input');
+        let product_id = form.find('.product_id_input');
+        let color_id = form.find('.color_id_input');
+        let size_id = form.find('.size_id_input');
+
+        data = {
+            'quantity': quantity[dataKey].value,
+            'color_id': color_id[dataKey].value,
+            'product_id': product_id[dataKey].value,
+            'size_id': size_id[dataKey].value,
+            'submit': ''
+        }
+        console.log(data);
+        $.ajax({
+            url: updateLink,
+            method: 'POST',
+            data: data,
+            success: function (response) {
+                let title = 'Success';
+                let alert = 'success';
+                let message = 'Update cart successfully';
+                getCart(title, alert, message);
+            }
+        });
+    })
 });
