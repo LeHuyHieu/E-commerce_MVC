@@ -42,5 +42,9 @@ class Connect {
         $statement = $this->db->prepare($query);
         return $statement;
     }
+
+    public function lastInsertId(){
+        return $this->db->lastInsertId();
+    }
 }
 

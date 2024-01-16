@@ -133,17 +133,17 @@ function handleFilterChange(filterId, itemClass, dataKey) {
                 var $responseHtml = $(response);
                 var newContentCol = $responseHtml.find('.showListProductCol').html();
                 var newContentRow = $responseHtml.find('.showListProductRow').html();
-                var pagination = $responseHtml.find('.pagination-area').html();
+                var pagination = $responseHtml.find('.paginatoin-area').html();
                 var newModal = $responseHtml.find('.list_modal').html();
                 $('.showListProductCol').html(newContentCol);
                 $('.showListProductRow').html(newContentRow);
-                $('.pagination-area').html(pagination);
+                $('#showPagination').html(pagination);
                 $('.list_modal').html(newModal);
                 loadModalView();
                 for (const key in data) {
                     currentURL = removeParam(key, currentURL);
                 }
-                console.log(data['condition']);
+                console.log(data);
                 window.history.pushState('', '', currentURL + '&arr_category_id=' + data['arr_category_id'] + '&arr_size_id=' + data['arr_size_id'] + '&arr_color_id=' + data['arr_color_id'] + '&condition=' + data['condition'] + '&orderby=' + data['orderby']);
             }
         });

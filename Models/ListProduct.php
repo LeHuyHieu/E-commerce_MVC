@@ -40,10 +40,6 @@ class ListProduct {
                             FROM products
                                 LEFT JOIN product_sale ON product_sale.product_id = products.id
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
-                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                                LEFT JOIN size ON size.id = dp_size.size_id
-                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE product_sale.active = 1 AND products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL AND product_sale.time_sale > CURDATE() ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $count .= $arrColorCondition : '';
@@ -65,10 +61,6 @@ class ListProduct {
                             LEFT JOIN product_sale ON product_sale.product_id = products.id
                             LEFT JOIN discounts ON discounts.id = products.discount_id
                             LEFT JOIN categories ON categories.id = products.category_id
-                            LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                            LEFT JOIN size ON size.id = dp_size.size_id
-                            LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                            LEFT JOIN color ON color.id = dp_color.color_id
                         WHERE
                             product_sale.active = 1
                             AND products.category_id IN ( SELECT id FROM CategoryCTE ) 
@@ -91,10 +83,6 @@ class ListProduct {
                             FROM products
                                 LEFT JOIN product_sale ON product_sale.product_id = products.id
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
-                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                                LEFT JOIN size ON size.id = dp_size.size_id
-                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.product_hot = 1 AND products.category_id IN (SELECT id FROM CategoryCTE) 
                                 AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
@@ -113,10 +101,6 @@ class ListProduct {
                             FROM products
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
                                 LEFT JOIN categories ON categories.id = products.category_id
-                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                                LEFT JOIN size ON size.id = dp_size.size_id
-                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.product_hot = 1
                             AND products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                     (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
@@ -131,10 +115,6 @@ class ListProduct {
                                 INNER JOIN CategoryCTE ON c.parent_id = CategoryCTE.id)
                             SELECT COUNT(products.id) AS countIdProduct
                             FROM products
-                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                                LEFT JOIN size ON size.id = dp_size.size_id
-                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $count .= $arrColorCondition : '';
@@ -159,10 +139,6 @@ class ListProduct {
                             FROM products
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
                                 LEFT JOIN categories ON categories.id = products.category_id
-                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                                LEFT JOIN size ON size.id = dp_size.size_id
-                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                     (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
                     (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
@@ -176,10 +152,6 @@ class ListProduct {
                                 INNER JOIN CategoryCTE ON c.parent_id = CategoryCTE.id)
                             SELECT COUNT(products.id) AS countIdProduct
                             FROM products
-                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                                LEFT JOIN size ON size.id = dp_size.size_id
-                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $count .= $arrColorCondition : '';
@@ -199,10 +171,6 @@ class ListProduct {
                             FROM products
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
                                 LEFT JOIN categories ON categories.id = products.category_id
-                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
-                                LEFT JOIN size ON size.id = dp_size.size_id
-                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
-                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';

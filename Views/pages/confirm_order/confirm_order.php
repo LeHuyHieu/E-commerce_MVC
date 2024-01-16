@@ -1,51 +1,22 @@
 <?php 
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 5){
+$bill = new Bill();
+$order_info = $bill->getAllUserOrderNotConfirmed()->fetchAll();
 ?>
 <div class="breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
                 <li><a href="index.php?action=home">Home</a></li>
-                <li class="active">Bill</li>
+                <li class="active">Confirm</li>
             </ul>
         </div>
     </div>
 </div>
-<?php 
-$bill = new Bill();
-$order_info = $bill->getUserOrder($_SESSION['user']['user_id'])->fetchAll();
-function replaceStatus($status) {
-    $return = '';
-    switch ($status) {
-        case '0':
-            $return = 'Chờ xác nhận';
-            break;
-        case '1':
-            $return = 'Đã xác nhận';
-            break;
-        case '2':
-            $return = 'Đơn đã hủy';
-            break;
-        case '3':
-            $return = 'Đơn đang trên đường giao';
-            break;
-        case '4':
-            $return = 'Giao thành công';
-            break;
-        case '5':
-            $return = 'Giao thất bại';
-            break;
-        default:
-            $return = 'Chờ xác nhận';
-            break;
-    }
-    return $return;
-}
-?>
 <div class="bill-area pt-30 pb-60">
     <div class="container">
         <div class="row">
-            <div class="col-12 mb-20"><h2>Orderer information</h2></div>
+            <div class="mb-20 col-12"><h2>Confirm user order (<?php echo count($order_info);?>) <a href="index.php?action=confirm_order&handel=list_confirm" class="float-right">List confirm</a></h2></div>
             <?php  
                 if (count($order_info) > 0) {
                     foreach ($order_info as $order_info_item) {
@@ -82,10 +53,6 @@ function replaceStatus($status) {
                             <span><?php echo $order_info_item['shipping_address'];?></span>
                         </li>
                         <li>
-                            <span><b>Status</b></span>:
-                            <span><?php echo replaceStatus($order_info_item['status']);?></span>
-                        </li>
-                        <li>
                             <span><b>Order date</b></span>:
                             <span><?php echo $order_info_item['order_date'];?></span>
                         </li>
@@ -101,7 +68,7 @@ function replaceStatus($status) {
                                 <th>Size</th>
                                 <th>Color</th>
                                 <th>Quantity</th>
-                                <th>Unit price</th>
+                                <th style="width: 200px;">Unit price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,13 +81,17 @@ function replaceStatus($status) {
                                     <td><?php echo $order_date_item['color_name'];?></td>
                                     <td><?php echo $order_date_item['size_name'];?></td>
                                     <td><?php echo $order_date_item['quantity'];?></td>
-                                    <td><?php echo $order_date_item['unit_price'];?></td>
+                                    <td><?php echo formatPrice($order_date_item['unit_price']);?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="6" class="text-right"><b>Total: <?php echo formatPrice($order_info_item['total_amount']);?></b></td>
+                                <td colspan="4" class="text-left">
+                                    <a href="index.php?action=confirm_order&handel=delete&id=<?php echo $order_info_item['id'];?>" class="btn btn-danger btn-sm">Hủy đơn này</a>
+                                    <a href="index.php?action=confirm_order&handel=confirm&id=<?php echo $order_info_item['id'];?>" class="btn btn-primary btn-sm">Xác nhận</a>
+                                </td>
+                                <td colspan="1" class="text-right"><b>Total: <?php echo formatPrice($order_info_item['total_amount']);?></b></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -128,11 +99,11 @@ function replaceStatus($status) {
                 </div>
             </div>
             <?php } } else { ?>
-                <h2>You have not ordered any products yet</h2>
+                <div class="col-12"><h5>There are no applications to confirm</h5></div>
             <?php } ?>
         </div>
     </div>
 </div>
-<?php }else { ?>
-    <meta http-equiv="refresh" content="0; url=index.php?action=404">
+<?php } else { ?>
+
 <?php } ?>

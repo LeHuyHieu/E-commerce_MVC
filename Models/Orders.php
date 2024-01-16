@@ -60,27 +60,31 @@ class Orders {
         $phone_number = $data['phone_number'];
         $user_id = $data['user_id'];
         $total_amount = $data['total_amount'];
+        $code_order = $data['code_order'];
+        $status = 0;
 
-        $query = "INSERT INTO orders (user_id, fullname, email_address, shipping_address, city, district, phone_number, total_amount) VALUES ($user_id, '$fullname', '$email_address', '$shipping_address', '$city', '$district', '$phone_number', $total_amount)";
+        $query = "INSERT INTO orders (user_id, fullname, email_address, shipping_address, city, district, phone_number, total_amount, order_date, code_order, status) 
+                    VALUES ($user_id, '$fullname', '$email_address', '$shipping_address', '$city', '$district', '$phone_number', $total_amount, NOW(), '$code_order', $status)";
         $result = $db->exec($query);
+        $result = $db->lastInsertId();
         return $result;
     }
 
-    function updateOrder($data) {
-        $db = new Connect();
-        $fullname = $data['fullname'];
-        $email_address = $data['email_address'];
-        $shipping_address = $data['shipping_address'];
-        $city = $data['city'];
-        $district = $data['district'];
-        $phone_number = $data['phone_number'];
-        $user_id = $data['user_id'];
-        $total_amount = $data['total_amount'];
+    // function updateOrder($data) {
+    //     $db = new Connect();
+    //     $fullname = $data['fullname'];
+    //     $email_address = $data['email_address'];
+    //     $shipping_address = $data['shipping_address'];
+    //     $city = $data['city'];
+    //     $district = $data['district'];
+    //     $phone_number = $data['phone_number'];
+    //     $user_id = $data['user_id'];
+    //     $total_amount = $data['total_amount'];
 
-        $query = "UPDATE orders SET fullname = '$fullname', email_address = '$email_address', shipping_address = '$shipping_address', city = '$city', district = '$district',  total_amount = $total_amount, phone_number = $phone_number WHERE user_id = $user_id";
-        $result = $db->exec($query);
-        return $result;
-    }
+    //     $query = "UPDATE orders SET fullname = '$fullname', email_address = '$email_address', shipping_address = '$shipping_address', city = '$city', district = '$district',  total_amount = $total_amount, phone_number = $phone_number WHERE user_id = $user_id";
+    //     $result = $db->exec($query);
+    //     return $result;
+    // }
 
     function insertOrderDetail($data) {
         $db = new Connect();
@@ -93,8 +97,8 @@ class Orders {
         $quantity = $data['quantity'];
         $unit_price = $data['unit_price'];
 
-        $query = "INSERT INTO order_details (order_id, product_id, note, title, size_name, color_name, quantity, unit_price, order_date) 
-                VALUES ($order_id, $product_id, '$note', '$title', '$size_name', '$color_name', $quantity, $unit_price, NOW())";
+        $query = "INSERT INTO order_details (order_id, product_id, note, title, size_name, color_name, quantity, unit_price) 
+                VALUES ($order_id, $product_id, '$note', '$title', '$size_name', '$color_name', $quantity, $unit_price)";
         $result = $db->exec($query);
         return $result;
     }

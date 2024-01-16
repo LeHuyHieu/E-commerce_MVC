@@ -9,7 +9,7 @@ class User {
 
     function getUser ($email) {
         $db = new Connect();
-        $select = 'SELECT DISTINCT users.id, users.username, users.email, users.fullname, users.confirm_email, users.password FROM users WHERE email = "'.$email.'"';
+        $select = 'SELECT DISTINCT users.id, users.username, users.email, users.fullname, users.confirm_email, users.password, users.role FROM users WHERE email = "'.$email.'"';
         $result = $db->getList($select);
         return $result;
     }
@@ -29,7 +29,7 @@ class User {
 
     function login($username, $password) {
         $db = new Connect();
-        $select = "SELECT DISTINCT users.username, users.password, users.fullname, users.id FROM users WHERE users.username = '".$username."' AND users.password = '".$password."' AND users.confirm_email = 1";
+        $select = "SELECT DISTINCT users.username, users.fullname, users.id, users.role FROM users WHERE users.username = '".$username."' AND users.password = '".$password."' AND users.confirm_email = 1";
         $result = $db->getList($select);
         return $result;
     }

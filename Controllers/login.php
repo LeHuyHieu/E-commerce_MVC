@@ -98,6 +98,7 @@ switch ($handle) {
                     foreach ($data_user as $item) {
                         $_SESSION['user']['fullname'] = $item['fullname'];
                         $_SESSION['user']['user_id'] = $item['id'];
+                        $_SESSION['user']['role'] = $item['role'];
                     }
                     $flag = false;
                     if (isset($_SESSION['user']) && isset($_SESSION['cart'])) {
@@ -150,6 +151,7 @@ switch ($handle) {
             foreach ($get_user as $item) {
                 $_SESSION['user']['fullname'] = $item['fullname'];
                 $_SESSION['user']['user_id'] = $item['id'];
+                $_SESSION['user']['role'] = $item['role'];
             }
             echo '<meta http-equiv="refresh" content="0; url=index.php?action=home&confirm_email_success=1">';
         }

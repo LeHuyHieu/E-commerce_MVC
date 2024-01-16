@@ -114,8 +114,8 @@ function replaceColor($color)
                                 <option value="name_id">Relevance</option>
                                 <option value="name_az">Name (A - Z)</option>
                                 <option value="name_za">Name (Z - A)</option>
-                                <option value="price_desc">Price (Low &gt; High)</option>
-                                <option value="rating">Rating (Lowest)</option>
+                                <!-- <option value="price_desc">Price (Low &gt; High)</option>
+                                <option value="rating">Rating (Lowest)</option> -->
                             </select>
                         </div>
                     </div>
@@ -433,45 +433,47 @@ function replaceColor($color)
                                 <!-- Quick View | Modal Area End Here -->
                             <?php } ?>
                         </div>
-                        <div class="paginatoin-area">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 pt-xs-15">
-                                    <p>Showing <?php echo $start . '-' . $count . ' of ' . $list_query['list_products']->rowCount() . ' item(s)'; ?></p>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <ul class="pagination-box pt-xs-20 pb-xs-15">
-                                        <?php
-                                        if ($curent_page > 1 && $page > 1) {
-                                            $prevPageParams = $_GET;
-                                            $prevPageParams['page'] = $curent_page - 1;
-                                            $prevPageURL = '?' . http_build_query($prevPageParams);
-                                        ?>
-                                            <li><a href="<?php echo $prevPageURL; ?>" class="Previous"><i class="fa fa-chevron-left"></i> Previous</a></li>
-                                        <?php } else { ?>
-                                            <li><a href="javascript:void(0)" class="Previous disabled"><i class="fa fa-chevron-left"></i> Previous</a></li>
-                                        <?php } ?>
+                        <div id="showPagination">
+                            <div class="paginatoin-area">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 pt-xs-15">
+                                        <p>Showing <?php echo $start . '-' . $count . ' of ' . $list_query['list_products']->rowCount() . ' item(s)'; ?></p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul class="pagination-box pt-xs-20 pb-xs-15">
+                                            <?php
+                                            if ($curent_page > 1 && $page > 1) {
+                                                $prevPageParams = $_GET;
+                                                $prevPageParams['page'] = $curent_page - 1;
+                                                $prevPageURL = '?' . http_build_query($prevPageParams);
+                                            ?>
+                                                <li><a href="<?php echo $prevPageURL; ?>" class="Previous"><i class="fa fa-chevron-left"></i> Previous</a></li>
+                                            <?php } else { ?>
+                                                <li><a href="javascript:void(0)" class="Previous disabled"><i class="fa fa-chevron-left"></i> Previous</a></li>
+                                            <?php } ?>
 
-                                        <?php 
-                                            for ($i = 1; $i <= $page; $i++) {
-                                            $currentPageParams = $_GET;
-                                            $currentPageParams['page'] = $i;
-                                            $currentPageURL = '?' . http_build_query($currentPageParams);
-                                            if ($i <= $curent_page + 2 && $i >= $curent_page - 2) { 
-                                        ?>
-                                                <li class="<?php echo ($i == $curent_page) ? 'active' : '';?>"><a href="<?php echo $currentPageURL; ?>"><?php echo $i;?></a></li>
-                                        <?php 
+                                            <?php 
+                                                for ($i = 1; $i <= $page; $i++) {
+                                                $currentPageParams = $_GET;
+                                                $currentPageParams['page'] = $i;
+                                                $currentPageURL = '?' . http_build_query($currentPageParams);
+                                                if ($i <= $curent_page + 2 && $i >= $curent_page - 2) { 
+                                            ?>
+                                                    <li class="<?php echo ($i == $curent_page) ? 'active' : '';?>"><a href="<?php echo $currentPageURL; ?>"><?php echo $i;?></a></li>
+                                            <?php 
+                                                    } 
                                                 } 
-                                            } 
-                                        if ($curent_page < $page && $page > 1) {
-                                            $nextPageParams = $_GET;
-                                            $nextPageParams['page'] = $curent_page + 1;
-                                            $nextPageURL = '?' . http_build_query($nextPageParams);
-                                        ?>
-                                            <li><a href="<?php echo $nextPageURL; ?>" class="Next"> Next <i class="fa fa-chevron-right"></i></a></li>
-                                        <?php } else { ?>
-                                            <li><a href="javascript:void(0)" class="Next"> Next <i class="fa fa-chevron-right"></i></a></li>
-                                        <?php } ?>
-                                    </ul>
+                                            if ($curent_page < $page && $page > 1) {
+                                                $nextPageParams = $_GET;
+                                                $nextPageParams['page'] = $curent_page + 1;
+                                                $nextPageURL = '?' . http_build_query($nextPageParams);
+                                            ?>
+                                                <li><a href="<?php echo $nextPageURL; ?>" class="Next"> Next <i class="fa fa-chevron-right"></i></a></li>
+                                            <?php } else { ?>
+                                                <li><a href="javascript:void(0)" class="Next"> Next <i class="fa fa-chevron-right"></i></a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

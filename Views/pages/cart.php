@@ -147,7 +147,7 @@ if (isset($_SESSION['user'])) {
                                 <?php if (!isset($_SESSION['user'])) { ?>
                                     <p class="mb-0">Please log in to pay</p>
                                 <?php } ?>
-                                <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login';?>">Proceed to checkout</a>
+                                <a href="<?php echo (isset($_SESSION['user'])) ? 'index.php?action=checkout' : 'index.php?action=login&next_page=checkout';?>">Proceed to checkout</a>
                             </div>
                         </div>
                     </div>
