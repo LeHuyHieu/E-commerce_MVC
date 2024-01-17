@@ -32,6 +32,7 @@ switch ($handel) {
             } else {
                 $db = new Connect();
                 $order_db  = new Orders();
+                $users = new User();
                 $cart_db = new Cart();
                 $data['user_id'] = $user_id;
                 $data['fullname'] = $fullname;
@@ -71,6 +72,9 @@ switch ($handel) {
                     }
                 }
                 // print_r($data_send_mail);die;
+                $email_vendor = 'lehuyhieupro06182@gmail.com';
+                $name_vendor = 'Le Huy Hieu';
+                $message_vendor = 'Bạn có một đơn hàng mới cần xác nhận vui lòng vào website để xác nhận đơn hàng <a href="http://localhost/ecommerce/index.php?action=login&next_page=confirm_order">Đăng nhập</a>';
                 $message = '';
                 try {
                     $message .= "
@@ -137,6 +141,14 @@ switch ($handel) {
                     // $mail->MsgHTML($htmlContent);
 
                     // Gửi email
+                    $mail->send();
+
+                    $mail->clearAddresses();
+                    $mail->addAddress($email_vendor, $name_vendor);
+                    $mail->Subject = 'Don Hang Moi';
+                    $mail->Body = $message_vendor;
+                
+                    // Gửi email cho người bán hàng (vendor)
                     $mail->send();
                     echo '<meta http-equiv="refresh" content="0; url=index.php?action=checkout&success=1">';
                 } catch (Exception $e) {
