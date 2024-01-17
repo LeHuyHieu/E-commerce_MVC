@@ -17,10 +17,16 @@ $order_info = $confirm_success->ListUserOrderConfirm()->fetchAll();
 <div class="bill-area pt-30 pb-60">
     <div class="container">
         <div class="row">
-            <div class="mb-20 col-12"><h2>Confirm user order (<?php echo count($order_info);?>) <a href="index.php?action=confirm_order" class="float-right">Order confirm</a></h2></div>
+            <div class="mb-20 col-12"><h2>Confirm user order <a href="index.php?action=confirm_order" class="float-right">Order confirm</a></h2></div>
             <?php  
                 if (count($order_info) > 0) {
                     foreach ($order_info as $order_info_item) {
+                    $delivery = $confirm_success->GetListShipping($order_info_item['id'], 0);
+                    $delivery = (isset($delivery[0]) && $delivery[0] != '') ? $delivery[0] : '';
+                    $delivery_succ = $confirm_success->GetListShipping($order_info_item['id'], 1);
+                    $delivery_succ = (isset($delivery_succ[0]) && $delivery_succ[0] != '') ? $delivery_succ[0] : '';
+                    $delivery_failed = $confirm_success->GetListShipping($order_info_item['id'], 2);
+                        if (!is_array($delivery_failed) && $delivery_failed == '') {
             ?>
             <div class="col-12">
                 <div class="bill-detail p-3">
@@ -89,8 +95,8 @@ $order_info = $confirm_success->ListUserOrderConfirm()->fetchAll();
                         <tfoot>
                             <tr>
                                 <td colspan="4" class="text-left">
-                                    <a href="index.php?action=confirm_order&handel=delivery&id=<?php echo $order_info_item['id'];?>" class="btn btn-primary btn-sm">Giao hàng</a>
-                                    <a href="index.php?action=confirm_order&handel=delivery_succ&id=<?php echo $order_info_item['id'];?>" class="btn btn-primary btn-sm">Giao hàng thành công</a>
+                                    <button class="btn btn-primary btn-sm" <?php echo (isset($delivery) && $delivery == $order_info_item['id'] || $delivery_succ == $order_info_item['id']) ? 'disabled' : '';?> data-toggle="modal" data-target="#delivery">Giao hàng</button>
+                                    <a href="<?php echo (isset($delivery_succ) && $delivery_succ == $order_info_item['id']) ? 'javascript:void(0)' : 'index.php?action=confirm_order&handel=delivery_succ&id='.$order_info_item['id'].'';?>" class="btn btn-primary btn-sm">Giao hàng thành công</a>
                                     <a href="index.php?action=confirm_order&handel=delivery_failed&id=<?php echo $order_info_item['id'];?>" class="btn btn-danger btn-sm">Giao hàng thất bại</a>
                                 </td>
                                 <td colspan="1" class="text-right"><b>Total: <?php echo formatPrice($order_info_item['total_amount']);?></b></td>
@@ -100,7 +106,47 @@ $order_info = $confirm_success->ListUserOrderConfirm()->fetchAll();
                     <hr class="mt-0 mb-15">
                 </div>
             </div>
-            <?php } } else { ?>
+            <div class="modal fade modal-wrapper" id="delivery">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h3 class="review-page-title">Delivery</h3>
+                            <div class="modal-inner-area row">
+                                <div class="col-12">
+                                    <div class="li-review-content">
+                                        <!-- Begin Feedback Area -->
+                                        <div class="feedback-area">
+                                            <div class="feedback">
+                                                <h3 class="feedback-title">Delivery</h3>
+                                                <form method="post" action="index.php?action=confirm_order&handel=delivery&id=<?php echo $order_info_item['id'];?>">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-md-6">
+                                                            <label for="">Shipping Date</label>
+                                                            <input type="date" class="form-control mb-10" name="shipping_date" placeholder="" required>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6">
+                                                            <label for="">Estimated Delivery Date</label>
+                                                            <input type="date" class="form-control" name="estimated_delivery_date" placeholder="" required>
+                                                        </div>
+                                                        <div class="feedback-input col-12">
+                                                            <div class="feedback-btn pb-15">
+                                                                <a href="#" class="close" data-dismiss="modal" aria-label="Close">Close</a>
+                                                                <button type="submit" style="border: none;background: transparent;">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- Feedback Area End Here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } } } else { ?>
                 <div class="col-12"><h5>There are no applications to confirm</h5></div>
             <?php } ?>
         </div>

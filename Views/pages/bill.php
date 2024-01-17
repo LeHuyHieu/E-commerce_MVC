@@ -26,17 +26,26 @@ function replaceStatus($status) {
         case '2':
             $return = 'Đơn đã hủy';
             break;
-        case '3':
-            $return = 'Đơn đang trên đường giao';
-            break;
-        case '4':
-            $return = 'Giao thành công';
-            break;
-        case '5':
-            $return = 'Giao thất bại';
-            break;
         default:
             $return = 'Chờ xác nhận';
+            break;
+    }
+    return $return;
+}
+function replaceStatusShipping($status) {
+    $return = '';
+    switch ($status) {
+        case '0':
+            $return = 'Đang trên đường giao';
+            break;
+        case '1':
+            $return = 'Đã giao';
+            break;
+        case '2':
+            $return = 'Giao không thành công';
+            break;
+        default:
+            $return = 'Đang trên đường giao';
             break;
     }
     return $return;
@@ -89,6 +98,20 @@ function replaceStatus($status) {
                             <span><b>Order date</b></span>:
                             <span><?php echo $order_info_item['order_date'];?></span>
                         </li>
+                        <?php if ($order_info_item['shipping_date'] != '' && $order_info_item['estimated_delivery_date'] != '') { ?>
+                        <li>
+                            <span><b>Shipping date</b></span>:
+                            <span><?php echo $order_info_item['shipping_date'];?></span>
+                        </li>
+                        <li>
+                            <span><b>Estimated Delivery Date</b></span>:
+                            <span><?php echo $order_info_item['estimated_delivery_date'];?></span>
+                        </li>
+                        <li>
+                            <span><b>Shipping status</b></span>:
+                            <span><?php echo replaceStatusShipping($order_info_item['shipping_status']);?></span>
+                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -106,7 +129,7 @@ function replaceStatus($status) {
                         </thead>
                         <tbody>
                             <?php 
-                                $list_order = $bill->getOrderItem($order_info_item['id'])->fetchAll();
+                                $list_order = $bill->getOrderItem($order_info_item[0])->fetchAll();
                                 foreach($list_order as $order_date_item) {
                             ?>
                                 <tr>
