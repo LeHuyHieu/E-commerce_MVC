@@ -275,7 +275,7 @@
                         </div>
                         <?php if (!isset($_SESSION['user'])) { ?>
                             <div class="review-btn">
-                                <a class="review-links" href="index.php?action=login">Login to comment</a>
+                                <a class="review-links" href="index.php?action=login&next_page=detail_product&id=<?php echo $id;?>">Login to comment</a>
                             </div>
                         <?php } else { ?>
                              <!-- Begin Quick View | Modal Area -->

@@ -81,6 +81,10 @@ switch ($handle) {
         if (isset($_GET['next_page'])) {
             $next_page = $_GET['next_page'];
         }
+        $id = '';
+        if (isset($_GET['id'])) {
+            $id = '&id='.$_GET['id'];
+        }
         if(isset($_POST['submit'])) {
             $userName = $_POST['username'];
             $password = $_POST['password'];
@@ -128,7 +132,7 @@ switch ($handle) {
                         unset($_SESSION['cart']);
                     }
                     if ($next_page != '') {
-                        echo '<meta http-equiv="refresh" content="0; url=index.php?action='.$next_page.'&login_success=1">';
+                        echo '<meta http-equiv="refresh" content="0; url=index.php?action='.$next_page.$id.'&login_success=1">';
                     }else{
                         echo '<meta http-equiv="refresh" content="0; url=index.php?action=home&login_success=1">';
                     }

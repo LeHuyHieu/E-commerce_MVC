@@ -12,6 +12,7 @@ if (isset($_COOKIE['user'])) {
     }
 }
 $next_page = isset($_GET['next_page']) ? $_GET['next_page'] : '';
+$id = isset($_GET['id']) ? '&id='.$_GET['id'] : '';
 ?>
 <!-- Begin Li's Breadcrumb Area -->
 <div class="breadcrumb-area">
@@ -37,7 +38,7 @@ $next_page = isset($_GET['next_page']) ? $_GET['next_page'] : '';
             </div>
             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mx-auto" id="showFormLogin">
                 <!-- Login Form s-->
-                <form action="index.php?action=login&handle=login_process&next_page=<?php echo $next_page;?>" method="post">
+                <form action="index.php?action=login&handle=login_process&next_page=<?php echo $next_page.$id;?>" method="post">
                     <div class="login-form">
                         <h4 class="login-title">Login</h4>
                         <div class="row">
