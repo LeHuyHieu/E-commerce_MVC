@@ -1,16 +1,4 @@
 <?php 
-$username_cookie = ''; 
-$password_cookie = ''; 
-if (isset($_COOKIE['user'])) {
-    $data_cookie_user = json_decode($_COOKIE['user']);
-    foreach ($data_cookie_user as $key => $item_user) {
-        if ($key == 'username') {
-            $username_cookie = $item_user;
-        }elseif ($key == 'password') {
-            $password_cookie = $item_user;
-        }
-    }
-}
 $next_page = isset($_GET['next_page']) ? $_GET['next_page'] : '';
 $id = isset($_GET['id']) ? '&id='.$_GET['id'] : '';
 ?>
@@ -44,15 +32,15 @@ $id = isset($_GET['id']) ? '&id='.$_GET['id'] : '';
                         <div class="row">
                             <div class="col-md-12 col-12 mb-20">
                                 <label>Username*</label>
-                                <input class="mb-0" type="text" name="username" placeholder="Username" value="<?php echo $username_cookie;?>">
+                                <input class="mb-0" type="text" name="username" placeholder="Username">
                             </div>
                             <div class="col-12 mb-20">
                                 <label>Password</label>
-                                <input class="mb-0" type="password" name="password" placeholder="Password" value="<?php echo $password_cookie;?>">
+                                <input class="mb-0" type="password" name="password" placeholder="Password">
                             </div>
                             <div class="col-md-8">
                                 <div class="check-box d-inline-block ml-0 ml-md-2 mt-10">
-                                    <input type="checkbox" <?php echo isset($_COOKIE['user']) ? 'checked' : '';?> id="remember_me" name="remember_me">
+                                    <input type="checkbox" id="remember_me" name="remember_me" value="1">
                                     <label for="remember_me">Remember me</label>
                                 </div>
                             </div>

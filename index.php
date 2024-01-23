@@ -1,5 +1,12 @@
 <?php 
     session_start();
+    // auto load class
+    spl_autoload_register('myModelClassLoader');
+    function myModelClassLoader($className) {
+        $path = './Models/';
+        include_once $path . $className . '.php';
+    }
+
     //set layout list_product
     $view_layout = '';
     if(isset($_GET['view'])) {
@@ -10,20 +17,31 @@
     setcookie('view', $view_layout, time() + (3600 * 24), "/");
     //end set layout list_product
 
-    //set cookie remember me
-    if(isset($_POST['remember_me']) && ((isset($_POST['username']) && $_POST['username'] !== '') || (isset($_POST['password']) && $_POST['password'] !== ''))) {
-        $cookie_time = (3600 * 24);
-        $value = json_encode(["username" => $_POST['username'], "password" => $_POST['password']]);   
-        setcookie('user', $value, time() + $cookie_time);
+    //token login
+    $users = new User();
+    if (isset($_POST['remember_me']) && $_POST['remember_me'] == 1) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $passleft = '#4$%!!';
+        $passright = '!!0$%&';
+        $token = md5('*!&'. rand(9999, 999999) . '[}ks');
+        setcookie('token_login', $token, time() + (3600 * 24), "/");
+        $users->updateTokenLogin($token, $username, md5($passleft.$password.$passright));
     }
-    //end set cookei remember me
-
-
-    // auto load class
-    spl_autoload_register('myModelClassLoader');
-    function myModelClassLoader($className) {
-        $path = './Models/';
-        include_once $path . $className . '.php';
+    if (isset($_COOKIE['token_login']) && $_COOKIE['token_login'] != '') {
+        $token_login = $_COOKIE['token_login'];
+        $user = $users->loginToken($token_login);
+        $_SESSION['user']['fullname'] = $user['fullname'];
+        $_SESSION['user']['email'] = $user['email'];
+        $_SESSION['user']['username'] = $user['username'];
+        $_SESSION['user']['user_id'] = $user['id'];
+        $_SESSION['user']['role'] = $user['role'];
+    }
+    $condition_unset_token = isset($_COOKIE['token_login']) && isset($_GET['action']) && $_GET['action'] == 'login' && isset($_GET['handle']) && $_GET['handle'] == 'logout';
+    if ($condition_unset_token) {
+        setcookie('token_login', '', -1, '/'); 
+        unset($_COOKIE['token_login']); 
+        session_unset();
     }
 
     //replace price

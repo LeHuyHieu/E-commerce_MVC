@@ -43,15 +43,4 @@
 <!-- custom -->
 <link rel="stylesheet" href="./Public/scss/custom.css?<?php time();?>">
 <!-- Modernizr js -->
-<script src="./Public/js/vendor/modernizr-2.8.3.min.js?"></script>
-<!-- jquery -->
-<script src="./Public/js/jquery-3.2.1.min.js"></script>
-<!-- toast js -->
-<script src="./Public/js/toast.script.js"></script>
-<!-- lazysizes -->
-<script src="./Public/js/lazyload.js"></script>
-<script>
-    $(document).ready(function() {
-        lazyload();
-    });
-</script>
+

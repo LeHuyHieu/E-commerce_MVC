@@ -110,11 +110,11 @@
                                                 foreach ($_SESSION['cart'] as $key => $cart_item) {
                                             ?>
                                             <li>
-                                                <a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>" class="minicart-product-image">
+                                                <a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>" class="minicart-product-image">
                                                     <img src="./Public/images/uploads/<?php echo $cart_item['image'];?>" alt="cart products">
                                                 </a>
                                                 <div class="minicart-product-details">
-                                                    <h6><a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>">Aenean eu tristique</a></h6>
+                                                    <h6><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>">Aenean eu tristique</a></h6>
                                                     <?php 
                                                     if ($cart_item['discount_percent'] == 0) {
                                                     ?>
@@ -155,11 +155,11 @@
                                                 foreach ($list_cart as $key => $cart_item) {
                                             ?>
                                             <li>
-                                                <a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>" class="minicart-product-image">
+                                                <a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>" class="minicart-product-image">
                                                     <img src="./Public/images/uploads/<?php echo $cart_item['image'];?>" alt="cart products">
                                                 </a>
                                                 <div class="minicart-product-details">
-                                                    <h6><a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>">Aenean eu tristique</a></h6>
+                                                    <h6><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>">Aenean eu tristique</a></h6>
                                                     <?php 
                                                     if ($cart_item['discount_percent'] == 0) {
                                                     ?>

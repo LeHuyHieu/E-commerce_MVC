@@ -102,6 +102,8 @@ switch ($handle) {
                     $data_user = $check->fetchAll();
                     foreach ($data_user as $item) {
                         $_SESSION['user']['fullname'] = $item['fullname'];
+                        $_SESSION['user']['email'] = $item['email'];
+                        $_SESSION['user']['username'] = $item['username'];
                         $_SESSION['user']['user_id'] = $item['id'];
                         $_SESSION['user']['role'] = $item['role'];
                     }
@@ -133,9 +135,11 @@ switch ($handle) {
         
         if ($confirm_email == 1) {
             foreach ($get_user as $item) {
-                $_SESSION['user']['fullname'] = $item['fullname'];
-                $_SESSION['user']['user_id'] = $item['id'];
-                $_SESSION['user']['role'] = $item['role'];
+                $_SESSION['user']['fullname'] = $user['fullname'];
+                $_SESSION['user']['email'] = $user['email'];
+                $_SESSION['user']['username'] = $user['username'];
+                $_SESSION['user']['user_id'] = $user['id'];
+                $_SESSION['user']['role'] = $user['role'];
             }
             $flag = false;
             $flag = $cart_db->insertCartUserLogin();

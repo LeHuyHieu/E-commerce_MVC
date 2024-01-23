@@ -1,14 +1,6 @@
-<?php
-class ListProduct extends Connect
-{
-    private $db;
-    public function __construct()
-    {
-        $this->db = new Connect();
-    }
-
-    public function listProducts($data)
-    {
+<?php 
+class ListProduct {
+    function listProducts ($data) {
         $where = $data['where'];
         $start = $data['start'];
         $limit = $data['limit'];
@@ -17,12 +9,12 @@ class ListProduct extends Connect
         $title = $data['title'];
         $category_id_string = isset($_GET['category_id']) ? [$_GET['category_id']] : ['SELECT id FROM categories'];
 
-        if (!isset($_GET['arr_category_id'])) {
+        if(!isset($_GET['arr_category_id'])) {
             $category_id = implode(',', $category_id_string);
-        } else {
-            if (isset($_GET['arr_category_id']) && $_GET['arr_category_id'] !== '') {
+        }else {
+            if(isset($_GET['arr_category_id']) && $_GET['arr_category_id'] !== '') {
                 $category_id = $_GET['arr_category_id'];
-            } else {
+            }else {
                 $category_id = implode(',', $category_id_string);
             }
         }
@@ -36,7 +28,7 @@ class ListProduct extends Connect
             $arrColorCondition = ' AND color.id IN (' . $_GET['arr_color_id'] . ') ';
         }
 
-
+        $db = new Connect();
         $select = '';
         switch ($where) {
             case 'hot-deal-product':
@@ -48,10 +40,14 @@ class ListProduct extends Connect
                             FROM products
                                 LEFT JOIN product_sale ON product_sale.product_id = products.id
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
+                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                                LEFT JOIN size ON size.id = dp_size.size_id
+                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE product_sale.active = 1 AND products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL AND product_sale.time_sale > CURDATE() ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $count .= $arrColorCondition : '';
-                $count .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
+                $count .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
                 $count .= ' GROUP BY (products.id)';
                 $categories = 'SELECT categories.id AS id_category,
                                         categories.name AS categoryName
@@ -69,21 +65,25 @@ class ListProduct extends Connect
                             LEFT JOIN product_sale ON product_sale.product_id = products.id
                             LEFT JOIN discounts ON discounts.id = products.discount_id
                             LEFT JOIN categories ON categories.id = products.category_id
+                            LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                            LEFT JOIN size ON size.id = dp_size.size_id
+                            LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                            LEFT JOIN color ON color.id = dp_color.color_id
                         WHERE
                             product_sale.active = 1
                             AND products.category_id IN ( SELECT id FROM CategoryCTE ) 
                             AND products.deleted_at IS NULL
                             AND product_sale.time_sale > CURDATE() AND products.deleted_at IS NULL ';
-                (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
-                (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
-                $select .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
-                $select .= 'GROUP BY products.id ORDER BY ' . $condition . ' ' . $orderBy . ' LIMIT ' . $start . ', ' . $limit;
+                    (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
+                    (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
+                    $select .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
+                    $select .= 'GROUP BY products.id ORDER BY ' . $condition . ' ' . $orderBy .' LIMIT ' . $start .', ' . $limit;
                 break;
             case 'featured-product':
                 $count = 'WITH RECURSIVE CategoryCTE AS (
                             SELECT id, parent_id, name
                             FROM categories
-                            WHERE id IN (' . $category_id . ') UNION ALL
+                            WHERE id IN ('. $category_id .') UNION ALL
                         SELECT c.id, c.parent_id, c.name
                             FROM categories c
                             INNER JOIN CategoryCTE ON c.parent_id = CategoryCTE.id)
@@ -91,11 +91,15 @@ class ListProduct extends Connect
                             FROM products
                                 LEFT JOIN product_sale ON product_sale.product_id = products.id
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
+                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                                LEFT JOIN size ON size.id = dp_size.size_id
+                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.product_hot = 1 AND products.category_id IN (SELECT id FROM CategoryCTE) 
                                 AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $count .= $arrColorCondition : '';
-                $count .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
+                $count .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
                 $count .= ' GROUP BY (products.id)';
                 $categories = 'SELECT categories.id AS id_category,
                                         categories.name AS categoryName
@@ -109,12 +113,16 @@ class ListProduct extends Connect
                             FROM products
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
                                 LEFT JOIN categories ON categories.id = products.category_id
+                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                                LEFT JOIN size ON size.id = dp_size.size_id
+                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.product_hot = 1
                             AND products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
-                (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
-                (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
-                $select .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
-                $select .= 'GROUP BY category_id ORDER BY ' . $condition . ' ' . $orderBy . ' LIMIT ' . $start . ', ' . $limit;
+                    (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
+                    (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
+                    $select .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
+                    $select .= 'GROUP BY category_id ORDER BY ' . $condition . ' ' . $orderBy .' LIMIT ' . $start .', ' . $limit;
                 break;
             case 'category':
                 $count = 'WITH RECURSIVE CategoryCTE AS
@@ -123,10 +131,14 @@ class ListProduct extends Connect
                                 INNER JOIN CategoryCTE ON c.parent_id = CategoryCTE.id)
                             SELECT COUNT(products.id) AS countIdProduct
                             FROM products
+                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                                LEFT JOIN size ON size.id = dp_size.size_id
+                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $count .= $arrColorCondition : '';
-                $count .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
+                $count .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
                 $count .= ' GROUP BY (products.id)';
                 $categories = 'WITH RECURSIVE CategoryCTE AS ( SELECT id, parent_id, name FROM categories WHERE id IN (' . $category_id . ')
                                     UNION ALL SELECT c.id, c.parent_id, c.name
@@ -147,11 +159,15 @@ class ListProduct extends Connect
                             FROM products
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
                                 LEFT JOIN categories ON categories.id = products.category_id
+                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                                LEFT JOIN size ON size.id = dp_size.size_id
+                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
-                (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
-                (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
-                $select .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
-                $select .= 'GROUP BY id ORDER BY ' . $condition . ' ' . $orderBy . ' LIMIT ' . $start . ', ' . $limit;
+                    (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
+                    (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
+                    $select .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
+                    $select .= 'GROUP BY id ORDER BY ' . $condition . ' ' . $orderBy .' LIMIT ' . $start .', ' . $limit;
                 break;
             default:
                 $count = 'WITH RECURSIVE CategoryCTE AS
@@ -160,10 +176,14 @@ class ListProduct extends Connect
                                 INNER JOIN CategoryCTE ON c.parent_id = CategoryCTE.id)
                             SELECT COUNT(products.id) AS countIdProduct
                             FROM products
+                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                                LEFT JOIN size ON size.id = dp_size.size_id
+                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $count .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $count .= $arrColorCondition : '';
-                $count .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
+                $count .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
                 $count .= ' GROUP BY (products.id)';
                 $categories = 'SELECT categories.id AS id_category,
                                         categories.name AS categoryName
@@ -179,40 +199,44 @@ class ListProduct extends Connect
                             FROM products
                                 LEFT JOIN discounts ON discounts.id = products.discount_id
                                 LEFT JOIN categories ON categories.id = products.category_id
+                                LEFT JOIN detail_product dp_size ON dp_size.product_id = products.id
+                                LEFT JOIN size ON size.id = dp_size.size_id
+                                LEFT JOIN detail_product dp_color ON dp_color.product_id = products.id
+                                LEFT JOIN color ON color.id = dp_color.color_id
                             WHERE products.category_id IN (SELECT id FROM CategoryCTE) AND products.deleted_at IS NULL ';
                 (isset($arrSizeCondition) && $arrSizeCondition != '') ? $select .= $arrSizeCondition : '';
                 (isset($arrColorCondition) && $arrColorCondition != '') ? $select .= $arrColorCondition : '';
-                $select .= ($title !== '') ? ' AND products.title LIKE "%' . $title . '%" ' : '';
-                $select .= 'GROUP BY id ORDER BY ' . $condition . ' ' . $orderBy . ' LIMIT ' . $start . ', ' . $limit;
+                $select .= ($title !== '') ? ' AND products.title LIKE "%'.$title.'%" ' : '';
+                $select .= 'GROUP BY id ORDER BY ' . $condition . ' ' . $orderBy .' LIMIT ' . $start .', ' . $limit;
                 break;
         }
         $result = [];
-        $result['count'] = $this->db->getList($count)->rowCount();
-        $result['list_products'] = $this->db->getList($select);
-        $result['categories'] = $this->db->getList($categories);
+        $result['count'] = $db->getList($count)->rowCount();
+        $result['list_products'] = $db->getList($select);
+        $result['categories'] = $db->getList($categories);
         return $result;
     }
 
-    public function getImageProduct($id)
-    {
+    function getImageProduct($id) {
+        $db = new Connect();
         $select = "SELECT image FROM product_images WHERE product_id = $id";
-        $result = $this->db->getList($select);
+        $result = $db->getList($select);
         return $result;
     }
 
-    public function getPriceImageQuantity($id)
-    {
+    function getPriceImageQuantity($id) {
+        $db = new Connect();
         $select = "SELECT price, quantity, image_product, size_id, color_id, size.name as sizeName, color.name colorName
                     FROM detail_product 
                     LEFT JOIN size ON size.id = detail_product.size_id
                     LEFT JOIN color ON color.id = detail_product.color_id
                     WHERE product_id = $id";
-        $result = $this->db->getList($select);
+        $result = $db->getList($select);
         return $result;
     }
 
-    public function getColorProduct($idProduct)
-    {
+    function getColorProduct($idProduct) {
+        $db = new Connect();
         $select = 'SELECT detail_product.product_id,
                             detail_product.color_id,
                             detail_product.image_product, 
@@ -222,41 +246,41 @@ class ListProduct extends Connect
                     FROM detail_product
                     LEFT JOIN color ON color.id = detail_product.color_id
                     LEFT JOIN products ON products.id = detail_product.color_id
-                    WHERE detail_product.product_id = ' . $idProduct . ' GROUP BY (detail_product.color_id)';
-        $result = $this->db->getList($select);
+                    WHERE detail_product.product_id = '. $idProduct .' GROUP BY (detail_product.color_id)';
+        $result = $db->getList($select);
         return $result;
     }
 
-    public function getSizeProduct($idProduct)
-    {
+    function getSizeProduct($idProduct) {
+        $db = new Connect();
         $select = 'SELECT size.id, size.name, detail_product.price, detail_product.color_id
                     FROM size
                         LEFT JOIN detail_product ON detail_product.size_id = size.id
                     WHERE detail_product.product_id = ' . $idProduct . ' GROUP BY (detail_product.size_id)';
-        $result = $this->db->getList($select);
+        $result = $db->getList($select);
         return $result;
     }
 
-    public function getSizeChangeColor($color_id, $product_id)
-    {
+    function getSizeChangeColor($color_id, $product_id) {
+        $db = new Connect();
         $select = "SELECT size.name, price, size_id FROM detail_product LEFT JOIN size ON size.id = detail_product.size_id WHERE product_id = $product_id and color_id = $color_id";
-        $result = $this->db->getList($select);
+        $result = $db->getList($select);
         return $result;
     }
 
     //get list color all
-    public function getColor()
-    {
+    function getColor () {
+        $db = new Connect();
         $select = 'SELECT color.name AS color_name, color.id AS color_id FROM color';
-        $result = $this->db->getList($select);
+        $result = $db->getList($select);
         return $result;
     }
-
+    
     //get list size all
-    public function getSize()
-    {
+    function getSize () {
+        $db = new Connect();
         $select = 'SELECT size.name AS size_name, size.id AS size_id FROM size';
-        $result = $this->db->getList($select);
+        $result = $db->getList($select);
         return $result;
     }
 }

@@ -32,7 +32,7 @@ class User extends Connect
 
     public function login($username, $password)
     {
-        $select = "SELECT DISTINCT users.username, users.fullname, users.id, users.role FROM users WHERE users.username = '" . $username . "' AND users.password = '" . $password . "' AND users.confirm_email = 1";
+        $select = "SELECT DISTINCT users.username, users.fullname, users.id, users.role, users.email FROM users WHERE users.username = '" . $username . "' AND users.password = '" . $password . "' AND users.confirm_email = 1";
         $result = $this->db->getList($select);
         return $result;
     }
@@ -41,6 +41,17 @@ class User extends Connect
     {
         $select = "UPDATE users SET confirm_email = $confirm WHERE email = '$email'";
         $result = $this->db->exec($select);
+        return $result;
+    }
+
+    public function updateTokenLogin($token, $username, $password) {
+        $result = $this->db->update('users', ['token' => $token], "username = '$username' AND password = '$password'");
+        return $result;
+    }
+
+    public function loginToken($token) {
+        $select = "SELECT DISTINCT users.username, users.fullname, users.id, users.role, users.email FROM users WHERE token = '$token'";
+        $result = $this->db->getInstance($select);
         return $result;
     }
 }

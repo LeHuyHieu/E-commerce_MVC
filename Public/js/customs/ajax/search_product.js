@@ -15,6 +15,11 @@ function removeParam(key, sourceURL) {
     }
     return rtn;
 }
+function handleLazyLoad () {
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        img.setAttribute('src', img.getAttribute('data-src'));
+    });
+}
 function loadModalView() {
     $('.product-details-images').each(function(){
         var $this = $(this);
@@ -50,6 +55,7 @@ function loadModalView() {
             asNavFor: $details,
         });
     });
+    handleLazyLoad()
 }
 function handleFilterChange(filterId, itemClass, dataKey) {
     let data = {};
@@ -131,19 +137,13 @@ function handleFilterChange(filterId, itemClass, dataKey) {
             data: data,
             success: function(response) {
                 var $responseHtml = $(response);
-                var newContentCol = $responseHtml.find('.showListProductCol').html();
-                var newContentRow = $responseHtml.find('.showListProductRow').html();
-                var pagination = $responseHtml.find('.paginatoin-area').html();
-                var newModal = $responseHtml.find('.list_modal').html();
-                $('.showListProductCol').html(newContentCol);
-                $('.showListProductRow').html(newContentRow);
-                $('#showPagination').html(pagination);
-                $('.list_modal').html(newModal);
+                var dataListProduct = $responseHtml.find('#dataListProduct').html();
+                $('#dataListProduct').html(dataListProduct);
                 loadModalView();
+                handleLazyLoad();
                 for (const key in data) {
                     currentURL = removeParam(key, currentURL);
                 }
-                console.log(data);
                 window.history.pushState('', '', currentURL + '&arr_category_id=' + data['arr_category_id'] + '&arr_size_id=' + data['arr_size_id'] + '&arr_color_id=' + data['arr_color_id'] + '&condition=' + data['condition'] + '&orderby=' + data['orderby']);
             }
         });
@@ -164,6 +164,7 @@ function handleViewClick(viewType, removeType) {
             method: 'GET',
             data: data,
             success: function(response) {
+                handleLazyLoad()
                 var history_url = removeParam('view', window.location.href);
                 window.history.pushState('', '', history_url + '&view=' + data.view);
             },
