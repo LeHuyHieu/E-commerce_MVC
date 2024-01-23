@@ -1,44 +1,51 @@
 <?php
-class VendorConfirm {
-    function DeleteUserOrder($id) {
-        $db = new Connect();
+class VendorConfirm extends Connect
+{
+    private $db;
+    public function __construct()
+    {
+        $this->db = new Connect();
+    }
+
+    public function DeleteUserOrder($id)
+    {
         $query = "DELETE FROM orders WHERE id = $id";
-        $result = $db->exec($query);
+        $result = $this->db->exec($query);
         return $result;
     }
 
-    function UpdateUserOrder($id, $status) {
-        $db = new Connect();
+    public function UpdateUserOrder($id, $status)
+    {
         $query = "UPDATE orders SET status = $status where id = $id";
-        $result = $db->exec($query);
+        $result = $this->db->exec($query);
         return $result;
     }
 
-    function ListUserOrderConfirm() {
-        $db = new Connect();
+    public function ListUserOrderConfirm()
+    {
         $select = "SELECT orders.* FROM orders WHERE STATUS = 1";
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 
-    function InsertShippingOrder($id, $shipping_date, $estimated_delivery_date) {
-        $db = new Connect();
+    public function InsertShippingOrder($id, $shipping_date, $estimated_delivery_date)
+    {
         $query = "INSERT INTO shipping (order_id, shipping_date, estimated_delivery_date) VALUES ($id, '$shipping_date', '$estimated_delivery_date')";
-        $result = $db->exec($query);
+        $result = $this->db->exec($query);
         return $result;
     }
 
-    function UpdateShippingStatus($id, $status) {
-        $db = new Connect();
+    public function UpdateShippingStatus($id, $status)
+    {
         $query = "UPDATE shipping SET shipping_status = $status WHERE order_id = $id";
-        $result = $db->exec($query);
+        $result = $this->db->exec($query);
         return $result;
     }
 
-    function GetListShipping($id, $status) {
-        $db = new Connect();
+    public function GetListShipping($id, $status)
+    {
         $select = "SELECT DISTINCT order_id FROM shipping where order_id = $id and shipping_status = $status";
-        $result = $db->getInstance($select);
+        $result = $this->db->getInstance($select);
         return $result;
     }
 }

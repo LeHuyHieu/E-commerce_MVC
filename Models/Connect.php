@@ -1,9 +1,10 @@
 <?php
 
-class Connect {
-    var $db = null;
+class Connect
+{
+    private $db = null;
 
-    function __construct()
+    public function __construct()
     {
         $dns = 'mysql:host=localhost;dbname=shop';
         $user = 'root';
@@ -18,33 +19,60 @@ class Connect {
         }
     }
 
-    function getList ($select) 
+    public function getList($select)
     {
         $result = $this->db->query($select);
         return $result;
     }
 
-    function getInstance ($select)
+    public function getInstance($select)
     {
         $results = $this->db->query($select);
         $result = $results->fetch();
         return $result;
     }
 
-    function exec ($query) 
+    public function exec($query)
     {
         $result = $this->db->exec($query);
         return $result;
     }
 
-    function execP($query) 
+    public function execP($query)
     {
         $statement = $this->db->prepare($query);
         return $statement;
     }
 
-    public function lastInsertId(){
+    public function lastInsertId()
+    {
         return $this->db->lastInsertId();
     }
-}
 
+    public function insert($table, $data)
+    {
+        $columns = implode(', ', array_keys($data));
+        $values = implode(', ', array_map(function ($value) {
+            return is_numeric($value) ? $value : "'" . $value . "'";
+        }, $data));
+        $query = "INSERT INTO $table ($columns) VALUES ($values)";
+        return $this->exec($query);
+    }
+
+    public function update($table, $data, $condition)
+    {
+        $set = '';
+        foreach ($data as $key => $value) {
+            $value = is_numeric($value) ? $value : "'" . $this->escape($value) . "'";
+            $set .= "$key = $value, ";
+        }
+        $set = rtrim($set, ', ');
+        $query = "UPDATE $table SET $set WHERE $condition";
+        return $this->exec($query);
+    }
+
+    private function escape($value)
+    {
+        return $this->db->quote($value);
+    }
+}

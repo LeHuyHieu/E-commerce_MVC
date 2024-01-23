@@ -68,24 +68,8 @@
                             <?php
                                 $categories = new Category();
                                 $result = $categories->getCategory();
-                                while($item = $result->fetch()):
                             ?>
-                            <option <?php echo (isset($_GET['arr_category_id']) && $_GET['arr_category_id'] == $item['id']) ? 'selected' : '';?> value="<?php echo $item['id'];?>"><?php echo $item['name'];?></option>
-                            <?php
-                                $subCategories = $categories->getSubCategory($item['id']); 
-                                while ($item2 = $subCategories->fetch()):
-                            ?>
-                                <option <?php echo (isset($_GET['arr_category_id']) && $_GET['arr_category_id'] == $item2['id']) ? 'selected' : '';?> value="<?php echo $item2['id'];?>"><?php echo '-- ' . $item2['name'];?></option>
-                                <?php
-                                    $subCategories2 = $categories->getSubCategory($item2['id']); 
-                                    while ($item3 = $subCategories2->fetch()):
-                                ?>
-                                <option <?php echo (isset($_GET['arr_category_id']) && $_GET['arr_category_id'] == $item3['id']) ? 'selected' : '';?> value="<?php echo $item3['id'];?>"><?php echo '--- ' . $item3['name'];?></option>
-                            <?php 
-                                endwhile;
-                                endwhile;
-                                endwhile;
-                            ?>
+                            <?php $categories->displayCategories($result); ?>
                         </select>
                         <input type="text" name="title" value="<?php echo isset($_GET['title']) ? $_GET['title']:'';?>" placeholder="Enter your search key ...">
                         <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
@@ -172,7 +156,7 @@
                                             ?>
                                             <li>
                                                 <a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>" class="minicart-product-image">
-                                                    <img src="./Public/images/uploads/<?php echo $cart_item['images'];?>" alt="cart products">
+                                                    <img src="./Public/images/uploads/<?php echo $cart_item['image'];?>" alt="cart products">
                                                 </a>
                                                 <div class="minicart-product-details">
                                                     <h6><a href="index.php?action=product_detail&id=<?php echo $cart_item['product_id'];?>">Aenean eu tristique</a></h6>
@@ -239,15 +223,15 @@
                                 <li class="dropdown-holder"><a href="index.php">Home</a>
                                 </li>
                                 <li class="megamenu-holder"><a href="index.php?action=list_product">Shop</a></li>
-                                <li class="dropdown-holder"><a href="blog-left-sidebar.html">Blog</a></li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li class="dropdown-holder"><a href="">Blog</a></li>
+                                <li><a href="">About Us</a></li>
+                                <li><a href="">Contact</a></li>
                                 <li class="megamenu-holder active"><a class="align-items-center" href="javascript:void(0)">Pages<i class="fa pl-1 fa-angle-down"></i></a>
                                     <ul class="hb-dropdown">
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                        <li><a href="404.html">404 Error</a></li>
+                                        <li><a href="">Contact</a></li>
+                                        <li><a href="">About Us</a></li>
+                                        <li><a href="">FAQ</a></li>
+                                        <li><a href="">404 Error</a></li>
                                     </ul>
                                 </li>
                             </ul>

@@ -1,19 +1,35 @@
 <?php
-class Category
+class Category extends Connect
 {
-    function getCategory () 
+    private $db;
+    public function __construct()
     {
-        $db = new Connect();
+        $this->db = new Connect();
+    }
+    
+    public function getCategory()
+    {
         $select = 'SELECT name, id, banner_image FROM categories WHERE parent_id = 0';
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 
-    function getSubCategory($id)
+    public function getSubCategory($id)
     {
-        $db = new Connect();
-        $select = 'SELECT name, id FROM categories WHERE parent_id = '. $id;
-        $result = $db->getList($select);
+        $select = 'SELECT name, id FROM categories WHERE parent_id = ' . $id;
+        $result = $this->db->getList($select);
         return $result;
+    }
+
+    public function displayCategories($categories, $selectedCategory = null, $prefix = '')
+    {
+        while ($item = $categories->fetch()) {
+            $isSelected = (isset($_GET['arr_category_id']) && $_GET['arr_category_id'] == $item['id']) ? 'selected' : '';
+
+            echo '<option ' . $isSelected . ' value="' . $item['id'] . '">' . $prefix . $item['name'] . '</option>';
+
+            $subCategories = $this->getSubCategory($item['id']);
+            $this->displayCategories($subCategories, $selectedCategory, $prefix . '-- ');
+        }
     }
 }

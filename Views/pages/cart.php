@@ -111,7 +111,7 @@ if (isset($_SESSION['user'])) {
                                                 <a class="btn delete-cart-item-product" href="index.php?action=cart&handel=delete_cart&id=<?php echo $cart_item['id'];?>"><i class="fa fa-times"></i></a> <br />
                                                 <button type="submit" name="submit" data-key="<?php echo $key;?>" class="btn btn-save-cart-item btn-sm text-dark" style="background-color: transparent;"><i class="fa fa-save"></i></button>
                                             </td>
-                                            <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['images'];?>" alt="Li's Product Image"></a></td>
+                                            <td class="li-product-thumbnail"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><img width="100px" src="./public/images/uploads/<?php echo $cart_item['image'];?>" alt="Li's Product Image"></a></td>
                                             <td class="li-product-name"><a href="index.php?action=detail_product&id=<?php echo $cart_item['product_id'];?>"><?php echo $cart_item['title'];?></a></td>
                                             <?php if ($cart_item['discount_percent'] !== null) { ?>
                                                 <td class="li-product-price"><span><?php echo formatPrice($cart_item['price'] - ($cart_item['price'] * $cart_item['discount_percent']) / 100);?> VND</span></td>

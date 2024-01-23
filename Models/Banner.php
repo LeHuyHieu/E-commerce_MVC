@@ -1,11 +1,16 @@
 <?php
-class Banner 
+class Banner extends Connect
 {
-   function getBanner() 
+   private $db;
+   public function __construct()
    {
-        $db = new Connect();
-        $select = 'SELECT * FROM banner ORDER BY id DESC LIMIT 6';
-        $result = $db->getList($select);
-        return $result;
+      $this->db = new Connect();
+   }
+   
+   public function getBanner()
+   {
+      $select = 'SELECT * FROM banner ORDER BY id DESC LIMIT 6';
+      $result = $this->db->getList($select);
+      return $result;
    }
 }

@@ -137,7 +137,7 @@ function replaceStatusShipping($status) {
                                     <td><?php echo $order_date_item['color_name'];?></td>
                                     <td><?php echo $order_date_item['size_name'];?></td>
                                     <td><?php echo $order_date_item['quantity'];?></td>
-                                    <td><?php echo $order_date_item['unit_price'];?></td>
+                                    <td><?php echo formatPrice($order_date_item['unit_price']);?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>

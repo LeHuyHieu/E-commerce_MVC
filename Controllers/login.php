@@ -1,5 +1,6 @@
 <?php
 $handle = isset($_GET['handle']) ? $_GET['handle'] : '';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -105,29 +106,7 @@ switch ($handle) {
                         $_SESSION['user']['role'] = $item['role'];
                     }
                     $flag = false;
-                    if (isset($_SESSION['user']) && isset($_SESSION['cart'])) {
-                        $user_id = $_SESSION['user']['user_id'];
-                        foreach ($_SESSION['cart'] as $key => $value) {
-                            $_SESSION['cart'][$key]['user_id'] = $user_id;
-                            $_SESSION['cart'][$key]['discount_percent'] = ($_SESSION['cart'][$key]['discount_percent'] === '') ? 0 : $_SESSION['cart'][$key]['discount_percent'];
-                            $cart = $cart_db->getCart($value['product_id'], $value['color_id'], $value['size_id']);
-                            // print_r($cart);die;
-                            if ($cart->rowCount() == 0) {
-                                $check_insert_acrt = $cart_db->insertCart($_SESSION['cart'][$key]);
-                                $flag = true;
-                            }else {
-                                $list_cart = $cart->fetchAll();
-                                foreach ($list_cart as $cart_item) {
-                                    $check_update_cart = $cart_item['product_id'] == $value['product_id'] && $cart_item['size_id'] == $value['size_id'] && $cart_item['color_id'] == $value['color_id'] && $cart_item['discount_percent'] == $value['discount_percent'] && $cart_item['price'] == $value['price'];
-                                    if ($check_update_cart) {
-                                        $discount_percent = ($value['discount_percent'] === '') ? 0 : $value['discount_percent'];
-                                        $cart_db->updateCartDB($value['quantity'], $value['price'], $discount_percent, $cart_item['id']);
-                                        $flag = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    $flag = $cart_db->insertCartUserLogin();
                     if ($flag == true && isset($_SESSION['cart'])) {
                         unset($_SESSION['cart']);
                     }
@@ -144,6 +123,7 @@ switch ($handle) {
         break;
     case 'confirm_email':
         $user = new User();
+        $cart_db = new Cart();
         $confirm = isset($_GET['confirm']) ? $_GET['confirm'] : '';
         $email_confirm = isset($_GET['email']) ? $_GET['email'] : '';
         //update confirm email
@@ -157,6 +137,11 @@ switch ($handle) {
                 $_SESSION['user']['user_id'] = $item['id'];
                 $_SESSION['user']['role'] = $item['role'];
             }
+            $flag = false;
+            $flag = $cart_db->insertCartUserLogin();
+            if ($flag == true && isset($_SESSION['cart'])) {
+                unset($_SESSION['cart']);
+            }
             echo '<meta http-equiv="refresh" content="0; url=index.php?action=home&confirm_email_success=1">';
         }
         break;
@@ -168,4 +153,3 @@ switch ($handle) {
         include_once './Views/pages/login.php';
         break;
 }
-?>
