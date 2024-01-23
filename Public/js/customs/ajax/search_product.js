@@ -55,7 +55,7 @@ function loadModalView() {
             asNavFor: $details,
         });
     });
-    handleLazyLoad()
+    // handleLazyLoad()
 }
 function handleFilterChange(filterId, itemClass, dataKey) {
     let data = {};
@@ -140,7 +140,7 @@ function handleFilterChange(filterId, itemClass, dataKey) {
                 var dataListProduct = $responseHtml.find('#dataListProduct').html();
                 $('#dataListProduct').html(dataListProduct);
                 loadModalView();
-                handleLazyLoad();
+                // handleLazyLoad();
                 for (const key in data) {
                     currentURL = removeParam(key, currentURL);
                 }
@@ -164,7 +164,7 @@ function handleViewClick(viewType, removeType) {
             method: 'GET',
             data: data,
             success: function(response) {
-                handleLazyLoad()
+                // handleLazyLoad()
                 var history_url = removeParam('view', window.location.href);
                 window.history.pushState('', '', history_url + '&view=' + data.view);
             },

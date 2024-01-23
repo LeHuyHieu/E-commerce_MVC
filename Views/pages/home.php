@@ -85,7 +85,7 @@
                      <div class="col-lg-4 col-md-4 text-center">
                          <div class="single-banner pb-xs-30">
                              <a href="index.php?action=list_product&where=category&category_id=<?php echo $category_banner['id']; ?>">
-                                 <img src="<?php echo $category_banner['banner_image']; ?>" alt="Li's Static Banner">
+                                 <img loading="lazy" src="<?php echo $category_banner['banner_image']; ?>" class="lazyload" alt="Li's Static Banner">
                              </a>
                          </div>
                      </div>
@@ -132,7 +132,7 @@
                                          <input type="hidden" name="size_id" id="dataPostSizeId<?php echo $item['id']; ?>" value="<?php echo $list_color[0]['size_id']; ?>">
                                          <div class="product-image">
                                              <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                 <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
+                                                 <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
                                              </a>
                                              <span class="sticker">New</span>
                                          </div>
@@ -201,26 +201,26 @@
                                                                     if ($key != 0) {
                                                                 ?>
                                                                      <div class="lg-image">
-                                                                         <img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image">
+                                                                         <img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image">
                                                                      </div>
                                                                  <?php } else { ?>
                                                                      <div class="lg-image">
-                                                                         <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload show-image-product<?php echo $item['id']; ?>" alt="product image">
+                                                                         <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload show-image-product<?php echo $item['id']; ?>" alt="product image">
                                                                      </div>
                                                              <?php }
                                                                 } ?>
                                                              <?php foreach ($images as $key => $image_item) { ?>
                                                                  <div class="lg-image">
-                                                                     <img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image">
+                                                                     <img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image">
                                                                  </div>
                                                              <?php } ?>
                                                          </div>
                                                          <div class="product-details-thumbs slider-thumbs-1">
                                                              <?php foreach ($list_color as $key => $image_item) { ?>
-                                                                 <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image thumb"></div>
+                                                                 <div class="sm-image"><img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image thumb"></div>
                                                              <?php } ?>
                                                              <?php foreach ($images as $key => $image_item) { ?>
-                                                                 <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image thumb"></div>
+                                                                 <div class="sm-image"><img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image thumb"></div>
                                                              <?php } ?>
                                                          </div>
                                                      </div>
@@ -266,11 +266,11 @@
                                                                                 if ($item['discountPercent'] != 0) {
                                                                             ?>
                                                                                  <span class="color-product-image">
-                                                                                     <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                     <img loading="lazy" width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                  </span>
                                                                              <?php } else { ?>
                                                                                  <span class="color-product-image">
-                                                                                     <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                     <img loading="lazy" width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                  </span>
                                                                          <?php }
                                                                             } ?>
@@ -352,7 +352,7 @@
                      <div class="col-lg-4 col-md-4 text-center">
                          <div class="single-banner pb-xs-30">
                              <a href="index.php?action=list_product&where=category&category_id=<?php echo $category_banner['id']; ?>">
-                                 <img data-src="<?php echo $category_banner['banner_image']; ?>" class="lazyload" alt="Li's Static Banner">
+                                 <img loading="lazy" src="<?php echo $category_banner['banner_image']; ?>" class="lazyload" alt="Li's Static Banner">
                              </a>
                          </div>
                      </div>
@@ -395,7 +395,7 @@
                                              <div class="featured-pro-wrapper mb-30 mb-sm-25">
                                                  <div class="product-img">
                                                      <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                         <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload img-fluid" alt="Li's Product Image">
+                                                         <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload img-fluid" alt="Li's Product Image">
                                                      </a>
                                                  </div>
                                                  <div class="featured-pro-content">
@@ -458,26 +458,26 @@
                                                                         if ($key != 0) {
                                                                     ?>
                                                                          <div class="lg-image">
-                                                                             <img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image">
+                                                                             <img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image">
                                                                          </div>
                                                                      <?php } else { ?>
                                                                          <div class="lg-image">
-                                                                             <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload show-image-product<?php echo $item['id']; ?>" alt="product image">
+                                                                             <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload show-image-product<?php echo $item['id']; ?>" alt="product image">
                                                                          </div>
                                                                  <?php }
                                                                     } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
                                                                      <div class="lg-image">
-                                                                         <img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image">
+                                                                         <img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image">
                                                                      </div>
                                                                  <?php } ?>
                                                              </div>
                                                              <div class="product-details-thumbs slider-thumbs-1">
                                                                  <?php foreach ($list_color as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                              </div>
                                                          </div>
@@ -523,11 +523,11 @@
                                                                                     if ($item['discountPercent'] != 0) {
                                                                                 ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img loading="lazy" width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                                  <?php } else { ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="lazyload change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img loading="lazy" width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="lazyload change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                              <?php }
                                                                                 } ?>
@@ -611,7 +611,7 @@
                      <div class="col-lg-4 col-md-4 text-center">
                          <div class="single-banner pb-xs-30">
                              <a href="index.php?action=list_product&where=category&category_id=<?php echo $category_banner['id']; ?>">
-                                 <img data-src="<?php echo $category_banner['banner_image']; ?>" class="lazyload" alt="Li's Static Banner">
+                                 <img loading="lazy" src="<?php echo $category_banner['banner_image']; ?>" class="lazyload" alt="Li's Static Banner">
                              </a>
                          </div>
                      </div>
@@ -655,7 +655,7 @@
                                          <div class="single-product-wrap">
                                              <div class="product-image">
                                                  <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                     <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
+                                                     <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
                                                  </a>
                                                  <span class="sticker">New</span>
                                              </div>
@@ -721,26 +721,26 @@
                                                                         if ($key != 0) {
                                                                     ?>
                                                                          <div class="lg-image">
-                                                                             <img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image">
+                                                                             <img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image">
                                                                          </div>
                                                                      <?php } else { ?>
                                                                          <div class="lg-image">
-                                                                             <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload show-image-product<?php echo $item['id']; ?>" alt="product image">
+                                                                             <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload show-image-product<?php echo $item['id']; ?>" alt="product image">
                                                                          </div>
                                                                  <?php }
                                                                     } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
                                                                      <div class="lg-image">
-                                                                         <img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image">
+                                                                         <img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image">
                                                                      </div>
                                                                  <?php } ?>
                                                              </div>
                                                              <div class="product-details-thumbs slider-thumbs-1">
                                                                  <?php foreach ($list_color as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" class="lazyload" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img loading="lazy" src="./Public/images/uploads/<?php echo $image_item['image']; ?>" class="lazyload" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                              </div>
                                                          </div>
@@ -786,11 +786,11 @@
                                                                                     if ($item['discountPercent'] != 0) {
                                                                                 ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img loading="lazy" width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product lazyload <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                                  <?php } else { ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="lazyload change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img loading="lazy" width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="lazyload change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                              <?php }
                                                                                 } ?>

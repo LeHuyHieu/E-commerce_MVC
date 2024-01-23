@@ -87,7 +87,7 @@ function replaceColor($color)
                 <!-- Begin Li's Banner Area -->
                 <div class="single-banner shop-page-banner">
                     <a href="#">
-                        <img src="./public/images/bg-banner/2.jpg" alt="Li's Static Banner">
+                        <img loading="lazy" class="lazyload" src="./public/images/bg-banner/2.jpg" alt="Li's Static Banner">
                     </a>
                 </div>
                 <!-- Li's Banner Area End Here -->
@@ -142,7 +142,7 @@ function replaceColor($color)
                                                         <input type="hidden" name="size_id" id="dataPostSizeId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['size_id'];?>">
                                                         <div class="product-image">
                                                             <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                                <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
+                                                                <img loading="lazy"  src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
                                                             </a>
                                                             <span class="sticker">New</span>
                                                         </div>
@@ -209,7 +209,7 @@ function replaceColor($color)
                                                     <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12 col-12">
                                                         <div class="product-image">
                                                             <a href="index.php?action=detail_product&id=<?php echo $item['id'] ?>">
-                                                                <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
+                                                                <img loading="lazy"  src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="lazyload" alt="Li's Product Image">
                                                             </a>
                                                             <span class="sticker">New</span>
                                                         </div>
@@ -287,25 +287,25 @@ function replaceColor($color)
                                                                         if($key != 0) {
                                                                     ?>
                                                                         <div class="lg-image">
-                                                                            <img data-src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" class="lazyload" alt="product image">
+                                                                            <img loading="lazy"  src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" class="lazyload" alt="product image">
                                                                         </div>
                                                                     <?php }else { ?> 
                                                                         <div class="lg-image">
-                                                                            <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="lazyload show-image-product<?php echo $item['id'];?>" alt="product image">
+                                                                            <img loading="lazy"  src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="lazyload show-image-product<?php echo $item['id'];?>" alt="product image">
                                                                         </div>
                                                                     <?php } } ?>
                                                                     <?php foreach ($images as $key => $image_item) { ?>
                                                                         <div class="lg-image">
-                                                                            <img data-src="./Public/images/uploads/<?php echo $image_item['image'];?>" class="lazyload" alt="product image">
+                                                                            <img loading="lazy"  src="./Public/images/uploads/<?php echo $image_item['image'];?>" class="lazyload" alt="product image">
                                                                         </div>
                                                                     <?php } ?>
                                                                 </div>
                                                                 <div class="product-details-thumbs slider-thumbs-1">
                                                                     <?php foreach ($list_color as $key => $image_item) { ?>
-                                                                        <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" class="lazyload" alt="product image thumb"></div>
+                                                                        <div class="sm-image"><img loading="lazy"  src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" class="lazyload" alt="product image thumb"></div>
                                                                     <?php } ?>
                                                                     <?php foreach ($images as $key => $image_item) { ?>
-                                                                        <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image'];?>" class="lazyload" alt="product image thumb"></div>
+                                                                        <div class="sm-image"><img loading="lazy"  src="./Public/images/uploads/<?php echo $image_item['image'];?>" class="lazyload" alt="product image thumb"></div>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -351,9 +351,9 @@ function replaceColor($color)
                                                                                         if ($item['discountPercent'] != 0) {
                                                                                 ?>
                                                                                     <span class="color-product-image">
-                                                                                        <img width="50px" 
+                                                                                        <img loading="lazy"  width="50px" 
                                                                                             onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
-                                                                                            data-src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                            src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
                                                                                             data-size-id="<?php echo $color_image['size_id'];?>" 
                                                                                             data-color-id="<?php echo $color_image['color_id'];?>" 
                                                                                             data-discount-percent="<?php echo $item['discountPercent'];?>"
@@ -364,9 +364,9 @@ function replaceColor($color)
                                                                                     </span>
                                                                                 <?php } else { ?>
                                                                                     <span class="color-product-image">
-                                                                                        <img width="50px" 
+                                                                                        <img loading="lazy"  width="50px" 
                                                                                             onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
-                                                                                            data-src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                            src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
                                                                                             data-size-id="<?php echo $color_image['size_id'];?>" 
                                                                                             data-color-id="<?php echo $color_image['color_id'];?>" 
                                                                                             data-id-product="<?php echo $item['id'];?>" 

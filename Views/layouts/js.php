@@ -1,15 +1,19 @@
 <script src="./Public/js/vendor/modernizr-2.8.3.min.js?"></script>
 <!-- jquery -->
-<script src="./Public/js/jquery-3.2.1.min.js"></script>
+<script src="./Public/js/jquery-3.7.1.min.js"></script>
 <!-- toast js -->
 <script src="./Public/js/toast.script.js"></script>
 <!-- lazysizes -->
-<script src="./Public/js/lazyload.js"></script>
-<script>
+<!-- <script src="./Public/js/lazyload.js"></script> -->
+<!-- <script src="./Public/js/lazysizes.min.js" async=""></script> -->
+<!-- <script>
     $(document).ready(function() {
-        lazyload();
+        // lazyload();
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            img.setAttribute('src', img.getAttribute('data-src'));
+        });
     });
-</script>
+</script> -->
 <!-- jQuery-V1.12.4 -->
 <script src="./Public/js/vendor/jquery-1.12.4.min.js"></script>
 <!-- Popper js -->
@@ -58,12 +62,12 @@
 <script src="./Public/js/jquery-confirm.min.js"></script>
 
 <!-- Custom -->
-<script src="./Public/js/customs/validate_form.js?<?php echo time();?>"></script>
-<script src="./Public/js/customs/ajax/search_product.js?<?php echo time();?>"></script>
-<script src="./Public/js/customs/ajax/reply_comment.js?<?php echo time();?>"></script>
-<script src="./Public/js/customs/ajax/load_size_change_color.js?<?php echo time();?>"></script>
-<script src="./Public/js/customs/ajax/load_district.js?<?php echo time();?>"></script>
-<script src="./Public/js/customs/ajax/add_to_cart.js?<?php echo time();?>"></script>
-<script src="./Public/js/Customs/main.js?<?php echo time();?>"></script>
+<script src="./Public/js/customs/validate_form.js?<?php echo time(); ?>"></script>
+<script src="./Public/js/customs/ajax/search_product.js?<?php echo time(); ?>"></script>
+<script src="./Public/js/customs/ajax/reply_comment.js?<?php echo time(); ?>"></script>
+<script src="./Public/js/customs/ajax/load_size_change_color.js?<?php echo time(); ?>"></script>
+<script src="./Public/js/customs/ajax/load_district.js?<?php echo time(); ?>"></script>
+<script src="./Public/js/customs/ajax/add_to_cart.js?<?php echo time(); ?>"></script>
+<script src="./Public/js/Customs/main.js?<?php echo time(); ?>"></script>
 
-<script src="./Public/js/custom.js?<?php echo time();?>"></script>
+<script src="./Public/js/custom.js?<?php echo time(); ?>"></script>
