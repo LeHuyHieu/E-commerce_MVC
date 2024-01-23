@@ -329,7 +329,7 @@
                                             <div class="modal-inner-area row">
                                                 <div class="col-lg-6">
                                                     <div class="li-review-product">
-                                                        <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="img-fluid" alt="Li's Product">
+                                                        <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="img-fluid" alt="Li's Product">
                                                         <div class="li-review-product-desc">
                                                             <p class="li-product-name"><b><?php echo $get_detail_product['title'];?></b></p>
                                                             <p>
@@ -425,7 +425,7 @@
                                     <input type="hidden" name="size_id" id="dataPostSizeId<?php echo $item['id'];?>" value="<?php echo $list_color[0]['size_id'];?>">
                                     <div class="product-image">
                                         <a href="index.php?action=detail_product&id=<?php echo $item['id']?>">
-                                            <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" alt="Li's Product Image">
+                                            <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" alt="Li's Product Image">
                                         </a>
                                         <span class="sticker">New</span>
                                     </div>
@@ -488,25 +488,25 @@
                                                             if($key != 0) {
                                                         ?>
                                                             <div class="lg-image">
-                                                                <img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image">
+                                                                <img data-src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image">
                                                             </div>
                                                         <?php }else { ?> 
                                                             <div class="lg-image">
-                                                                <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="show-image-product<?php echo $item['id'];?>" alt="product image">
+                                                                <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="show-image-product<?php echo $item['id'];?>" alt="product image">
                                                             </div>
                                                         <?php } } ?>
                                                         <?php foreach ($list_color as $key => $image_item) { ?>
                                                             <div class="lg-image">
-                                                                <img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image">
+                                                                <img data-src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image">
                                                             </div>
                                                         <?php } ?>
                                                     </div>
                                                     <div class="product-details-thumbs slider-thumbs-1">
                                                         <?php foreach ($images as $key => $image_item) { ?>
-                                                            <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image thumb"></div>
+                                                            <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image'];?>" alt="product image thumb"></div>
                                                         <?php } ?>
                                                         <?php foreach ($list_color as $key => $image_item) { ?>
-                                                            <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image thumb"></div>
+                                                            <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product'];?>" alt="product image thumb"></div>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -551,7 +551,7 @@
                                                                         <span class="color-product-image">
                                                                             <img width="50px" 
                                                                                 onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
-                                                                                src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                data-src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
                                                                                 data-size-id="<?php echo $color_image['size_id'];?>" 
                                                                                 data-color-id="<?php echo $color_image['color_id'];?>" 
                                                                                 data-discount-percent="<?php echo $item['discountPercent'];?>"
@@ -564,7 +564,7 @@
                                                                         <span class="color-product-image">
                                                                             <img width="50px" 
                                                                                 onclick="changeGetColorId(<?php echo $color_image['color_id'];?>)" 
-                                                                                src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
+                                                                                data-src="./Public/images/uploads/<?php echo $color_image['image_product'];?>" 
                                                                                 data-size-id="<?php echo $color_image['size_id'];?>" 
                                                                                 data-color-id="<?php echo $color_image['color_id'];?>" 
                                                                                 data-id-product="<?php echo $item['id'];?>" 

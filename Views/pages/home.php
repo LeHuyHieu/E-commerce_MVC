@@ -201,26 +201,26 @@
                                                                     if ($key != 0) {
                                                                 ?>
                                                                      <div class="lg-image">
-                                                                         <img src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image">
+                                                                         <img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image">
                                                                      </div>
                                                                  <?php } else { ?>
                                                                      <div class="lg-image">
-                                                                         <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
+                                                                         <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
                                                                      </div>
                                                              <?php }
                                                                 } ?>
                                                              <?php foreach ($images as $key => $image_item) { ?>
                                                                  <div class="lg-image">
-                                                                     <img src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image">
+                                                                     <img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image">
                                                                  </div>
                                                              <?php } ?>
                                                          </div>
                                                          <div class="product-details-thumbs slider-thumbs-1">
                                                              <?php foreach ($list_color as $key => $image_item) { ?>
-                                                                 <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image thumb"></div>
+                                                                 <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image thumb"></div>
                                                              <?php } ?>
                                                              <?php foreach ($images as $key => $image_item) { ?>
-                                                                 <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image thumb"></div>
+                                                                 <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image thumb"></div>
                                                              <?php } ?>
                                                          </div>
                                                      </div>
@@ -266,11 +266,11 @@
                                                                                 if ($item['discountPercent'] != 0) {
                                                                             ?>
                                                                                  <span class="color-product-image">
-                                                                                     <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                     <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                  </span>
                                                                              <?php } else { ?>
                                                                                  <span class="color-product-image">
-                                                                                     <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                     <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                  </span>
                                                                          <?php }
                                                                             } ?>
@@ -458,26 +458,26 @@
                                                                         if ($key != 0) {
                                                                     ?>
                                                                          <div class="lg-image">
-                                                                             <img src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image">
+                                                                             <img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image">
                                                                          </div>
                                                                      <?php } else { ?>
                                                                          <div class="lg-image">
-                                                                             <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
+                                                                             <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
                                                                          </div>
                                                                  <?php }
                                                                     } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
                                                                      <div class="lg-image">
-                                                                         <img src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image">
+                                                                         <img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image">
                                                                      </div>
                                                                  <?php } ?>
                                                              </div>
                                                              <div class="product-details-thumbs slider-thumbs-1">
                                                                  <?php foreach ($list_color as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                              </div>
                                                          </div>
@@ -523,11 +523,11 @@
                                                                                     if ($item['discountPercent'] != 0) {
                                                                                 ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                                  <?php } else { ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                              <?php }
                                                                                 } ?>
@@ -721,26 +721,26 @@
                                                                         if ($key != 0) {
                                                                     ?>
                                                                          <div class="lg-image">
-                                                                             <img src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image">
+                                                                             <img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image">
                                                                          </div>
                                                                      <?php } else { ?>
                                                                          <div class="lg-image">
-                                                                             <img src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
+                                                                             <img data-src="./Public/images/uploads/<?php echo $list_color[0]['image_product']; ?>" class="show-image-product<?php echo $item['id']; ?>" alt="product image">
                                                                          </div>
                                                                  <?php }
                                                                     } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
                                                                      <div class="lg-image">
-                                                                         <img src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image">
+                                                                         <img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image">
                                                                      </div>
                                                                  <?php } ?>
                                                              </div>
                                                              <div class="product-details-thumbs slider-thumbs-1">
                                                                  <?php foreach ($list_color as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image_product']; ?>" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                                  <?php foreach ($images as $key => $image_item) { ?>
-                                                                     <div class="sm-image"><img src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image thumb"></div>
+                                                                     <div class="sm-image"><img data-src="./Public/images/uploads/<?php echo $image_item['image']; ?>" alt="product image thumb"></div>
                                                                  <?php } ?>
                                                              </div>
                                                          </div>
@@ -786,11 +786,11 @@
                                                                                     if ($item['discountPercent'] != 0) {
                                                                                 ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-discount-percent="<?php echo $item['discountPercent']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price'] - ($color_image['price'] * $item['discountPercent']) / 100); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                                  <?php } else { ?>
                                                                                      <span class="color-product-image">
-                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
+                                                                                         <img width="50px" onclick="changeGetColorId(<?php echo $color_image['color_id']; ?>)" data-src="./Public/images/uploads/<?php echo $color_image['image_product']; ?>" data-size-id="<?php echo $color_image['size_id']; ?>" data-color-id="<?php echo $color_image['color_id']; ?>" data-id-product="<?php echo $item['id']; ?>" data-price-image="<?php echo number_format($color_image['price']); ?>" class="change-image-product <?php echo ($key == 0) ? 'product-active active' : ''; ?>" alt="">
                                                                                      </span>
                                                                              <?php }
                                                                                 } ?>
