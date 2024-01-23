@@ -63,7 +63,7 @@ class Connect
     {
         $set = '';
         foreach ($data as $key => $value) {
-            $value = is_numeric($value) ? $value : "'" . $this->escape($value) . "'";
+            $value = is_numeric($value) ? $value : "'" . ($value) . "'";
             $set .= "$key = $value, ";
         }
         $set = rtrim($set, ', ');

@@ -18,7 +18,7 @@ class User extends Connect
     public function getUser($email)
     {
         $select = 'SELECT DISTINCT users.id, users.username, users.email, users.fullname, users.confirm_email, users.password, users.role FROM users WHERE email = "' . $email . '"';
-        $result = $this->db->getList($select);
+        $result = $this->db->getInstance($select);
         return $result;
     }
 
