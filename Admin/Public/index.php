@@ -1,4 +1,9 @@
 <?php
+spl_autoload_register('myModelClassLoader');
+function myModelClassLoader($className) {
+    $path = '../Models/';
+    include_once $path . $className . '.php';
+}
 $ctrl = ucfirst('dashboard');
 if(isset($_GET['action'])) {
     $ctrl = ucfirst($_GET['action']);

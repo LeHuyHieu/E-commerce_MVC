@@ -19,4 +19,9 @@
 <link rel="stylesheet" href="assets/css/dark-theme.css" />
 <link rel="stylesheet" href="assets/css/semi-dark.css" />
 <link rel="stylesheet" href="assets/css/header-colors.css" />
+<!-- select 2 -->
+<link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+<link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+<!-- jquery confirm -->
+<link href="assets/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" />
 <title>Ecommerce</title>

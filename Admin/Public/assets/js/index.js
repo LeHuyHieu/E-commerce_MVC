@@ -66,7 +66,7 @@ $(function () {
 
     // chart 2
 
-    var ctx = document.getElementById("chart2").getContext('2d');
+    var ctx = document.getElementById("chart2")?.getContext('2d');
     if (ctx) {
         var myChart = new Chart(ctx, {
             type: 'doughnut',
@@ -233,7 +233,7 @@ $(function () {
 
     // chart 3
 
-    var ctx = document.getElementById('chart3').getContext('2d');
+    var ctx = document.getElementById('chart3')?.getContext('2d');
     if (ctx) {
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -281,7 +281,7 @@ $(function () {
 
     // chart 4
 
-    var ctx = document.getElementById("chart4").getContext('2d');
+    var ctx = document.getElementById("chart4")?.getContext('2d');
     if (ctx) {
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -325,7 +325,7 @@ $(function () {
 
     // chart 5
 
-    var ctx = document.getElementById("chart5").getContext('2d');
+    var ctx = document.getElementById("chart5")?.getContext('2d');
     if (ctx) {
         var myChart = new Chart(ctx, {
             type: 'bar',

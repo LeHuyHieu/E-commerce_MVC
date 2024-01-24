@@ -12,6 +12,10 @@
 <script src="assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
 <script src="assets/plugins/jquery-knob/excanvas.js"></script>
 <script src="assets/plugins/jquery-knob/jquery.knob.js"></script>
+<!-- select 2 -->
+<script src="assets/plugins/select2/js/select2.min.js"></script>
+<!-- jquery confirm -->
+<script src="assets/plugins/jquery-confirm/jquery-confirm.min.js"></script>
 <script>
     $(function () {
         $(".knob").knob();
@@ -20,3 +24,5 @@
 <script src="assets/js/index.js"></script>
 <!--app JS-->
 <script src="assets/js/app.js"></script>
+<!-- custom js -->
+<script src="assets/custom_js/main.js?time=<?php echo time();?>"></script>
