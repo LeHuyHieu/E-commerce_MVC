@@ -17,7 +17,7 @@
         $id = isset($_GET['id']) ? $_GET['id'] : 1;
         $detail_product = new DetailProduct();
         $list_product = new ListProduct();
-        $list_comments = new Comment();
+        $tb_comment = new Comment();
 
         $get_detail_product = $detail_product->getDetailProduct($id);
         $category_id = $get_detail_product['category_id'];
@@ -67,9 +67,9 @@
                             <h2 class="mb-0"><?php echo $get_detail_product['title'];?></h2>
                             <div class="rating-box pt-20">
                                 <?php 
-                                $rating_comment = $list_comments->ratingProduct($get_detail_product['id']);
+                                $rating_review = $tb_comment->ratingProduct($get_detail_product['id']);
                                 $stat = 0;
-                                $stat = ($rating_comment['rating'] == '') ? 5 : $rating_comment['rating'];
+                                $stat = ($rating_review['rating'] == '') ? 5 : $rating_review['rating'];
                                 ?>
                                 <ul class="rating rating-with-review-item">
                                     <?php for ($i = 1; $i <= 5; $i++) { ?>
@@ -219,48 +219,50 @@
                 <div class="li-product-tab">
                     <ul class="nav li-product-menu">
                         <li><a class="active" data-toggle="tab" href="#reviews"><span>Reviews</span></a></li>
+                        <li><a class="" data-toggle="tab" href="#comment"><span>Comment</span></a></li>
                     </ul>
                 </div>
                 <!-- Begin Li's Tab Menu Content Area -->
             </div>
         </div>
         <div class="tab-content">
+            <!-- reviews -->
             <div id="reviews" class="tab-pane active show" role="tabpanel">
                 <div class="product-reviews">
                     <div class="product-details-comment-block">
                         <div class="list_comment">
                         <?php 
-                        $comments = $list_comments->getListComments($id)->fetchAll();
-                        if (count($comments) > 0) {
-                            foreach ($comments as $comment) {
-                                $date = date_create($comment['created_at']);
+                        $reviews = $tb_comment->getListReviews($id)->fetchAll();
+                        if (count($reviews) > 0) {
+                            foreach ($reviews as $review) {
+                                $date = date_create($review['created_at']);
                         ?>
                             <div class="comment-review border-1 border pl-10 pr-10 py-3 rounded mb-25">
-                                <span class="name"><?php echo $comment['fullname'];?></span>
+                                <span class="name"><?php echo $review['fullname'];?></span>
                                 <ul class="rating">
                                     <?php for ($i = 1; $i <= 5; $i++) { ?>
-                                        <li class="<?php echo ($comment['rating'] < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
+                                        <li class="<?php echo ($review['rating'] < $i) ? 'no-star' : '';?>"><i class="fa fa-star-o"></i></li>
                                     <?php } ?>
                                 </ul>
                                 <span class="mb-0 float-right" style="font-weight: 400;"><?php echo date_format($date, 'd/m/Y');?></span>
-                                <p class="mb-0"><?php echo $comment['comment'];?></p>
+                                <p class="mb-0"><?php echo $review['review'];?></p>
                                 <?php if (isset($_SESSION['user'])) { ?>
-                                    <button class="btn-sm btn float-right replyComment" data-toggle="modal" data-target="#replyCommentModel" data-comment-id="<?php echo $comment['id'];?>">Reply</button>
+                                    <button class="btn-sm btn float-right replyReview" data-toggle="modal" data-target="#replyReviewModel" data-review-id="<?php echo $review['id'];?>">Reply</button>
                                 <?php } ?>
                             </div>
                             <?php
-                            $reply_comment = $list_comments->getListReplyComments();
-                            if($reply_comment->rowCount() > 0) {
-                                foreach ($reply_comment as $reply) {
-                                    if ($reply['comment_id'] == $comment['id']){
+                            $reply_review = $tb_comment->getListReplyReviews();
+                            if($reply_review->rowCount() > 0) {
+                                foreach ($reply_review as $reply) {
+                                    if ($reply['review_id'] == $review['id']){
                                     $date = date_create($reply['created_at']);
                             ?>
                                 <div class="comment-review border-1 border pl-10 pr-10 py-3 rounded mb-25 ml-auto" style="width: 95%;">
                                     <span class="name"><?php echo $reply['fullname']; ?></span>
                                     <span class="mb-0 float-right" style="font-weight: 400;"><?php echo date_format($date, 'd/m/Y'); ?></span>
-                                    <p class="mb-0"><?php echo $reply['comment']; ?></p>
+                                    <p class="mb-0"><?php echo $reply['review']; ?></p>
                                     <?php if (isset($_SESSION['user'])) { ?>
-                                        <button class="btn-sm btn float-right replyComment" data-toggle="modal" data-target="#replyCommentModel" data-comment-id="<?php echo $comment['id']; ?>">Reply</button>
+                                        <button class="btn-sm btn float-right replyReview" data-toggle="modal" data-target="#replyReviewModel" data-review-id="<?php echo $review['id']; ?>">Reply</button>
                                     <?php } ?>
                                 </div>
                             <?php } } } ?>
@@ -269,21 +271,21 @@
                         }else {
                         ?>
                             <div class="comment-author-infos pt-25">
-                                <span>There are no comments yet</span>
+                                <span>There are no reviews yet</span>
                             </div>
                         <?php } ?>
                         </div>
                         <?php if (!isset($_SESSION['user'])) { ?>
                             <div class="review-btn">
-                                <a class="review-links" href="index.php?action=login&next_page=detail_product&id=<?php echo $id;?>">Login to comment</a>
+                                <a class="review-links" href="index.php?action=login&next_page=detail_product&id=<?php echo $id;?>">Login to review</a>
                             </div>
                         <?php } else { ?>
                              <!-- Begin Quick View | Modal Area -->
-                             <div class="modal fade modal-wrapper" id="replyCommentModel">
+                             <div class="modal fade modal-wrapper" id="replyReviewModel">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <h3 class="review-page-title">Reply Comment</h3>
+                                            <h3 class="review-page-title">Reply Review</h3>
                                             <div class="modal-inner-area row">
                                                 <div class="col-12">
                                                     <div class="li-review-content">
@@ -291,18 +293,18 @@
                                                         <div class="feedback-area">
                                                             <div class="feedback">
                                                                 <h3 class="feedback-title">Reply</h3>
-                                                                <form id="formReplyComment" method="post" action="index.php?action=comment&handle=reply_comment&product_id=<?php echo $id;?>">
+                                                                <form id="formReplyReview" method="post" action="index.php?action=comment&handle=reply_review&product_id=<?php echo $id;?>">
                                                                     <input type="hidden" name="product_id" value="<?php echo isset($id) ? $id : 0;?>">
-                                                                    <input type="hidden" name="comment_id" value="" />
+                                                                    <input type="hidden" name="review_id" value="" />
                                                                     <input type="hidden" name="user_id" value="<?php echo isset($_SESSION['user']['user_id']) ? $_SESSION['user']['user_id'] : 0;?>">
                                                                     <p class="feedback-form">
                                                                         <label for="feedback">Your Review</label>
-                                                                        <textarea name="comment" cols="45" rows="8" aria-required="true" required></textarea>
+                                                                        <textarea name="review" cols="45" rows="8" aria-required="true" required></textarea>
                                                                     </p>
                                                                     <div class="feedback-input">
                                                                         <div class="feedback-btn pb-15">
                                                                             <a href="#" class="close" data-dismiss="modal" aria-label="Close">Close</a>
-                                                                            <button type="submit" name="send_comment" data-dismiss="modal" aria-label="Close" style="border: none;background: transparent;"><a>Submit</a></button>
+                                                                            <button type="submit" name="send_reply_review" data-dismiss="modal" aria-label="Close" style="border: none;background: transparent;"><a>Submit</a></button>
                                                                         </div>
                                                                     </div>
                                                                 </form>
@@ -316,72 +318,133 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Quick View | Modal Area End Here -->
-                            <div class="review-btn">
-                                <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
-                            </div>
-                            <!-- Begin Quick View | Modal Area -->
-                            <div class="modal fade modal-wrapper" id="mymodal">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <h3 class="review-page-title">Write Your Review</h3>
-                                            <div class="modal-inner-area row">
-                                                <div class="col-lg-6">
-                                                    <div class="li-review-product">
-                                                        <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="img-fluid lazyload" alt="Li's Product">
-                                                        <div class="li-review-product-desc">
-                                                            <p class="li-product-name"><b><?php echo $get_detail_product['title'];?></b></p>
-                                                            <p>
-                                                                <span><?php echo $get_detail_product['description'];?></span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="li-review-content">
-                                                        <!-- Begin Feedback Area -->
-                                                        <div class="feedback-area">
-                                                            <div class="feedback">
-                                                                <h3 class="feedback-title">Our Feedback</h3>
-                                                                <form action="index.php?action=comment&handle=comment_product_detail&product_id<?php echo $id;?>" id="formComment" method="post">
-                                                                    <input type="hidden" name="product_id" value="<?php echo isset($id) ? $id : 0;?>">
-                                                                    <input type="hidden" name="user_id" value="<?php echo isset($_SESSION['user']['user_id']) ? $_SESSION['user']['user_id'] : 0;?>">
-                                                                    <p class="your-opinion">
-                                                                        <label>Your Rating</label>
-                                                                        <span>
-                                                                            <select name="rating" class="star-rating" required>
-                                                                                <option value="1">1</option>
-                                                                                <option value="2">2</option>
-                                                                                <option value="3">3</option>
-                                                                                <option value="4">4</option>
-                                                                                <option value="5">5</option>
-                                                                            </select>
-                                                                        </span>
-                                                                    </p>
-                                                                    <p class="feedback-form">
-                                                                        <label for="feedback">Your Review</label>
-                                                                        <textarea id="feedback" name="comment" cols="45" rows="8" aria-required="true" required></textarea>
-                                                                    </p>
-                                                                    <div class="feedback-input">
-                                                                        <div class="feedback-btn pb-15">
-                                                                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">Close</a>
-                                                                            <button type="submit" name="send_comment" data-dismiss="modal" aria-label="Close" style="border: none;background: transparent;"><a>Submit</a></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
+                            <?php
+                            $check_user_done_review = $tb_comment->getUserDoneReview($_SESSION['user']['user_id']);
+                            if (isset($check_user_done_review['count_user_review']) && ($check_user_done_review['count_user_review'] == '' || $check_user_done_review['count_user_review'] == 0)) {
+                            ?>
+                            <div id="hidden-btn-review">
+                                <!-- Quick View | Modal Area End Here -->
+                                <div class="review-btn">
+                                    <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
+                                </div>
+                                <!-- Begin Quick View | Modal Area -->
+                                <div class="modal fade modal-wrapper" id="mymodal">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <h3 class="review-page-title">Write Your Review</h3>
+                                                <div class="modal-inner-area row">
+                                                    <div class="col-lg-6">
+                                                        <div class="li-review-product">
+                                                            <img loading="lazy" src="./Public/images/uploads/<?php echo $list_color[0]['image_product'];?>" class="img-fluid lazyload" alt="Li's Product">
+                                                            <div class="li-review-product-desc">
+                                                                <p class="li-product-name"><b><?php echo $get_detail_product['title'];?></b></p>
+                                                                <p>
+                                                                    <span><?php echo $get_detail_product['description'];?></span>
+                                                                </p>
                                                             </div>
                                                         </div>
-                                                        <!-- Feedback Area End Here -->
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="li-review-content">
+                                                            <!-- Begin Feedback Area -->
+                                                            <div class="feedback-area">
+                                                                <div class="feedback">
+                                                                    <h3 class="feedback-title">Our Feedback</h3>
+                                                                    <form action="index.php?action=comment&handle=review_product_detail&product_id<?php echo $id;?>" id="formReview" method="post">
+                                                                        <input type="hidden" name="product_id" value="<?php echo isset($id) ? $id : 0;?>">
+                                                                        <input type="hidden" name="user_id" value="<?php echo isset($_SESSION['user']['user_id']) ? $_SESSION['user']['user_id'] : 0;?>">
+                                                                        <p class="your-opinion">
+                                                                            <label>Your Rating</label>
+                                                                            <span>
+                                                                                <select name="rating" class="star-rating" required>
+                                                                                    <option value="1">1</option>
+                                                                                    <option value="2">2</option>
+                                                                                    <option value="3">3</option>
+                                                                                    <option value="4">4</option>
+                                                                                    <option value="5">5</option>
+                                                                                </select>
+                                                                            </span>
+                                                                        </p>
+                                                                        <p class="feedback-form">
+                                                                            <label for="feedback">Your Review</label>
+                                                                            <textarea id="feedback" name="review" cols="45" rows="8" aria-required="true" required></textarea>
+                                                                        </p>
+                                                                        <div class="feedback-input">
+                                                                            <div class="feedback-btn pb-15">
+                                                                                <a href="#" class="close" data-dismiss="modal" aria-label="Close">Close</a>
+                                                                                <button type="submit" name="send_review" data-dismiss="modal" aria-label="Close" style="border: none;background: transparent;"><a>Submit</a></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Feedback Area End Here -->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Quick View | Modal Area End Here -->
                             </div>
-                            <!-- Quick View | Modal Area End Here -->
-                        <?php } ?>
+                        <?php } } ?>
+                    </div>
+                </div>
+            </div>
+            <!-- comment -->
+            <div id="comment" class="tab-pane" role="tabpanel">
+                <div class="product-comment">
+                    <div class="product-details-comment-block">
+                        <ul class="list_comment">
+                            <li class="comment-review border-1 border pl-10 pr-10 py-3 rounded mb-25 position-relative">
+                                <span class="name">Le Huy Hieu</span>
+                                <span class="mb-0 date" style="font-weight: 400;">13/9/2023</span>
+                                <p class="mb-0 comment">hay</p>
+                                <button class="btn-sm btn btn-reply">Reply</button>
+                            </li>
+                        </ul>
+                        <div class="review-btn">
+                            <a class="review-links" href="#" data-toggle="modal" data-target="#commentModel">Comment</a>
+                        </div>
+                        <div class="modal fade modal-wrapper" id="commentModel">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <h3 class="review-page-title">Comment</h3>
+                                        <div class="modal-inner-area row">
+                                            <div class="col-12">
+                                                <div class="li-review-content">
+                                                    <!-- Begin Feedback Area -->
+                                                    <div class="feedback-area">
+                                                        <div class="feedback">
+                                                            <h3 class="feedback-title">Comment</h3>
+                                                            <form id="formReplyComment" method="post" action="">
+                                                                <input type="hidden" name="product_id" value="">
+                                                                <input type="hidden" name="comment_id" value="" />
+                                                                <input type="hidden" name="user_id" value="">
+                                                                <p class="feedback-form">
+                                                                    <label for="feedback">Your Comment</label>
+                                                                    <textarea name="comment" cols="45" rows="8" aria-required="true" required></textarea>
+                                                                </p>
+                                                                <div class="feedback-input">
+                                                                    <div class="feedback-btn pb-15">
+                                                                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">Close</a>
+                                                                        <button type="submit" name="send_comment" data-dismiss="modal" aria-label="Close" style="border: none;background: transparent;"><a>Submit</a></button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Feedback Area End Here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -448,7 +511,7 @@
                                             <h4><a class="product_name" href="index.php?action=detail_product&id=<?php echo $item['id']?>"><?php echo $item['title'];?></a></h4>
                                             <?php if (isset($item['discountPercent'])) { ?>
                                                 <div class="featured-price-box">
-                                                    <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] / $item['discountPercent']));?></span>
+                                                    <span class="new-price new-price-2"><?php echo  number_format($list_color[0]['price'] - ($list_color[0]['price'] * $item['discountPercent']) / 100);?> VND</span>
                                                     <span class="old-price" style="text-decoration: line-through;"><?php echo  number_format($list_color[0]['price']);?> VND</span>
                                                     <span class="discount-percentage">-<?php echo round($item['discountPercent']); ?>%</span>
                                                 </div>

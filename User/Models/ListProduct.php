@@ -1,6 +1,12 @@
 <?php 
-class ListProduct {
-    function listProducts ($data) {
+class ListProduct extends Connect {
+    private $db;
+    public function __construct()
+    {
+        $this->db = new Connect();
+    }
+
+    public function listProducts ($data) {
         $where = $data['where'];
         $start = $data['start'];
         $limit = $data['limit'];
@@ -27,8 +33,7 @@ class ListProduct {
         if (isset($_GET['arr_color_id']) && $_GET['arr_color_id'] != '') {
             $arrColorCondition = ' AND color.id IN (' . $_GET['arr_color_id'] . ') ';
         }
-
-        $db = new Connect();
+        
         $select = '';
         switch ($where) {
             case 'hot-deal-product':
@@ -211,32 +216,29 @@ class ListProduct {
                 break;
         }
         $result = [];
-        $result['count'] = $db->getList($count)->rowCount();
-        $result['list_products'] = $db->getList($select);
-        $result['categories'] = $db->getList($categories);
+        $result['count'] = $this->db->getList($count)->rowCount();
+        $result['list_products'] = $this->db->getList($select);
+        $result['categories'] = $this->db->getList($categories);
         return $result;
     }
 
     function getImageProduct($id) {
-        $db = new Connect();
         $select = "SELECT image FROM product_images WHERE product_id = $id";
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 
     function getPriceImageQuantity($id) {
-        $db = new Connect();
         $select = "SELECT price, quantity, image_product, size_id, color_id, size.name as sizeName, color.name colorName
                     FROM detail_product 
                     LEFT JOIN size ON size.id = detail_product.size_id
                     LEFT JOIN color ON color.id = detail_product.color_id
                     WHERE product_id = $id";
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 
     function getColorProduct($idProduct) {
-        $db = new Connect();
         $select = 'SELECT detail_product.product_id,
                             detail_product.color_id,
                             detail_product.image_product, 
@@ -247,40 +249,36 @@ class ListProduct {
                     LEFT JOIN color ON color.id = detail_product.color_id
                     LEFT JOIN products ON products.id = detail_product.color_id
                     WHERE detail_product.product_id = '. $idProduct .' GROUP BY (detail_product.color_id)';
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 
     function getSizeProduct($idProduct) {
-        $db = new Connect();
         $select = 'SELECT size.id, size.name, detail_product.price, detail_product.color_id
                     FROM size
                         LEFT JOIN detail_product ON detail_product.size_id = size.id
                     WHERE detail_product.product_id = ' . $idProduct . ' GROUP BY (detail_product.size_id)';
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 
     function getSizeChangeColor($color_id, $product_id) {
-        $db = new Connect();
         $select = "SELECT size.name, price, size_id FROM detail_product LEFT JOIN size ON size.id = detail_product.size_id WHERE product_id = $product_id and color_id = $color_id";
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 
     //get list color all
     function getColor () {
-        $db = new Connect();
         $select = 'SELECT color.name AS color_name, color.id AS color_id FROM color';
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
     
     //get list size all
     function getSize () {
-        $db = new Connect();
         $select = 'SELECT size.name AS size_name, size.id AS size_id FROM size';
-        $result = $db->getList($select);
+        $result = $this->db->getList($select);
         return $result;
     }
 }

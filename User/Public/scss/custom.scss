@@ -178,3 +178,28 @@ label.error {
     }
   }
 }
+
+//comment custom
+#comment {
+  ul.list_comment {
+    list-style: none;
+    li {
+      width: 100%;
+      border: 1px solid rgba(#000, .3);
+      margin-top: 10px;
+      span.date {
+        position: absolute;
+        right: 10px;
+      }
+      .btn-reply.btn {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+      .comment {
+        min-height: 40px;
+        width: 90%;
+      }
+    }
+  }
+}
