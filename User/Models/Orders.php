@@ -1,10 +1,10 @@
 <?php
-class Orders extends Connect
+class Orders extends DB
 {
     private $db;
     public function __construct()
     {
-        $this->db = new Connect();
+        $this->db = new DB();
     }
 
     public function getCity()

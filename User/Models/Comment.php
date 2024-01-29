@@ -1,10 +1,10 @@
 <?php
-class Comment extends Connect
+class Comment extends DB
 {
     private $db;
     public function __construct()
     {
-        $this->db = new Connect();
+        $this->db = new DB();
     }
 
     //insert comment

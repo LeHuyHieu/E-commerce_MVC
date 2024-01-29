@@ -1,4 +1,4 @@
-<div class="list_comment">
+<div class="list_review">
     <?php
     include_once './Models/Comment.php';
     $id = isset($_GET['product_id']) ? $_GET['product_id'] : 0;

@@ -42,5 +42,3 @@
 <link rel="stylesheet" href="./Public/css/jquery-confirm.min.css">
 <!-- custom -->
 <link rel="stylesheet" href="./Public/scss/custom.css?<?php time();?>">
-<!-- Modernizr js -->
-

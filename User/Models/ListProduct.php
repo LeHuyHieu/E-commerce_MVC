@@ -1,9 +1,9 @@
 <?php 
-class ListProduct extends Connect {
+class ListProduct extends DB {
     private $db;
     public function __construct()
     {
-        $this->db = new Connect();
+        $this->db = new DB();
     }
 
     public function listProducts ($data) {

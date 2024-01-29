@@ -30,7 +30,7 @@ switch ($handel) {
             if ($city == '' || $district == '' || $fullname == '' || $shipping_address == '' || $email_address == '' || $phone_number == '') {
                 echo '<meta http-equiv="refresh" content="0; url=index.php?action=checkout&data_empty=1">';
             } else {
-                $db = new Connect();
+                $db = new DB();
                 $order_db  = new Orders();
                 $users = new User();
                 $cart_db = new Cart();

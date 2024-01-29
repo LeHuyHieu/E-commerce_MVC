@@ -59,7 +59,7 @@
     //show alert message
     function alert($title, $message, $method) {
         return "
-            <script type='text/javascript'>
+            <script>
                 $(document).ready(function() {
                     $.Toast('', '".$message."', '".$method."', {
                         has_icon:true,

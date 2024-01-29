@@ -36,7 +36,7 @@ switch ($handle) {
                             . "Please click the link below to confirm your email and complete the registration process.<br>"
                             . "You will be automatically redirected to a welcome page where you can then sign in.<br><br>"            
                             . "Please click below to activate your account:<br>"
-                            . "<a target='_blank' style='display: inline-block;padding: 10px 20px; border-1px solid #222; color: #222;text-decoration:none;background: transparent;border-radius: 5px;box-shadow:0 2px 8px rgba(0,0,0,0,15);' href='http://localhost/ecommerce/index.php?action=login&handle=confirm_email&email=".urlencode($email)."&confirm=1'>Click Here!</a>";
+                            . "<a target='_blank' href='http://localhost/ecommerce/index.php?action=login&handle=confirm_email&email=".urlencode($email)."&confirm=1'>Click Here!</a>";
                 if ($result) {
                     try {
                         // $htmlContent = file_get_contents('./Public/template_send_mail/send_mail.php');
@@ -135,11 +135,11 @@ switch ($handle) {
         
         if ($confirm_email == 1) {
             foreach ($get_user as $item) {
-                $_SESSION['user']['fullname'] = $user['fullname'];
-                $_SESSION['user']['email'] = $user['email'];
-                $_SESSION['user']['username'] = $user['username'];
-                $_SESSION['user']['user_id'] = $user['id'];
-                $_SESSION['user']['role'] = $user['role'];
+                $_SESSION['user']['fullname'] = $item['fullname'];
+                $_SESSION['user']['email'] = $item['email'];
+                $_SESSION['user']['username'] = $item['username'];
+                $_SESSION['user']['user_id'] = $item['id'];
+                $_SESSION['user']['role'] = $item['role'];
             }
             $flag = false;
             $flag = $cart_db->insertCartUserLogin();

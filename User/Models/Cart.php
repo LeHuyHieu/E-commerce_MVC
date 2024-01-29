@@ -1,10 +1,10 @@
 <?php
-class Cart extends Connect
+class Cart extends DB
 {
     private $db;
     public function __construct()
     {
-        $this->db = new Connect();
+        $this->db = new DB();
     }
 
     public function addCart($product_id, $size_id, $color_id, $quantity)

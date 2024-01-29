@@ -1,10 +1,10 @@
 <?php
-class HotProduct extends Connect
+class HotProduct extends DB
 {
     private $db;
     public function __construct()
     {
-        $this->db = new Connect();
+        $this->db = new DB();
     }
     
     function getHotProducts()

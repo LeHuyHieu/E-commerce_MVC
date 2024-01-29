@@ -18,7 +18,7 @@ switch ($handel) {
     case 'forgot_password_process':
         $data = [];
         if (isset($_POST['submit'])) {
-            $db = new Connect();
+            $db = new DB();
             $users = new User();
             $email = $_POST['email'];
             $user = $users->getUser($email);

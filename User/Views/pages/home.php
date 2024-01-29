@@ -53,7 +53,7 @@
                             $result = $banner->getBanner();
                             while ($item = $result->fetch()) :
                             ?>
-                             <div class="single-slide align-center-left animation-style-02 bg-4" style="background-image: url(public/images/slider/<?php echo $item['background']; ?>) !important;">
+                             <div class="single-slide align-center-left animation-style-02 bg-4" style="background-image: url(./public/images/slider/<?php echo $item['background']; ?>) !important;">
                                  <div class="slider-progress"></div>
                                  <div class="slider-content">
                                      <h5>Sale Offer <span><?php echo $item['event']; ?></span> This Week</h5>
@@ -862,8 +862,4 @@
          <!-- Li's Laptop Product Area End Here -->
  <?php }
     endwhile;
-    ?>
- <?php
-    echo (isset($_GET['login_success']) && $_GET['login_success'] == 1) ? alert('Success', 'Logged in successfully', 'success') : '';
-    echo (isset($_GET['confirm_email_success']) && $_GET['confirm_email_success'] == 1) ? alert('Success', 'Email confirmation successful', 'success') : '';
-    ?>
+?>

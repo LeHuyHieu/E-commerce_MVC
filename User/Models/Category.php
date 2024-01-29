@@ -1,10 +1,10 @@
 <?php
-class Category extends Connect
+class Category extends DB
 {
     private $db;
     public function __construct()
     {
-        $this->db = new Connect();
+        $this->db = new DB();
     }
     
     public function getCategory()

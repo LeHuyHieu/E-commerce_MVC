@@ -1,11 +1,11 @@
 <?php
-class User extends Connect
+class User extends DB
 {
     private $db;
     private $table_name = "users";
     public function __construct()
     {
-        $this->db = new Connect();
+        $this->db = new DB();
     }
 
     public function checkUser($userName, $email)

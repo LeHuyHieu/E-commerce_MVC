@@ -51,6 +51,3 @@ $id = isset($_GET['id']) ? '&id='.$_GET['id'] : '';
     </div>
 </div>
 <!-- Login Content Area End Here -->
-<?php
-echo (isset($_GET['forgot_password_success']) && $_GET['forgot_password_success'] == 1) ? alert('Success', 'Password sent successfully', 'success') : '';
-?>

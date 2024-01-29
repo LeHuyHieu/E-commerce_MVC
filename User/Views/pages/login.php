@@ -90,11 +90,3 @@ $id = isset($_GET['id']) ? '&id='.$_GET['id'] : '';
     </div>
 </div>
 <!-- Login Content Area End Here -->
-<?php
-echo (isset($_GET['register_send_mail_success']) && $_GET['register_send_mail_success'] == 1) ? alert('Success', 'Account created successfully, please confirm email', 'success') : '';
-echo (isset($_GET['register_send_mail_failed']) && $_GET['register_send_mail_failed'] == 1) ? alert('Success', 'Email sending failed', 'warning') : '';
-echo (isset($_GET['register_failed']) && $_GET['register_failed'] == 1) ? alert('Error', 'Account creation failed', 'error') : '';
-echo (isset($_GET['data_empty']) && $_GET['data_empty'] == 1) ? alert('Warning', 'Content cannot be empty', 'warning') : '';
-echo (isset($_GET['register_error']) && $_GET['register_error'] == 1) ? alert('Error', 'Email or Username already exists', 'error') : '';
-echo (isset($_GET['login_failed']) && $_GET['login_failed'] == 1) ? alert('Error', 'Login failed because the password account is incorrect or the account has not been activated', 'error') : '';
-?>

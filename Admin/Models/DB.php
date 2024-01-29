@@ -1,6 +1,6 @@
 <?php
 
-class Connect
+class DB
 {
     private $db = null;
 
