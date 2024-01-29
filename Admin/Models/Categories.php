@@ -16,7 +16,17 @@ class Categories extends DB
 
     public function getAllCategories()
     {
-        $select = "SELECT c1.name, c1.id, c1.banner_image, c1.parent_id, c1.created_at, c2.name AS parent_name FROM categories c1 LEFT JOIN categories c2 ON c1.parent_id = c2.id";
+        $select = "SELECT c1.name, c1.id, c1.banner_image, c1.parent_id, c1.created_at, c2.name AS parent_name 
+                    FROM categories c1 LEFT JOIN categories c2 ON c1.parent_id = c2.id";
+        $result = $this->db->getList($select);
+        return $result;
+    }
+
+    public function getAllCategoriesPagination($start, $limit)
+    {
+        $select = "SELECT c1.name, c1.id, c1.banner_image, c1.parent_id, c1.created_at, c2.name AS parent_name 
+                    FROM categories c1 LEFT JOIN categories c2 ON c1.parent_id = c2.id
+                    ORDER BY c1.id DESC LIMIT $start, $limit";
         $result = $this->db->getList($select);
         return $result;
     }

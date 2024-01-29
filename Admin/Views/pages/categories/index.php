@@ -1,6 +1,13 @@
 <?php
 $tb_categories = new Categories();
-$categories = $tb_categories->getAllCategories()->fetchAll();
+$pages = new Pagination();
+
+$categories_count = $tb_categories->getAllCategories()->rowCount();
+$limit = 8;
+$start = $pages->findStart($limit);
+$count = $pages->findPage($categories_count, $limit);
+$current_page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
+$categories = $tb_categories->getAllCategoriesPagination($start, $limit)->fetchAll();
 ?>
 <div class="page-wrapper">
     <div class="page-content">
@@ -16,7 +23,28 @@ $categories = $tb_categories->getAllCategories()->fetchAll();
                 </div>
                 <hr>
                 <div class="table-responsive">
-                    <table class="table align-middle mb-0">
+                    <div class="filter-categories container">
+                        <form method="get" action="">
+                            <div class="row justify-content-end">
+                                <div class="col-md-3 col-12">
+                                    <div class="form-group mb-3">
+                                        <select class="form-select" name="parent_id">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Name category" name="name" autocomplete="off">
+                                        <div class="input-group-prepend">
+                                            <button type="submit" class="input-group-text" id="basic-addon1"><i class="bx bx-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table align-middle mb-3">
                         <thead class="table-light">
                             <tr>
                                 <th>Id</th>
@@ -57,6 +85,30 @@ $categories = $tb_categories->getAllCategories()->fetchAll();
                             <?php } ?>
                         </tbody>
                     </table>
+                    <div class="pagination justify-content-end">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item <?php echo $current_page > 1 ? '' : 'disabled';?>">
+                                    <a class="page-link" href="?action=categories&page=<?php echo $current_page > 1 ? $current_page-1 : $current_page;?>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <?php
+                                    for ($i = 1; $i <= $count; $i++) {
+                                    if (($i - 4) < $current_page && ($i + 4) > $current_page) {
+                                ?>
+                                <li class="page-item <?php echo $current_page == $i ? 'active' : '';?>"><a class="page-link" href="?action=categories&page=<?php echo $i;?>"><?php echo $i;?></a></li>
+                                <?php } } ?>
+                                <li class="page-item <?php echo $current_page < $count ? '' : 'disabled';?>">
+                                    <a class="page-link" href="?action=categories&page=<?php echo $current_page < $count ? $current_page+1 : $current_page;?>" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@ class Pagination
 
     public function findStart($limit)
     {
-        if (!isset($_GET['page']) || $_GET['page'] == 1 || $_GET['page'] == 0) {
+        if (!isset($_GET['page']) || empty($_GET['page']) || $_GET['page'] == 1 || $_GET['page'] == 0) {
             $start = 0;
         } else {
             $start = ($_GET['page'] - 1) * $limit;
