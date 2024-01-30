@@ -37,10 +37,14 @@
             </a>
         </li>
         <li>
-            <a href="index.php?action=products">
+            <a href="javascript:;">
                 <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
                 <div class="menu-title">Products</div>
             </a>
+            <ul>
+                <li><a href="index.php?action=products"><i class="bx bx-right-arrow-alt"></i>Products</a></li>
+                <li><a href="index.php?action=product_attr"><i class="bx bx-right-arrow-alt"></i>Attr product</a></li>
+            </ul>
         </li>
     </ul>
     <!--end navigation-->

@@ -24,6 +24,12 @@
 <link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
 <!-- jquery confirm -->
 <link href="assets/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" />
+<!-- tinymce -->
+<link href="assets/plugins/tinymce/skin.min.css" rel="stylesheet" />
+<!-- upload file -->
+<link href="assets/plugins/fancy-file-uploader/fancy_fileupload.css" rel="stylesheet" />
+<link href="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css" rel="stylesheet" />
+<!-- end upload -->
 <!-- dataTables -->
 <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 <title>Ecommerce</title>
