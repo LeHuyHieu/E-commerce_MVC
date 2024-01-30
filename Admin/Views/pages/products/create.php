@@ -83,7 +83,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                         <div class="form-group mb-3">
                                             <label for="selectSize" class="form-label">Size</label>
-                                            <select class="single-select" name="size_id" id="selectSize" required>
+                                            <select class="form-select" name="size_id" id="selectSize" required>
                                                 <option value="">Choose size</option>
                                             </select>
                                         </div>
@@ -91,7 +91,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                         <div class="form-group mb-3">
                                             <label for="selectColor" class="form-label">Color</label>
-                                            <select class="single-select" id="selectColor" name="color_id" required>
+                                            <select class="form-select" id="selectColor" name="color_id" required>
                                                 <option value="">Choose color</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
