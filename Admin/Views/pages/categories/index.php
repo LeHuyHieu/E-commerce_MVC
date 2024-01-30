@@ -2,12 +2,16 @@
 $tb_categories = new Categories();
 $pages = new Pagination();
 
-$categories_count = $tb_categories->getAllCategories()->rowCount();
+
+$all_categories = $tb_categories->getCategory();
 $limit = 8;
 $start = $pages->findStart($limit);
+$categories_count = $tb_categories->getAllCategoriesPagination($start, $limit)->rowCount();
 $count = $pages->findPage($categories_count, $limit);
 $current_page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
 $categories = $tb_categories->getAllCategoriesPagination($start, $limit)->fetchAll();
+
+$parent_id = isset($_GET['parent_id']) ? $_GET['parent_id'] : 0;
 ?>
 <div class="page-wrapper">
     <div class="page-content">
@@ -24,18 +28,20 @@ $categories = $tb_categories->getAllCategoriesPagination($start, $limit)->fetchA
                 <hr>
                 <div class="table-responsive">
                     <div class="filter-categories container">
-                        <form method="get" action="">
+                        <form method="get" action="index.php?action=categories">
+                            <input type="hidden" name="action" value="categories">
                             <div class="row justify-content-end">
                                 <div class="col-md-3 col-12">
                                     <div class="form-group mb-3">
-                                        <select class="form-select" name="parent_id">
-                                            <option value=""></option>
+                                        <select class="single-select" name="parent_id">
+                                            <option value="">Choose..</option>
+                                            <?php echo $tb_categories->selectCategories($all_categories, $parent_id);?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Name category" name="name" autocomplete="off">
+                                        <input type="text" class="form-control" value="<?php echo isset($_GET['name']) ? $_GET['name'] : '';?>" placeholder="Name category" name="name" autocomplete="off">
                                         <div class="input-group-prepend">
                                             <button type="submit" class="input-group-text" id="basic-addon1"><i class="bx bx-search"></i></button>
                                         </div>
