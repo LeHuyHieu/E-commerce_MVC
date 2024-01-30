@@ -12,6 +12,9 @@
 <script src="assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
 <script src="assets/plugins/jquery-knob/excanvas.js"></script>
 <script src="assets/plugins/jquery-knob/jquery.knob.js"></script>
+<!-- dataTables -->
+<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <!-- select 2 -->
 <script src="assets/plugins/select2/js/select2.min.js"></script>
 <!-- jquery confirm -->

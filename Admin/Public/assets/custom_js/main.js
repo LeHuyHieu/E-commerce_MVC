@@ -28,4 +28,25 @@ $(document).ready(function () {
             }
         });
     })
+
+    $('#changeAttr').on('change', function () {
+        console.log($(this).val())
+        var attr = $(this).val();
+        var htmlColor = $('.color').html();
+        var htmlSize = $('.size').html();
+        if (attr == 'color') {
+            $('.append-input').html(htmlColor)
+        }else if (attr == 'size') {
+            $('.append-input').html(htmlSize)
+        }else {
+            $('.append-input').html('')
+        }
+    })
+
+    if ($('#dataTableAttrProduct').length) {
+        $('#dataTableAttrProduct').DataTable();
+    }
+    if ($('#dataTableAttrProduct2').length) {
+        $('#dataTableAttrProduct2').DataTable();
+    }
 })

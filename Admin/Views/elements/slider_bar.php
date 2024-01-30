@@ -36,6 +36,12 @@
                 <div class="menu-title">Categories</div>
             </a>
         </li>
+        <li>
+            <a href="index.php?action=products">
+                <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
+                <div class="menu-title">Products</div>
+            </a>
+        </li>
     </ul>
     <!--end navigation-->
 </div>

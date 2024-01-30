@@ -71,6 +71,20 @@ class DB
         return $this->exec($query);
     }
 
+    public function delete($id, $table)
+    {
+        $query = "DELETE FROM $table WHERE id = $id";
+        $result = $this->exec($query);
+        return $result;
+    }
+
+    public function find($id, $table)
+    {
+        $select = "SELECT * FROM $table WHERE id = $id";
+        $result = $this->getInstance($select);
+        return $result;
+    }
+
     private function escape($value)
     {
         return $this->db->quote($value);
