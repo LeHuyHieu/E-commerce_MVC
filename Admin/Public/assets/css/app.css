@@ -2412,3 +2412,23 @@ input.search-control-2::placeholder {
 		display: none
 	}
 }
+
+.image-product-item {
+	position: relative;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.image-product-item .btn-remove-image-item {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 3px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+}

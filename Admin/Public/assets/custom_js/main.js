@@ -57,10 +57,53 @@ $(document).ready(function () {
             selector: '#descriptionProduct'
         });
     }
-    if ($('#imageUploadListProduct').length) {
-        $('#imageUploadListProduct').imageuploadify();
-        $('.imageuploadify').css('max-width', '100%');
+    // if ($('#imageUploadListProduct').length) {
+    //     $('#imageUploadListProduct[type="file"]').imageuploadify();
+    //     $('.imageuploadify').css('max-width', '100%');
+    // }
+    if ($('.add-image-product').length) {
+        var imageProductItem = $('.image-product-item');
+        var counter = 1;
+        $('.add-image-product').on('click', function () {
+            console.log(counter)
+            var cloneItem = imageProductItem.first().clone(true);
+            cloneItem.insertBefore('.image-product-item-append');
+            cloneItem.find('img').each(function () {
+                $(this).attr('src', 'assets/images/no_image.jpg');
+            });
+            cloneItem.find('input, label, img').each(function () {
+                var id = $(this).attr('id');
+                var for_label = $(this).attr('for');
+                $(this).val('')
+                if (id) {
+                    var newId = id.replace(/\d+$/, '') + counter;
+                    $(this).attr('id', newId);
+                }
+                if (for_label) {
+                    var newFor = for_label.replace(/\d+$/, '') + counter;
+                    $(this).attr('for', newFor);
+                }
+            });
+            counter++;
+        })
     }
+    function previewImage(input, $image) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $image.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).on('click', '.btn-remove-image-item', function () {
+        $(this).closest('.image-product-item').remove();
+    })
+
+    $(document).on('change', '.change-image-product', function(){
+        var $image = $(this).next().find('img');
+        previewImage(this, $image);
+    });
 
     //format price
     if ($("#priceProduct[data-type='currency']").length) {
@@ -109,12 +152,17 @@ $(document).ready(function () {
     if ($('.append-detail-product').length) {
         var appendHtml = $('.append-detail-product');
         var counter = appendHtml.length;
+        $(document).on('click', '.btn-close-append-detail-product', function() {
+            $(this).closest('.append-detail-product').remove();
+            console.log(1)
+        })
         $('#changeAppendDetailProduct').on('click', function () {
             var clonedItem = appendHtml.first().clone(true);
             clonedItem.insertBefore('#appenDetailProduct');
 
             clonedItem.find('input, select, img').each(function () {
                 var currentId = $(this).attr('id');
+                $(this).val('')
                 if (currentId) {
                     var newId = currentId.replace(/\d+$/, '') + counter;
                     $(this).attr('id', newId);

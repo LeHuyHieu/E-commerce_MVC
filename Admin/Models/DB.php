@@ -2,7 +2,7 @@
 
 class DB
 {
-    private $db = null;
+    private $db = null, $lastQuery = null;
 
     public function __construct()
     {
@@ -56,6 +56,7 @@ class DB
             return is_numeric($value) ? $value : "'" . $value . "'";
         }, $data));
         $query = "INSERT INTO $table ($columns) VALUES ($values)";
+        $this->lastQuery = $query;
         return $this->exec($query);
     }
 
@@ -83,6 +84,10 @@ class DB
         $select = "SELECT * FROM $table WHERE id = $id";
         $result = $this->getInstance($select);
         return $result;
+    }
+
+    public function getLastQuery() {
+        return $this->lastQuery;
     }
 
     private function escape($value)

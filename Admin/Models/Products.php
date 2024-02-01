@@ -31,4 +31,10 @@ class Products extends DB
         $result = $this->db->getList("SELECT * FROM size ORDER BY id DESC");
         return $result;
     }
+
+    public function getAllDiscount()
+    {
+        $result = $this->db->getList("SELECT name, discount_percent, id, description FROM discounts where active = 1 AND deleted_at IS NULL ORDER BY id DESC");
+        return $result;
+    }
 }

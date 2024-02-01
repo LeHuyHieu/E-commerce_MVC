@@ -8,6 +8,13 @@
 <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
 <script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
 <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+<!-- upload files -->
+<script src="assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
+<script src="assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
+<script src="assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"></script>
+<script src="assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js"></script>
+<script src="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js"></script>
+<!-- end upload -->
 <script src="assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
 <script src="assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
 <script src="assets/plugins/jquery-knob/excanvas.js"></script>
@@ -21,13 +28,6 @@
 <script src="assets/plugins/jquery-confirm/jquery-confirm.min.js"></script>
 <!-- tinymce -->
 <script src="assets/plugins/tinymce/tinymce.min.js"></script>
-<!-- upload files -->
-<script src="assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
-<script src="assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
-<script src="assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"></script>
-<script src="assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js"></script>
-<script src="assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js"></script>
-<!-- end upload -->
 <script>
     $(function () {
         $(".knob").knob();
