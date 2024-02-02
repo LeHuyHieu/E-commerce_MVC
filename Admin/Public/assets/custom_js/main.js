@@ -97,7 +97,39 @@ $(document).ready(function () {
         }
     }
     $(document).on('click', '.btn-remove-image-item', function () {
-        $(this).closest('.image-product-item').remove();
+        if (!$('.btn-remove-item-list-image').length) {
+            $(this).closest('.image-product-item').remove();
+        }
+    })
+
+    $('.btn-remove-item-list-image').on('click', function() {
+        var _this = $(this);
+        var id = _this.attr('data-id');
+        $.confirm({
+            theme: 'bootstrap',
+            title: 'Confirm delete!',
+            content: 'Simple confirm!',
+            buttons: {
+                delete: {
+                    text: 'Delete',
+                    btnClass: 'btn-danger',
+                    action: function () {
+                        $.ajax({
+                            url: 'index.php?action=products&process=delete_list_image_item',
+                            method: 'POST',
+                            data: {id: id},
+                            success: (function () {
+                                _this.closest('.image-product-item').remove();
+                            })
+                        })
+                    }
+                },
+                cancel: {
+                    text: 'Cancel',
+                    btnClass: 'btn-secondary',
+                }
+            }
+        });
     })
 
     $(document).on('change', '.change-image-product', function(){
@@ -153,8 +185,9 @@ $(document).ready(function () {
         var appendHtml = $('.append-detail-product');
         var counter = appendHtml.length;
         $(document).on('click', '.btn-close-append-detail-product', function() {
-            $(this).closest('.append-detail-product').remove();
-            console.log(1)
+            if (!$('.btn-delete-detail-product').length) {
+                $(this).closest('.append-detail-product').remove();
+            }
         })
         $('#changeAppendDetailProduct').on('click', function () {
             var clonedItem = appendHtml.first().clone(true);
@@ -177,5 +210,37 @@ $(document).ready(function () {
                 }
             });
         });
+    }
+
+    if ($('.btn-delete-detail-product').length) {
+        $('.btn-delete-detail-product').on('click', function () {
+            var _this = $(this);
+            var id = _this.attr('data-id');
+            $.confirm({
+                theme: 'bootstrap',
+                title: 'Confirm delete!',
+                content: 'Simple confirm!',
+                buttons: {
+                    delete: {
+                        text: 'Delete',
+                        btnClass: 'btn-danger',
+                        action: function () {
+                            $.ajax({
+                                url: 'index.php?action=products&process=delete_item_detail',
+                                method: 'POST',
+                                data: {id: id},
+                                success: (function (response) {
+                                    _this.closest('.append-detail-product').remove();
+                                })
+                            })
+                        }
+                    },
+                    cancel: {
+                        text: 'Cancel',
+                        btnClass: 'btn-secondary',
+                    }
+                }
+            });
+        })
     }
 })

@@ -268,13 +268,34 @@ switch ($process){
         }
         break;
     case 'delete':
-
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $data = [
+              'deleted_at' => date('Y-m-d H:i:s'),
+            ];
+            $update = $db->update('products', $data, "id = $id");
+            if ($update) {
+                echo '<meta http-equiv="refresh" content="0;url=index.php?action=products&delete-success=1"/>';
+            }
+        }
         break;
     case 'delete_list_image_item':
-
+        if (isset($_POST['id'])) {
+            $id = $_POST['id'];
+            $delete = $db->delete($id, 'product_images');
+            if ($delete) {
+                echo "Delete successfully";
+            }
+        }
         break;
     case 'delete_item_detail':
-
+        if (isset($_POST['id'])) {
+            $id = $_POST['id'];
+            $delete = $db->delete($id, 'detail_product');
+            if ($delete) {
+                echo "Delete successfully";
+            }
+        }
         break;
     default:
         include_once '../Views/pages/products/index.php';

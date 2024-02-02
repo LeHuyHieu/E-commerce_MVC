@@ -78,7 +78,7 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                     <?php foreach ($list_image_product as $item_image_product) { ?>
                                         <div class="form-group mb-3 d-inline-block image-product-item">
-                                            <button type="button" class="btn-remove-image-item"><i class="bx bx-trash-alt"></i></button>
+                                            <button type="button" class="btn-remove-image-item btn-remove-item-list-image" data-id="<?php echo $item_image_product['id'];?>"><i class="bx bx-trash-alt"></i></button>
                                             <input type="hidden" name="product_images[]" value="<?php echo $item_image_product['id'];?>">
                                             <input id="imageUploadListProduct<?php echo $item_image_product['id'];?>" class="form-control d-none change-image-product" name="product_images[]" value="<?php echo $item_image_product['image'];?>" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf">
                                             <label for="imageUploadListProduct<?php echo $item_image_product['id'];?>" class="form-label"><img src="uploads/products/list_image_product/<?php echo $item_image_product['image'];?>" id="showImage<?php echo $item_image_product['id'];?>" class="img-fluid rounded" width="100px" alt="Show image"/></label>
@@ -91,10 +91,10 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                         </div>
                     </div>
                     <?php foreach ($detail_product as $item_detail) { ?>
-                        <input type="hidden" name="detail_product[id][]" value="<?php echo $item_detail['id'];?>">
                         <div class="append-detail-product">
+                            <input type="hidden" name="detail_product[id][]" value="<?php echo $item_detail['id'];?>">
                             <div class="card border-top border-0 border-4 border-primary">
-                                <div class="card-header text-end"><button type="button" class="btn btn-primary btn-sm btn-close-append-detail-product"><i class="bx bx-x"></i></button></div>
+                                <div class="card-header text-end"><button type="button" class="btn btn-primary btn-sm btn-close-append-detail-product btn-delete-detail-product" data-id="<?php echo $item_detail['id'];?>"><i class="bx bx-x"></i></button></div>
                                 <div class="card-body p-4">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
