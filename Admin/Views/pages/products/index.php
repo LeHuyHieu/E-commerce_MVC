@@ -1,16 +1,15 @@
 <?php
+$tb_products = new Products();
 $tb_categories = new Categories();
 $pages = new Pagination();
 
-
 $all_categories = $tb_categories->getCategory();
-$limit = 8;
+$limit = 10;
 $start = $pages->findStart($limit);
-//$categories_count = $tb_categories->getAllCategoriesPagination($start, $limit)->rowCount();
-//$count = $pages->findPage($categories_count, $limit);
+$product_count = $tb_products->getAllProducts()->rowCount();
+$count = $pages->findPage($product_count, $limit);
 $current_page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
-//$categories = $tb_categories->getAllCategoriesPagination($start, $limit)->fetchAll();
-
+$products = $tb_products->getAllProductsPagination($start, $limit)->fetchAll();
 $parent_id = isset($_GET['parent_id']) ? $_GET['parent_id'] : 0;
 ?>
 <div class="page-wrapper">
@@ -52,41 +51,69 @@ $parent_id = isset($_GET['parent_id']) ? $_GET['parent_id'] : 0;
                     </div>
                     <table class="table align-middle mb-3">
                         <thead class="table-light">
-                        <tr>
-                            <th>Id</th>
-                            <th>Image</th>
-                            <th>Category Name</th>
-                            <th>Parent Name</th>
-                            <th>Date Create</th>
-                            <th>Action</th>
-                        </tr>
+                            <tr>
+                                <th style="width: 50px;">Id</th>
+                                <th style="width: 80px;">Image</th>
+                                <th style="width: 300px;">Product Name</th>
+                                <th style="width: 150px;">Category Name</th>
+                                <th style="width: 150px;">Price</th>
+                                <th style="width: 100px;">Product Hot</th>
+                                <th style="width: 150px;">Date Create</th>
+                                <th style="width: 150px;">Action</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>#1</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="recent-product-img">
-                                            <img src="assets/images/no_image.jpg" alt="">
+                            <?php foreach ($products as $product) { ?>
+                                <tr>
+                                    <td>#<?php echo $product['id'];?></td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="recent-product-img">
+                                                <img src="uploads/products/product_color/<?php echo (!empty($tb_products->getDetailProductOneRow($product['id'])['image_product'])) ? $tb_products->getDetailProductOneRow($product['id'])['image_product'] : '';?>" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div><h6 class="mb-1 font-14">1</h6></div>
-                                </td>
-                                <td>
-                                    <div><h6 class="mb-1 font-14">1</h6></div>
-                                </td>
-                                <td>26 Dec 2023</td>
-                                <td>
-                                    <div class="d-flex order-actions">
-                                        <a href="index.php?action=products&process=edit&id=" class="bg-primary text-white"><i class="bx bx-edit"></i></a>
-                                        <a href="index.php?action=products&process=delete&id=" class="bg-danger btn-delete-item text-white ms-1"><i class="bx bx-trash"></i></a>
-                                    </div>
-                                </td>
-                            </tr
+                                    </td>
+                                    <td>
+                                        <div><h6 class="mb-1 font-14"><?php echo $product['title'];?></h6></div>
+                                    </td>
+                                    <td><div><h6 class="mb-1 font-14"><?php echo $product['category_name'] ?></h6></div></td>
+                                    <td><h6 class="mb-1 font-14"><?php echo (!empty($tb_products->getDetailProductOneRow($product['id'])['price'])) ? number_format($tb_products->getDetailProductOneRow($product['id'])['price']).' VND' : '';?></h6></td>
+                                    <td><div class="badge rounded-pill <?php echo $product['product_hot'] == 1 ? 'bg-light-success text-success' : ' bg-light-danger text-danger';?> w-100"><?php echo $product['product_hot'] == 1 ? 'Active' : 'Inactive';?></div></td>
+                                    <td><?php echo date_format(date_create($product['created_at']), 'd M Y');?></td>
+                                    <td>
+                                        <div class="d-flex order-actions">
+                                            <a href="index.php?action=products&process=edit&id=<?php echo $product['id'];?>" class="bg-primary text-white"><i class="bx bx-edit"></i></a>
+                                            <a href="index.php?action=products&process=delete&id=<?php echo $product['id'];?>" class="bg-danger btn-delete-item text-white ms-1"><i class="bx bx-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
+                    <div class="pagination justify-content-end">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item <?php echo $current_page > 1 ? '' : 'disabled';?>">
+                                    <a class="page-link" href="?action=products&page=<?php echo $current_page > 1 ? $current_page-1 : $current_page;?>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <?php
+                                for ($i = 1; $i <= $count; $i++) {
+                                    if (($i - 4) < $current_page && ($i + 4) > $current_page) {
+                                        ?>
+                                        <li class="page-item <?php echo $current_page == $i ? 'active' : '';?>"><a class="page-link" href="?action=products&page=<?php echo $i;?>"><?php echo $i;?></a></li>
+                                    <?php } } ?>
+                                <li class="page-item <?php echo $current_page < $count ? '' : 'disabled';?>">
+                                    <a class="page-link" href="?action=products&page=<?php echo $current_page < $count ? $current_page+1 : $current_page;?>" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
