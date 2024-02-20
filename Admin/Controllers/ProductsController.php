@@ -275,7 +275,7 @@ switch ($process){
             ];
             $update = $db->update('products', $data, "id = $id");
             if ($update) {
-                echo '<meta http-equiv="refresh" content="0;url=index.php?action=products&delete-success=1"/>';
+                echo '<script> window.location.href = document.referrer; </script>';
             }
         }
         break;

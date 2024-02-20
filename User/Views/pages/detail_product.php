@@ -319,7 +319,7 @@
                                 </div>
                             </div>
                             <?php
-                            $check_user_done_review = $tb_comment->getUserDoneReview($_SESSION['user']['user_id']);
+                            $check_user_done_review = $tb_comment->getUserDoneReview($_SESSION['user']['user_id'], $id);
                             if (isset($check_user_done_review['count_user_review']) && ($check_user_done_review['count_user_review'] == '' || $check_user_done_review['count_user_review'] == 0)) {
                             ?>
                             <div id="hidden-btn-review">
@@ -404,12 +404,12 @@
                                 foreach ($comments as $comment) {
                                     $date = date_create($comment['created_at']);
                                     ?>
-                                    <div class="comment-review border-1 border pl-10 pr-10 py-3 rounded mb-25">
+                                    <div class="comment-review border-1 border pl-10 pr-10 py-3 rounded mb-25 position-relative">
                                         <span class="name"><?php echo $comment['fullname'];?></span>
-                                        <span class="mb-0 float-right" style="font-weight: 400;"><?php echo date_format($date, 'd/m/Y');?></span>
+                                        <span class="mb-0 float-right position-absolute" style="font-weight: 400; right: 10px;"><?php echo date_format($date, 'd/m/Y');?></span>
                                         <p class="mb-0"><?php echo $comment['comment'];?></p>
                                         <?php if (isset($_SESSION['user'])) { ?>
-                                            <button class="btn-sm btn float-right replyComment" data-toggle="modal" data-target="#replyCommentModel" data-comment-id="<?php echo $comment['id'];?>">Reply</button>
+                                            <button class="btn-sm btn float-right position-absolute replyComment" style="right:10px;" data-toggle="modal" data-target="#replyCommentModel" data-comment-id="<?php echo $comment['id'];?>">Reply</button>
                                         <?php } ?>
                                     </div>
                                     <?php
@@ -419,12 +419,12 @@
                                             if ($reply_comment['comment_id'] == $comment['id']){
                                                 $date = date_create($reply_comment['created_at']);
                                                 ?>
-                                                <div class="comment-review border-1 border pl-10 pr-10 py-3 rounded mb-25 ml-auto" style="width: 95%;">
+                                                <div class="comment-review border-1 border pl-10 pr-10 py-3 rounded mb-25 position-relative ml-auto" style="width: 95%;">
                                                     <span class="name"><?php echo $reply_comment['fullname']; ?></span>
-                                                    <span class="mb-0 float-right" style="font-weight: 400;"><?php echo date_format($date, 'd/m/Y'); ?></span>
+                                                    <span class="mb-0 float-right position-absolute" style="font-weight: 400;right:10px;"><?php echo date_format($date, 'd/m/Y'); ?></span>
                                                     <p class="mb-0"><?php echo $reply_comment['comment']; ?></p>
                                                     <?php if (isset($_SESSION['user'])) { ?>
-                                                        <button class="btn-sm btn float-right replyComment" data-toggle="modal" data-target="#replyCommentModel" data-comment-id="<?php echo $reply_comment['id']; ?>">Reply</button>
+                                                        <button class="btn-sm btn float-right position-absolute replyComment" style="right:10px;" data-toggle="modal" data-target="#replyCommentModel" data-comment-id="<?php echo $reply_comment['id']; ?>">Reply</button>
                                                     <?php } ?>
                                                 </div>
                                             <?php } } } ?>

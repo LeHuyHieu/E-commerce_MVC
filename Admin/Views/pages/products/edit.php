@@ -114,8 +114,8 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                                                 <label for="selectSize<?php echo $item_detail['id'];?>" class="form-label">Size</label>
                                                 <select class="form-select" name="detail_product[color_id][]" id="selectSize<?php echo $item_detail['id'];?>">
                                                     <option value="">Choose size</option>
-                                                    <?php foreach ($colors as $color) { ?>
-                                                        <option <?php echo $color['id'] == $item_detail['color_id'] ? 'selected' : '';?> value="<?php echo $color['id'];?>"><?php echo $color['name'];?></option>
+                                                    <?php foreach ($sizes as $size) { ?>
+                                                        <option <?php echo $size['id'] == $item_detail['size_id'] ? 'selected' : '';?> value="<?php echo $size['id'];?>"><?php echo $size['name'];?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -125,8 +125,8 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                                                 <label for="selectColor<?php echo $item_detail['id'];?>" class="form-label">Color</label>
                                                 <select class="form-select" id="selectColor<?php echo $item_detail['id'];?>" name="detail_product[size_id][]">
                                                     <option value="">Choose color</option>
-                                                    <?php foreach ($sizes as $size) { ?>
-                                                        <option <?php echo $size['id'] == $item_detail['size_id'] ? 'selected' : '';?> value="<?php echo $size['id'];?>"><?php echo $size['name'];?></option>
+                                                    <?php foreach ($colors as $color) { ?>
+                                                        <option <?php echo $color['id'] == $item_detail['color_id'] ? 'selected' : '';?> value="<?php echo $color['id'];?>"><?php echo $color['name'];?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>

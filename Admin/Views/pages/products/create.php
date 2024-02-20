@@ -103,8 +103,8 @@ $categories = $tb_categories->getCategory();
                                             <label for="selectSize" class="form-label">Size</label>
                                             <select class="form-select" name="detail_product[size_id][]" id="selectSize">
                                                 <option value="">Choose size</option>
-                                                <?php foreach ($colors as $color) { ?>
-                                                    <option value="<?php echo $color['id'];?>"><?php echo $color['name'];?></option>
+                                                <?php foreach ($sizes as $size) { ?>
+                                                    <option value="<?php echo $size['id'];?>"><?php echo $size['name'];?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -114,8 +114,8 @@ $categories = $tb_categories->getCategory();
                                             <label for="selectColor" class="form-label">Color</label>
                                             <select class="form-select" id="selectColor" name="detail_product[color_id][]">
                                                 <option value="">Choose color</option>
-                                                <?php foreach ($sizes as $size) { ?>
-                                                    <option value="<?php echo $size['id'];?>"><?php echo $size['name'];?></option>
+                                                <?php foreach ($colors as $color) { ?>
+                                                    <option value="<?php echo $color['id'];?>"><?php echo $color['name'];?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

@@ -40,9 +40,9 @@ class Comment extends DB
     }
 
     //review
-    public function getUserDoneReview($user_id)
+    public function getUserDoneReview($user_id, $product_id)
     {
-        $select = "SELECT DISTINCT reviews.id, COUNT(user_id) AS count_user_review FROM reviews LEFT JOIN users ON users.id = reviews.user_id WHERE review_id = 0 AND user_id = $user_id";
+        $select = "SELECT DISTINCT reviews.id, COUNT(user_id) AS count_user_review FROM reviews LEFT JOIN users ON users.id = reviews.user_id WHERE review_id = 0 AND user_id = $user_id AND product_id = $product_id";
         $result = $this->db->getInstance($select);
         return $result;
     }

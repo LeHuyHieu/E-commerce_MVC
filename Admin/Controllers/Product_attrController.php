@@ -74,7 +74,7 @@ switch ($process) {
             $id = $_GET['id'];
             $delete = $db->delete($id, 'color');
             if ($delete) {
-                echo '<meta http-equiv="refresh" content="0;url=index.php?action=product_attr"/>';
+                echo '<script> window.location.href = document.referrer; </script>';
             }
         }
         break;
@@ -83,7 +83,7 @@ switch ($process) {
             $id = $_GET['id'];
             $delete = $db->delete($id, 'size');
             if ($delete) {
-                echo '<meta http-equiv="refresh" content="0;url=index.php?action=product_attr"/>';
+                echo '<script> window.location.href = document.referrer; </script>';
             }
         }
         break;
