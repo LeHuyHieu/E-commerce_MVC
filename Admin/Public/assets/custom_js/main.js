@@ -243,4 +243,11 @@ $(document).ready(function () {
             });
         })
     }
+
+    if ($('.datepicker_product_sale').length) {
+        $('.datepicker_product_sale').pickadate({
+			selectMonths: true,
+	        selectYears: true
+		})
+    }
 })

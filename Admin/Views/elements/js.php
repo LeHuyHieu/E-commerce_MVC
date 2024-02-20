@@ -23,6 +23,14 @@
 <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
 <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <!-- select 2 -->
+<!-- datetimepicker -->
+<script src="assets/plugins/datetimepicker/js/legacy.js"></script>
+<script src="assets/plugins/datetimepicker/js/picker.js"></script>
+<script src="assets/plugins/datetimepicker/js/picker.time.js"></script>
+<script src="assets/plugins/datetimepicker/js/picker.date.js"></script>
+<script src="assets/plugins/bootstrap-material-datetimepicker/js/moment.min.js"></script>
+<script src="assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.min.js"></script>
+<!-- end datetimepicker -->
 <script src="assets/plugins/select2/js/select2.min.js"></script>
 <!-- jquery confirm -->
 <script src="assets/plugins/jquery-confirm/jquery-confirm.min.js"></script>

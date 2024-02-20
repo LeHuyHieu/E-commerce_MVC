@@ -39,11 +39,20 @@ class Products extends DB
     }
     public function getAllProducts()
     {
+        if (isset($_GET['category_id']) && !empty($_GET['category_id'])){
+            $category_id = $_GET['category_id'];
+        }
+        if (isset($_GET['title']) && !empty($_GET['title'])) {
+            $title = $_GET['title'];
+        }
+
         $select = "SELECT pr.id, product_hot, title, pr.created_at, discounts.name AS discount_name, categories.name AS category_name
                     FROM products pr
                     LEFT JOIN discounts ON discounts.id = pr.discount_id
                     LEFT JOIN categories ON categories.id = pr.category_id
-                    WHERE pr.deleted_at IS NULL";
+                    WHERE pr.deleted_at IS NULL ";
+        isset($category_id) ? $select .= " AND pr.category_id = $category_id " : "";
+        isset($title) ? $select .= " AND pr.title like '%$title%'" : "";
         $result = $this->db->getList($select);
         return $result;
     }

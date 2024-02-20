@@ -32,4 +32,10 @@
 <!-- end upload -->
 <!-- dataTables -->
 <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<!-- datetimepicker -->
+<link href="assets/plugins/datetimepicker/css/classic.css" rel="stylesheet" />
+<link href="assets/plugins/datetimepicker/css/classic.time.css" rel="stylesheet" />
+<link href="assets/plugins/datetimepicker/css/classic.date.css" rel="stylesheet" />
+<link rel="stylesheet" href="assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.min.css">
+<!-- end datetimepicker -->
 <title>Ecommerce</title>

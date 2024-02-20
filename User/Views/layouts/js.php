@@ -17,9 +17,9 @@ echo (isset($_GET['forgot_password_success']) && $_GET['forgot_password_success'
 echo (isset($_GET['data_empty']) && $_GET['data_empty'] == 1) ? alert('Warning', 'Content cannot be empty', 'warning') : '';
 ?>
 <!-- lazysizes -->
-<!-- <script src="./Public/js/lazyload.js"></script> -->
-<!-- <script src="./Public/js/lazysizes.min.js" async=""></script> -->
-<!-- <script>
+<!-- <script src="./Public/js/lazyload.js"></script>
+<script src="./Public/js/lazysizes.min.js" async=""></script>
+<script>
     $(document).ready(function() {
         // lazyload();
         document.querySelectorAll('img[data-src]').forEach(img => {

@@ -146,7 +146,7 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                     <div id="appenDetailProduct"></div>
                     <div class="text-end">
                         <button type="button" id="changeAppendDetailProduct" class="btn btn-primary"><i class="bx bx-list-plus"></i> Add detail</button>
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="bx bx-plus-circle"></i> Create product</button>
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="bx bx-plus-circle"></i> Update product</button>
                     </div>
                 </form>
             </div>
