@@ -10,13 +10,13 @@ class Products extends DB
     //product attributes
     public function insertAttrColor($data)
     {
-        $result = $this->db->insert('color',$data);
+        $result = $this->db->insert('color', $data);
         return $result;
     }
 
     public function insertAttrSize($data)
     {
-        $result = $this->db->insert('size',$data);
+        $result = $this->db->insert('size', $data);
         return $result;
     }
 
@@ -39,7 +39,7 @@ class Products extends DB
     }
     public function getAllProducts()
     {
-        if (isset($_GET['category_id']) && !empty($_GET['category_id'])){
+        if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
             $category_id = $_GET['category_id'];
         }
         if (isset($_GET['title']) && !empty($_GET['title'])) {
@@ -58,7 +58,7 @@ class Products extends DB
     }
     public function getAllProductsPagination($start, $limit)
     {
-        if (isset($_GET['category_id']) && !empty($_GET['category_id'])){
+        if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
             $category_id = $_GET['category_id'];
         }
         if (isset($_GET['title']) && !empty($_GET['title'])) {
@@ -94,6 +94,13 @@ class Products extends DB
     {
         $select = "SELECT image, id FROM product_images WHERE product_id = $product_id";
         $result = $this->db->getList($select);
+        return $result;
+    }
+
+    public function getProductSale ($product_id) 
+    {
+        $select = "SELECT time_sale FROM product_sale WHERE product_id = $product_id AND active = 1";
+        $result = $this->db->getInstance($select);
         return $result;
     }
 }

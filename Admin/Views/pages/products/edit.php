@@ -10,6 +10,7 @@ $id = $_GET['id'] ?? 0;
 $product = $db->find($id, 'products');
 $detail_product = $tb_product->getDetailproductAllRow($id)->fetchAll();
 $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
+$time_sale_product = $tb_product->getProductSale($id);
 ?>
 <div class="page-wrapper">
     <div class="page-content">
@@ -34,12 +35,12 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                 </div>
                 <form action="index.php?action=products&process=update" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?php echo $id;?>">
-                    <div class="text-end">
+                    <!-- <div class="text-end">
                         <div class="form-check d-inline-block">
                             <input class="form-check-input" type="checkbox" <?php echo $product['product_hot'] == 1 ? 'checked' : '';?> name="product_hot" value="1" id="productHot">
                             <label class="form-check-label" for="productHot">Product hot</label>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="card border-top border-0 border-4 border-primary">
                         <div class="card-body p-4">
                             <div class="row g-3">
@@ -75,7 +76,7 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                                         <textarea id="descriptionProduct" name="description" placeholder="Description product"><?php echo $product['description'];?></textarea>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="col-lg-8 col-md-8 col-sm-12 col-12">
                                     <?php foreach ($list_image_product as $item_image_product) { ?>
                                         <div class="form-group mb-3 d-inline-block image-product-item">
                                             <button type="button" class="btn-remove-image-item btn-remove-item-list-image" data-id="<?php echo $item_image_product['id'];?>"><i class="bx bx-trash-alt"></i></button>
@@ -86,6 +87,19 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
                                     <?php } ?>
                                     <div class="image-product-item-append"></div>
                                     <button type="button" class="add-image-product btn btn-primary"><i class="bx bx-plus"></i> Add Image</button>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <div class="row">
+                                        <div class="form-check d-inline-block col-md-6 col-12">
+                                            <input class="form-check-input" type="checkbox" name="product_sale" <?php echo (!empty($time_sale_product)) ? 'checked' : '';?> value="1" id="productSale">
+                                            <label class="form-check-label" for="productSale">Product Sale</label>
+                                        </div>
+                                        <div class="form-check d-inline-block col-md-6 col-12">
+                                            <input class="form-check-input" type="checkbox" name="product_hot" value="1" id="productHot">
+                                            <label class="form-check-label" for="productHot">Product hot</label>
+                                        </div>
+                                        <div class="time-sale"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -152,5 +166,14 @@ $list_image_product = $tb_product->getListImageDetailProduct($id)->fetchAll();
             </div>
         </div>
         <!--end row-->
+    </div>
+</div>
+
+<div class="d-none">
+    <div class="col-12 clone-item-time-sale">
+        <div class="form-group">
+            <label for="" class="form-label">Time sale</label>
+            <input type="date" class="form-control" value="<?php echo (!empty($time_sale_product)) ? $time_sale_product['time_sale'] : '';?>" name="time_sale" >
+        </div>
     </div>
 </div>

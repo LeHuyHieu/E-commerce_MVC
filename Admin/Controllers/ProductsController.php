@@ -28,6 +28,20 @@ switch ($process){
             $insert_product = $db->insert('products',$data);
             $product_id = $db->lastInsertId();
 
+            //insert product sale
+            $time_sale = $_POST['time_sale'] ?? '';
+            if (!empty($time_sale)) {
+                $active = 1;
+                $data_product_sale = [
+                    'time_sale' => $time_sale,
+                    'product_id' => $product_id,
+                    'active' => $active,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+                $insert_product_sale = $db->insert('product_sale', $data_product_sale);
+            }
+
             $data_image = [];
             $data_detail = [];
             if (isset($_FILES['product_images']) && !empty($_FILES["product_images"]["name"])) {
@@ -136,6 +150,13 @@ switch ($process){
                 'product_hot' => $product_hot
             ];
             $insert_product = $db->update('products',$data, "id = $id");
+
+            $time_sale = $_POST['time_sale'] ?? '';
+            if (empty($time_sale)) {
+                $update_product_sale = $db->update('product_sale', ['active' => 0], "product_id = $id");
+            }else {
+                $update_product_sale = $db->update('product_sale',['time_sale' => $time_sale, 'active' => 1], "product_id = $id");
+            }
 
             $data_image = [];
             $data_detail = [];

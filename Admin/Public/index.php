@@ -1,3 +1,6 @@
+<?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
+    role
+<?php } ?>
 <?php
 spl_autoload_register('myModelClassLoader');
 function myModelClassLoader($className) {

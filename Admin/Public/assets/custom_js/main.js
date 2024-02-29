@@ -39,9 +39,9 @@ $(document).ready(function () {
         var htmlSize = $('.size').html();
         if (attr == 'color') {
             $('.append-input').html(htmlColor)
-        }else if (attr == 'size') {
+        } else if (attr == 'size') {
             $('.append-input').html(htmlSize)
-        }else {
+        } else {
             $('.append-input').html('')
         }
     })
@@ -90,7 +90,7 @@ $(document).ready(function () {
     function previewImage(input, $image) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            reader.onload = function(e){
+            reader.onload = function (e) {
                 $image.attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
@@ -102,7 +102,7 @@ $(document).ready(function () {
         }
     })
 
-    $('.btn-remove-item-list-image').on('click', function() {
+    $('.btn-remove-item-list-image').on('click', function () {
         var _this = $(this);
         var id = _this.attr('data-id');
         $.confirm({
@@ -117,7 +117,7 @@ $(document).ready(function () {
                         $.ajax({
                             url: 'index.php?action=products&process=delete_list_image_item',
                             method: 'POST',
-                            data: {id: id},
+                            data: { id: id },
                             success: (function () {
                                 _this.closest('.image-product-item').remove();
                             })
@@ -132,7 +132,7 @@ $(document).ready(function () {
         });
     })
 
-    $(document).on('change', '.change-image-product', function(){
+    $(document).on('change', '.change-image-product', function () {
         var $image = $(this).next().find('img');
         previewImage(this, $image);
     });
@@ -140,10 +140,10 @@ $(document).ready(function () {
     //format price
     if ($("#priceProduct[data-type='currency']").length) {
         $("#priceProduct[data-type='currency']").on({
-            keyup: function() {
+            keyup: function () {
                 formatCurrency($(this));
             },
-            blur: function() {
+            blur: function () {
                 formatCurrency($(this), "blur");
             }
         });
@@ -184,7 +184,7 @@ $(document).ready(function () {
     if ($('.append-detail-product').length) {
         var appendHtml = $('.append-detail-product');
         var counter = appendHtml.length;
-        $(document).on('click', '.btn-close-append-detail-product', function() {
+        $(document).on('click', '.btn-close-append-detail-product', function () {
             if (!$('.btn-delete-detail-product').length) {
                 $(this).closest('.append-detail-product').remove();
             }
@@ -228,7 +228,7 @@ $(document).ready(function () {
                             $.ajax({
                                 url: 'index.php?action=products&process=delete_item_detail',
                                 method: 'POST',
-                                data: {id: id},
+                                data: { id: id },
                                 success: (function (response) {
                                     _this.closest('.append-detail-product').remove();
                                 })
@@ -246,8 +246,24 @@ $(document).ready(function () {
 
     if ($('.datepicker_product_sale').length) {
         $('.datepicker_product_sale').pickadate({
-			selectMonths: true,
-	        selectYears: true
-		})
+            selectMonths: true,
+            selectYears: true
+        })
+    }
+    
+    if ($('#productSale').length) {
+        let html = $('.clone-item-time-sale').clone()
+        $('#productSale').on('change', function() {
+            if ($(this).prop('checked')) {
+                $('.time-sale').append(html)
+            }else {
+                $('.time-sale').children('.clone-item-time-sale').remove()
+            }
+        })
+        if ($('#productSale').prop('checked')) {
+            $('.time-sale').append(html)
+        }else {
+            $('.time-sale').children('.clone-item-time-sale').remove()
+        }
     }
 })
