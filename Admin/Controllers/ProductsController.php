@@ -3,7 +3,7 @@ $process = $_GET['process'] ?? 'index';
 $db = new DB();
 $tb_products = new Products();
 
-switch ($process){
+switch ($process) {
     case 'index':
         include_once '../Views/pages/products/index.php';
         break;
@@ -25,7 +25,7 @@ switch ($process){
                 'product_hot' => $product_hot,
                 'created_at' => date('Y-m-d H:i:s'),
             ];
-            $insert_product = $db->insert('products',$data);
+            $insert_product = $db->insert('products', $data);
             $product_id = $db->lastInsertId();
 
             //insert product sale
@@ -113,7 +113,6 @@ switch ($process){
                             echo "Sorry, there was an error uploading your file.";
                         }
                     }
-
                 }
             }
             $data_details = [];
@@ -149,13 +148,13 @@ switch ($process){
                 'description' => $description,
                 'product_hot' => $product_hot
             ];
-            $insert_product = $db->update('products',$data, "id = $id");
+            $insert_product = $db->update('products', $data, "id = $id");
 
             $time_sale = $_POST['time_sale'] ?? '';
             if (empty($time_sale)) {
                 $update_product_sale = $db->update('product_sale', ['active' => 0], "product_id = $id");
-            }else {
-                $update_product_sale = $db->update('product_sale',['time_sale' => $time_sale, 'active' => 1], "product_id = $id");
+            } else {
+                $update_product_sale = $db->update('product_sale', ['time_sale' => $time_sale, 'active' => 1], "product_id = $id");
             }
 
             $data_image = [];
@@ -226,7 +225,7 @@ switch ($process){
             if (isset($_FILES['detail_product'])) {
                 $target_dir = "uploads/products/product_color/";
                 foreach ($_FILES["detail_product"]['name']['image_color_product'] as $key => $image_color) {
-                    if (!empty($_FILES["detail_product"]['name']['image_color_product'][$key])){
+                    if (!empty($_FILES["detail_product"]['name']['image_color_product'][$key])) {
                         $products = $db->find($detail_product_id[$key], 'detail_product');
                         $public = 'uploads/products/product_color/';
                         $file_name_db = $products['image_product'];
@@ -272,9 +271,9 @@ switch ($process){
             $data_details = [];
             foreach ($array_details_product as $key => $item) {
                 unset($item['id']);
-                if (isset($data_image_color_product[$key]) && !empty($data_image_color_product[$key])){
+                if (isset($data_image_color_product[$key]) && !empty($data_image_color_product[$key])) {
                     $data_details[$key] = $data_image_color_product[$key] + $item;
-                }else {
+                } else {
                     $data_details[$key] = $item;
                 }
             }
@@ -292,7 +291,7 @@ switch ($process){
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $data = [
-              'deleted_at' => date('Y-m-d H:i:s'),
+                'deleted_at' => date('Y-m-d H:i:s'),
             ];
             $update = $db->update('products', $data, "id = $id");
             if ($update) {
