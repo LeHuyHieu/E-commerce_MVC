@@ -266,4 +266,30 @@ $(document).ready(function () {
             $('.time-sale').children('.clone-item-time-sale').remove()
         }
     }
+
+    if ($('.btn-delete').length) {
+        $('.btn-delete').on('click', function (e) {
+            e.preventDefault();
+            var _this = $(this);
+            var url = _this.attr('href');
+            $.confirm({
+                theme: 'bootstrap',
+                title: 'Confirm delete!',
+                content: 'Simple confirm!',
+                buttons: {
+                    delete: {
+                        text: 'Delete',
+                        btnClass: 'btn-danger',
+                        action: function () {
+                            window.location.href = url
+                        }
+                    },
+                    cancel: {
+                        text: 'Cancel',
+                        btnClass: 'btn-secondary',
+                    }
+                }
+            });
+        })
+    }
 })

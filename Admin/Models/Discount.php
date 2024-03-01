@@ -10,8 +10,8 @@ class Discount extends DB
         if (isset($_GET['title']) && !empty($_GET['title'])) {
             $title = $_GET['title'];
         }
-        $select = "SELECT id, name, description, discount_percent, active, created_at FROM discounts ";
-        isset($title) ? $select .= " WHERE name like '%$title%'" : "";
+        $select = "SELECT id, name, description, discount_percent, active, created_at FROM discounts WHERE deleted_at IS NULL";
+        isset($title) ? $select .= " AND name like '%$title%'" : "";
         $result = $this->db->getList($select);
         return $result;
     }
@@ -20,8 +20,8 @@ class Discount extends DB
         if (isset($_GET['title']) && !empty($_GET['title'])) {
             $title = $_GET['title'];
         }
-        $select = "SELECT id, name, description, discount_percent, active, created_at FROM discounts ";
-        isset($title) ? $select .= " WHERE name like '%$title%'" : "";
+        $select = "SELECT id, name, description, discount_percent, active, created_at FROM discounts WHERE deleted_at IS NULL";
+        isset($title) ? $select .= " AND name like '%$title%'" : "";
         $select .= " ORDER BY created_at DESC LIMIT $start, $limit";
         $result = $this->db->getList($select);
         return $result;

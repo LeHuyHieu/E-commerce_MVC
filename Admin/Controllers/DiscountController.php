@@ -59,7 +59,13 @@ switch ($process) {
         }
         break;
     case 'delete':
-
+        if (isset($_GET['id']) && !empty($_GET['id'])) {
+            $id = $_GET['id'];
+            $update = $db->update('discounts', ['deleted_at' => date('Y-m-d H:i:s')], "id = $id");
+            if ($update) {
+                echo '<script> window.location.href = document.referrer; </script>';
+            }
+        }
         break;
     default:
         include_once '../Views/pages/discount/index.php';

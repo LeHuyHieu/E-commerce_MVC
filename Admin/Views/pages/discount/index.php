@@ -61,7 +61,7 @@ $discounts = $tb_discounts->getAllDiscountPagination($start, $limit)->fetchAll()
                                         <td>
                                             <div class="d-flex order-actions">
                                                 <a href="index.php?action=discount&process=edit&id=<?php echo $item['id'];?>" class="bg-primary text-white"><i class="bx bx-edit"></i></a>
-                                                <a href="index.php?action=discount&process=delete&id=<?php echo $item['id'];?>" class="bg-danger btn-delete-item text-white ms-1"><i class="bx bx-trash"></i></a>
+                                                <a href="index.php?action=discount&process=delete&id=<?php echo $item['id'];?>" class="bg-danger btn-delete text-white ms-1"><i class="bx bx-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
