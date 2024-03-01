@@ -49,9 +49,9 @@
             </ul>
         </li>
         <li>
-            <a href="index.php?action=vendors">
+            <a href="index.php?action=staff">
                 <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
-                <div class="menu-title">Vendor</div>
+                <div class="menu-title">Staff</div>
             </a>
         </li>
     </ul>

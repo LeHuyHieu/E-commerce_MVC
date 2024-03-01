@@ -15,10 +15,8 @@ switch ($process) {
             $event = $_POST['event'] ?? '';
             $starting_at = $_POST['starting_at'] ?? 0;
             $data = [];
+            $status = true;
             
-            if (empty($title) || empty($event) || empty($starting_at)) {
-                echo '<meta http-equiv="refresh" content="0;url=index.php?action=banner&process=create&empty=1"/>';
-            }
             if (isset($_FILES['background']) && basename($_FILES["background"]["name"]) != '') {
                 $target_dir = "uploads/banners/";
                 $fileName = time() . '_' . basename($_FILES["background"]["name"]);
@@ -44,13 +42,22 @@ switch ($process) {
                     }
                 }
             }
-            $data += [
-                'title' => $title,
-                'event' => $event,
-                'starting_at' => $starting_at,
-                'created_at' => date('Y-m-d H:i:s'),
-            ];
-            $insert = $db->insert('banner', $data);
+
+            if (empty($title) || empty($event) || empty($starting_at)) {
+                $status = false;
+                echo '<meta http-equiv="refresh" content="0;url=index.php?action=banner&process=create&empty=1"/>';
+            }else {
+                $data += [
+                    'title' => $title,
+                    'event' => $event,
+                    'starting_at' => $starting_at,
+                    'created_at' => date('Y-m-d H:i:s'),
+                ];
+            }
+            
+            if ($status) {
+                $insert = $db->insert('banner', $data);
+            }
             if ($insert) {
                 echo '<meta http-equiv="refresh" content="0;url=index.php?action=banner&insert-success=1"/>';
             }
