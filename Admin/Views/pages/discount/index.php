@@ -56,7 +56,7 @@ $discounts = $tb_discounts->getAllDiscountPagination($start, $limit)->fetchAll()
                                         <td><?php echo $key;?></td>
                                         <td><?php echo $item['name'];?></td>
                                         <td><?php echo number_format($item['discount_percent']);?>%</td>
-                                        <td><?php echo ($item['active'] == 1) ? '<div class="badge rounded-pill  bg-light-success text-success w-100">Active</div>' : '<div class="badge rounded-pill  bg-light-success text-success w-100">Inactive</div>';?></td>
+                                        <td><?php echo ($item['active'] == 1) ? '<div class="badge rounded-pill  bg-light-success text-success w-100">Active</div>' : '<div class="badge rounded-pill bg-light-danger text-danger w-100">Inactive</div>';?></td>
                                         <td><?php echo date_format(date_create($item['created_at']), 'd M Y') ?></td>
                                         <td>
                                             <div class="d-flex order-actions">

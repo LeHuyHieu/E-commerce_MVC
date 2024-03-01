@@ -26,4 +26,10 @@ class Discount extends DB
         $result = $this->db->getList($select);
         return $result;
     }
+
+    public function getDiscountId ($id) {
+        $select = "SELECT name,description,discount_percent,active FROM discounts WHERE id = $id";
+        $result = $this->db->getInstance($select);
+        return $result;
+    }
 }
