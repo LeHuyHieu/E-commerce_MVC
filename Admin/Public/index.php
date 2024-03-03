@@ -25,12 +25,10 @@ $condition = isset($_SESSION['staff']) && ($_SESSION['staff']['role'] === 1 || $
     <!--wrapper-->
     <div class="wrapper">
         <!--sidebar wrapper -->
-        <?php (!file_exists($controllerFilePath) && !$condition) ? '' : include_once '../Views/elements/slider_bar.php'; ?>
-        <!--end sidebar wrapper -->
-
-        <!--start header -->
-        <?php (!file_exists($controllerFilePath) && !$condition) ? '' : include_once '../Views/elements/header.php'; ?>
-        <!--end header -->
+        <?php if ($condition) {
+            (!file_exists($controllerFilePath)) ? '' : include_once '../Views/elements/slider_bar.php';
+            (!file_exists($controllerFilePath)) ? '' : include_once '../Views/elements/header.php';
+        } ?>
         <!--start page wrapper -->
         <?php
         if (file_exists($controllerFilePath)) {
@@ -50,7 +48,9 @@ $condition = isset($_SESSION['staff']) && ($_SESSION['staff']['role'] === 1 || $
         <!--end page wrapper -->
     </div>
     <!--start switcher-->
-    <?php (!file_exists($controllerFilePath) && !$condition) ? '' : include_once '../Views/elements/switcher.php'; ?>
+    <?php if ($condition) {
+        (!file_exists($controllerFilePath)) ? '' : include_once '../Views/elements/switcher.php';
+    } ?>
     <!--end switcher-->
     <?php include_once '../Views/elements/js.php'; ?>
 </body>

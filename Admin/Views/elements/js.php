@@ -37,7 +37,7 @@
 <!-- tinymce -->
 <script src="assets/plugins/tinymce/tinymce.min.js"></script>
 <script>
-    $(function () {
+    $(function() {
         $(".knob").knob();
     });
 </script>
@@ -45,7 +45,7 @@
 <!--app JS-->
 <script src="assets/js/app.js"></script>
 <!-- custom js -->
-<script src="assets/custom_js/main.js?time=<?php echo time();?>"></script>
+<script src="assets/custom_js/main.js?time=<?php echo time(); ?>"></script>
 
 <script>
     $(document).ready(function() {
@@ -62,4 +62,21 @@
             }
         });
     });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#Transaction-History').DataTable({
+            lengthMenu: [
+                [6, 10, 20, -1],
+                [6, 10, 20, 'Todos']
+            ]
+        });
+    });
+</script>
+<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+<script src="assets/js/dashboard-eCommerce.js"></script>
+<!--app JS-->
+<script>
+    new PerfectScrollbar('.product-list');
+    new PerfectScrollbar('.customers-list');
 </script>
