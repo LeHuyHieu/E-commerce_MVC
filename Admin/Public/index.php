@@ -1,4 +1,6 @@
 <?php
+session_start();
+// unset($_SESSION);
 spl_autoload_register('myModelClassLoader');
 function myModelClassLoader($className)
 {
@@ -10,6 +12,7 @@ if (isset($_GET['action'])) {
     $ctrl = ucfirst($_GET['action']);
 }
 $controllerFilePath = "../Controllers/$ctrl" . "Controller.php";
+$condition = isset($_SESSION['staff']) && ($_SESSION['staff']['role'] === 1 || $_SESSION['staff']['role'] === 10);
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,11 +25,11 @@ $controllerFilePath = "../Controllers/$ctrl" . "Controller.php";
     <!--wrapper-->
     <div class="wrapper">
         <!--sidebar wrapper -->
-        <?php (!file_exists($controllerFilePath)) ? '' : include_once '../Views/elements/slider_bar.php'; ?>
+        <?php (!file_exists($controllerFilePath) && !$condition) ? '' : include_once '../Views/elements/slider_bar.php'; ?>
         <!--end sidebar wrapper -->
 
         <!--start header -->
-        <?php (!file_exists($controllerFilePath)) ? '' : include_once '../Views/elements/header.php'; ?>
+        <?php (!file_exists($controllerFilePath) && !$condition) ? '' : include_once '../Views/elements/header.php'; ?>
         <!--end header -->
         <!--start page wrapper -->
         <?php
@@ -34,13 +37,20 @@ $controllerFilePath = "../Controllers/$ctrl" . "Controller.php";
             include_once $controllerFilePath;
         } else {
             http_response_code(404);
-            include_once "../Views/pages/404.php";
+            switch ($_GET['action']) {
+                case 'login':
+                    include_once "../Views/pages/login.php";
+                    break;
+                default:
+                    include_once "../Views/pages/404.php";
+                    break;
+            }
         }
         ?>
         <!--end page wrapper -->
     </div>
     <!--start switcher-->
-    <?php (!file_exists($controllerFilePath)) ? '' : include_once '../Views/elements/switcher.php'; ?>
+    <?php (!file_exists($controllerFilePath) && !$condition) ? '' : include_once '../Views/elements/switcher.php'; ?>
     <!--end switcher-->
     <?php include_once '../Views/elements/js.php'; ?>
 </body>

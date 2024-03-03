@@ -32,4 +32,12 @@ class Staff extends DB
         $result = $this->db->getInstance($select);
         return $result;
     }
+
+
+    //check login
+    public function checkLogin ($email, $password) {
+        $select = "SELECT `name`, email, avatar, birthday, phone, `role`, token, created_at, id FROM staff WHERE email = '$email' AND `password` = '$password' AND status = 1";
+        $result = $this->db->getList($select);
+        return $result;
+    }
 }

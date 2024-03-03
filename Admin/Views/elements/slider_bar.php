@@ -48,12 +48,14 @@
                 <li><a href="index.php?action=banner"><i class="bx bx-right-arrow-alt"></i>Banner</a></li>
             </ul>
         </li>
-        <li>
-            <a href="index.php?action=staff">
-                <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
-                <div class="menu-title">Staff</div>
-            </a>
-        </li>
+        <?php if ($_SESSION['staff']['role'] == 10) { ?>
+            <li>
+                <a href="index.php?action=staff">
+                    <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
+                    <div class="menu-title">Staff</div>
+                </a>
+            </li>
+        <?php } ?>
         <li>
             <a href="index.php?action=location">
                 <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
