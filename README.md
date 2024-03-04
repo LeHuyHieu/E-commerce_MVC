@@ -41,15 +41,13 @@ Dự án này là một trang web ecommerce được xây dựng để cung cấ
 7. **Forgot password**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
 8. **Đăng nhập, đăng ký**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
 9. **Review, comment**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/6d0210d1-4bee-4eeb-97d1-acfdd85bb406)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/4ae34416-1965-40ec-84ff-99138fd6a942)
 10. **Và có những tính năng như một trang web bán hàng**
 
 ## Hỗ Trợ
 
 Nếu bạn gặp bất kỳ vấn đề nào trong quá trình cài đặt hoặc sử dụng, vui lòng tạo một issue mới trên GitHub repository của dự án để nhận được sự hỗ trợ.
-
-## Giấy Phép
-
-Dự án này được phân phối dưới giấy phép MIT. Xem file LICENSE để biết thêm thông tin.
 
 ## Tác Giả
 
@@ -59,4 +57,12 @@ Dự án này được phân phối dưới giấy phép MIT. Xem file LICENSE �
 
 Dưới đây là một ví dụ về cách để chèn ảnh demo của trang web của bạn:
 
-![Demo](đường_dẫn_đến_ảnh_demo)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/aa9c902f-5cab-4ae9-8f36-a043bcb06c5c)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/e0318655-95a7-44c5-9a3d-ca71622275d1)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/da947e56-cc62-4178-9fa8-ad636e8af536)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/8b758f1e-6652-42ea-aa9b-5159dbcf7452)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/b2b0be93-3017-4e0d-bb33-f3866f029cb1)
+
+
+
+
