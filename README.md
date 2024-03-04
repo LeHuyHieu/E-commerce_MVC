@@ -30,6 +30,19 @@ Dự án này là một trang web ecommerce được xây dựng để cung cấ
 - **/Controller**: Chứa các tệp controller, điều khiển logic của ứng dụng.
 - **/Views**: Chứa các tệp view, biểu diễn giao diện người dùng của ứng dụng.
 
+## Tài khoản đăng nhập
+user:
++ username: hieule
++ password: 123123123
+
+admin:
+- quyền admin duyệt đơn hàng, thêm xóa sửa sản phẩm, ...
+  + email: lehuyhieu_admin@gmail.com
+  + password: 123
+- quyền nhân viên thêm xóa sửa sản phẩm
+  + email: lehuyhieu_staff@gmail.com
+  + password: 123
+    
 ## Tính Năng Chính
 
 1. **Xem sản phẩm**: Người dùng có thể xem danh sách các sản phẩm cùng với thông tin chi tiết về từng sản phẩm.
