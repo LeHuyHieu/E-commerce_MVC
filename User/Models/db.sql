@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               8.0.31 - MySQL Community Server - GPL
+-- Server version:               8.2.0 - MySQL Community Server - GPL
 -- Server OS:                    Win64
 -- HeidiSQL Version:             12.6.0.6765
 -- --------------------------------------------------------
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `banner` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table shop.banner: 9 rows
 DELETE FROM `banner`;
@@ -68,21 +68,18 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `size_id` tinyint DEFAULT NULL,
   `color_id` tinyint DEFAULT NULL,
   `discount_percent` tinyint DEFAULT '0',
-  `images` varchar(255) DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `price` int DEFAULT '0',
   `total` int DEFAULT '0',
   `quantity` int DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table shop.cart: 1 rows
 DELETE FROM `cart`;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` (`id`, `title`, `product_id`, `user_id`, `size_id`, `color_id`, `discount_percent`, `images`, `price`, `total`, `quantity`, `created_at`, `updated_at`) VALUES
-	(6, 'Motorola Edge+', 25, 1, 1, 10, 0, 'iphone_banner_9.webp', 49000000, 49000000, 1, NULL, NULL),
-	(5, 'BlackBerry Key2', 30, 1, 1, 3, 7, 'iphone_banner_2.webp', 9000000, 8370000, 1, NULL, NULL);
+INSERT INTO `cart` (`id`, `title`, `product_id`, `user_id`, `size_id`, `color_id`, `discount_percent`, `image`, `price`, `total`, `quantity`) VALUES
+	(6, 'Macbook Air with M1 chip', 5, 4, 1, 5, 40, 'mac_banner_3.webp', 20000000, 12000000, 1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 -- Dumping structure for table shop.categories
@@ -94,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=218 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table shop.categories: 217 rows
 DELETE FROM `categories`;
@@ -323,25 +320,21 @@ INSERT INTO `categories` (`id`, `parent_id`, `name`, `banner_image`, `created_at
 CREATE TABLE IF NOT EXISTS `color` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.color: 10 rows
+-- Dumping data for table shop.color: 7 rows
 DELETE FROM `color`;
 /*!40000 ALTER TABLE `color` DISABLE KEYS */;
-INSERT INTO `color` (`id`, `name`, `created_at`, `updated_at`) VALUES
-	(1, 'No Color', '2023-12-12 09:52:37', '2024-01-07 07:05:10'),
-	(2, 'Đen', '2023-12-12 09:52:38', '2023-12-12 09:52:38'),
-	(3, 'Hồng', '2023-12-12 09:52:38', '2023-12-12 09:52:39'),
-	(4, 'Xanh dương', '2023-12-12 09:52:39', '2023-12-12 09:52:39'),
-	(5, 'Xanh lá', '2023-12-12 09:52:39', '2023-12-12 09:52:40'),
-	(6, 'Vàng', '2023-12-12 09:52:40', '2023-12-12 09:52:40'),
-	(7, 'Cam', '2023-12-12 09:52:41', '2023-12-12 09:52:41'),
-	(8, 'Tím', '2023-12-12 09:52:41', '2023-12-12 09:52:41'),
-	(9, 'Đỏ', '2023-12-12 09:52:42', '2023-12-12 09:52:42'),
-	(10, 'Trắng', '2023-12-12 09:52:42', '2023-12-12 09:52:42');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES
+	(1, 'No Color', '#ffffff'),
+	(2, 'Black', '#000000'),
+	(3, 'White', '#ffffff'),
+	(4, 'Yellow', '#f1f500'),
+	(5, 'Violet', '#70006c'),
+	(6, 'Orange', '#f08000'),
+	(7, 'Red', '#ff0000');
 /*!40000 ALTER TABLE `color` ENABLE KEYS */;
 
 -- Dumping structure for table shop.comments
@@ -351,23 +344,18 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `comment_id` int DEFAULT '0',
   `user_id` int DEFAULT '0',
   `product_id` int DEFAULT '0',
-  `rating` smallint DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.comments: 6 rows
+-- Dumping data for table shop.comments: 4 rows
 DELETE FROM `comments`;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` (`id`, `comment`, `comment_id`, `user_id`, `product_id`, `rating`, `created_at`, `updated_at`) VALUES
-	(1, 'sản phẩm đẹp', 0, 1, 4, 5, '2024-01-03 20:11:20', '2024-01-03 20:11:20'),
-	(2, '@Lê Huy Hiệu không đẹp', 1, 2, 4, 0, '2024-01-03 20:12:36', '2024-01-03 20:12:36'),
-	(3, 'Sản phẩm xấu', 0, 2, 4, 1, '2024-01-03 20:12:56', '2024-01-03 20:12:56'),
-	(4, 'sản phẩm đẹp', 0, 1, 45, 5, '2024-01-04 23:53:37', '2024-01-04 23:53:37'),
-	(5, '@Lê Huy Hiệu Không đẹp lắm', 4, 2, 45, 0, '2024-01-04 23:54:27', '2024-01-04 23:54:27'),
-	(6, 'Sản phẩm cũng oke', 0, 2, 45, 4, '2024-01-04 23:54:50', '2024-01-04 23:54:50'),
-	(7, 'cũng bình thường\nnhưng gói hàng oke', 0, 1, 4, 4, '2024-01-09 05:45:10', '2024-01-09 05:45:10');
+INSERT INTO `comments` (`id`, `comment`, `comment_id`, `user_id`, `product_id`, `created_at`) VALUES
+	(5, 'hello frend', 0, 2, 6, '2024-02-20 00:08:21'),
+	(6, 'Sản phẩm oke và đánh giá 4sao r', 0, 2, 6, '2024-02-20 00:08:48'),
+	(7, '@Lê Huy Hiệu Hello', 5, 3, 6, '2024-02-20 00:18:42'),
+	(8, 'âs', 0, 4, 35, '2024-03-04 03:23:19');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 
 -- Dumping structure for table shop.coupon_code
@@ -382,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `coupon_code` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.coupon_code: 0 rows
+-- Dumping data for table shop.coupon_code: 5 rows
 DELETE FROM `coupon_code`;
 /*!40000 ALTER TABLE `coupon_code` DISABLE KEYS */;
 INSERT INTO `coupon_code` (`id`, `code`, `percent`, `quantity`, `expiration_date`, `created_at`, `updated_at`) VALUES
@@ -405,11 +393,12 @@ CREATE TABLE IF NOT EXISTS `detail_product` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
   KEY `color_id` (`color_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=322 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `size_id` (`size_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=412 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.detail_product: 321 rows
+-- Dumping data for table shop.detail_product: 322 rows
 DELETE FROM `detail_product`;
 /*!40000 ALTER TABLE `detail_product` DISABLE KEYS */;
 INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`, `quantity`, `image_product`, `created_at`, `updated_at`) VALUES
@@ -425,8 +414,8 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(10, 4, 2, 1, 35000000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(11, 4, 3, 1, 35000000, 200, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(12, 4, 4, 1, 35000000, 200, 'mac_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(13, 5, 5, 1, 20000000, 200, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(14, 5, 6, 1, 22000000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(13, 5, 5, 1, 20000000, 199, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(14, 5, 6, 1, 22000000, 198, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(15, 5, 7, 1, 21000000, 200, 'mac_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(16, 6, 7, 1, 25000000, 200, 'mac_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(17, 6, 8, 1, 29900000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -456,14 +445,14 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(41, 14, 6, 1, 22000000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(42, 14, 7, 1, 21000000, 200, 'mac_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(43, 15, 7, 1, 25000000, 200, 'mac_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(44, 15, 8, 1, 29900000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(44, 15, 8, 1, 29900000, 199, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(45, 15, 9, 1, 20000000, 200, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(46, 16, 10, 1, 49000000, 200, 'mac_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(46, 16, 10, 1, 49000000, 198, 'mac_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(47, 16, 9, 1, 25000000, 200, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(48, 16, 8, 1, 24000000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(49, 17, 2, 1, 69000000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(50, 17, 2, 1, 79000000, 200, 'mac_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(51, 17, 3, 1, 59000000, 200, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(51, 17, 3, 1, 59000000, 197, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(52, 18, 4, 1, 24000000, 200, 'mac_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(53, 18, 5, 1, 25000000, 200, 'mac_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(54, 18, 6, 1, 22000000, 200, 'mac_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -497,11 +486,11 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(82, 28, 2, 1, 8000000, 200, 'iphone_banner_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(83, 28, 3, 1, 9000000, 200, 'iphone_banner_9.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(84, 28, 4, 1, 10000000, 200, 'iphone_banner_10.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(85, 29, 5, 1, 11000000, 200, 'iphone_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(85, 29, 5, 1, 11000000, 197, 'iphone_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(86, 29, 6, 1, 12000000, 200, 'iphone_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(87, 29, 7, 1, 13000000, 200, 'mac_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(88, 30, 2, 1, 8000000, 200, 'iphone_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(89, 30, 3, 1, 9000000, 200, 'iphone_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(88, 30, 2, 1, 8000000, 197, 'iphone_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(89, 30, 3, 1, 9000000, 197, 'iphone_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(90, 30, 4, 1, 10000000, 200, 'iphone_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(91, 31, 5, 1, 11000000, 200, 'iphone_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(92, 31, 6, 1, 12000000, 200, 'iphone_banner_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -531,7 +520,7 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(116, 39, 3, 1, 9000000, 200, 'iphone_banner_9.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(117, 39, 4, 1, 10000000, 200, 'iphone_banner_10.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(118, 40, 5, 1, 11000000, 200, 'iphone_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(119, 40, 6, 1, 12000000, 200, 'iphone_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(119, 40, 6, 1, 12000000, 199, 'iphone_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(120, 40, 7, 1, 13000000, 200, 'iphone_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(121, 41, 7, 1, 13000000, 200, 'loa_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(122, 41, 8, 1, 13000000, 200, 'loa_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -566,7 +555,7 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(151, 51, 7, 1, 13000000, 200, 'loa_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(152, 51, 8, 1, 13000000, 200, 'loa_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(153, 51, 9, 1, 20000000, 200, 'loa_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(154, 52, 10, 1, 49000000, 200, 'loa_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(154, 52, 10, 1, 49000000, 199, 'loa_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(155, 52, 9, 1, 25000000, 200, 'loa_banner_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(156, 52, 8, 1, 24000000, 200, 'loa_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(157, 53, 2, 1, 69000000, 200, 'loa_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -584,7 +573,7 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(169, 57, 7, 1, 13000000, 200, 'loa_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(170, 57, 8, 1, 13000000, 200, 'loa_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(171, 57, 9, 1, 13000000, 200, 'loa_banner_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(172, 58, 2, 1, 8000000, 200, 'loa_banner_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(172, 58, 2, 1, 8000000, 199, 'loa_banner_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(173, 58, 3, 1, 9000000, 200, 'loa_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(174, 58, 4, 1, 10000000, 200, 'loa_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(175, 59, 5, 1, 11000000, 200, 'loa_banner_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -656,7 +645,7 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(241, 69, 4, 3, 150000, 200, 'op_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(242, 69, 5, 2, 160000, 200, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(243, 69, 5, 3, 170000, 200, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(244, 70, 6, 2, 100000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(244, 70, 6, 2, 120000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(245, 70, 6, 3, 110000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(246, 70, 6, 4, 120000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(247, 70, 9, 2, 100000, 200, 'op_banner_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -690,7 +679,7 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(275, 74, 2, 4, 120000, 200, 'op_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(276, 74, 3, 2, 100000, 200, 'op_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(277, 74, 3, 3, 150000, 200, 'op_banner_2.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(278, 74, 4, 2, 160000, 200, 'op_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(278, 74, 4, 2, 160000, 199, 'op_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(279, 74, 4, 3, 170000, 200, 'op_banner_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(280, 75, 3, 2, 100000, 200, 'op_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(281, 75, 3, 3, 110000, 200, 'op_banner_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -698,7 +687,7 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(283, 75, 4, 2, 100000, 200, 'op_banner_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(284, 75, 4, 3, 150000, 200, 'op_banner_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(285, 75, 5, 2, 160000, 200, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(286, 75, 5, 3, 170000, 200, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(286, 75, 5, 3, 170000, 197, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(287, 76, 6, 2, 100000, 200, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(288, 76, 6, 3, 110000, 200, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(289, 76, 6, 4, 120000, 200, 'op_banner_6.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -706,13 +695,11 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(291, 76, 10, 3, 150000, 200, 'op_banner_9.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(292, 76, 8, 2, 160000, 200, 'op_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(293, 76, 8, 3, 170000, 200, 'op_banner_1.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(294, 77, 4, 2, 100000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(295, 77, 4, 3, 110000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(296, 77, 4, 4, 120000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(297, 77, 5, 2, 100000, 200, 'op_banner_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(298, 77, 5, 3, 150000, 200, 'op_banner_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(299, 77, 6, 2, 160000, 200, 'op_banner_9.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(300, 77, 6, 3, 170000, 200, 'op_banner_9.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(294, 77, 2, 1, 150000, 200, '1706866950_iphone_2_3.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(295, 77, 3, 1, 150000, 200, '1706866950_iphone_2_4.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(296, 77, 4, 1, 150000, 200, '1706866950_iphone_2_5.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(298, 77, 6, 1, 150000, 200, '1706866950_iphone_2_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(299, 77, 7, 1, 150000, 200, '1706866950_iphone_2_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(301, 78, 2, 2, 100000, 200, 'op_banner_10.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(302, 78, 2, 3, 110000, 200, 'op_banner_10.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(303, 78, 2, 4, 120000, 200, 'op_banner_10.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
@@ -733,7 +720,10 @@ INSERT INTO `detail_product` (`id`, `product_id`, `color_id`, `size_id`, `price`
 	(318, 80, 9, 2, 100000, 200, 'op_banner_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(319, 80, 9, 3, 150000, 200, 'op_banner_8.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
 	(320, 80, 10, 2, 160000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
-	(321, 80, 10, 3, 170000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07');
+	(321, 80, 10, 3, 170000, 200, 'op_banner_7.webp', '2024-01-07 07:09:06', '2024-01-07 07:09:07'),
+	(410, 140, 5, 4, 1111, 12, '1707570924_', '2024-02-10 06:15:24', NULL),
+	(409, 140, 4, 6, 111111, 12, '1707570924_iphone_2_1.webp', '2024-02-10 06:15:24', NULL),
+	(411, 141, 5, 4, 122121, 12, '1709217776_category-8.svg', '2024-02-29 07:42:56', NULL);
 /*!40000 ALTER TABLE `detail_product` ENABLE KEYS */;
 
 -- Dumping structure for table shop.discounts
@@ -747,17 +737,19 @@ CREATE TABLE IF NOT EXISTS `discounts` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.discounts: 5 rows
+-- Dumping data for table shop.discounts: 7 rows
 DELETE FROM `discounts`;
 /*!40000 ALTER TABLE `discounts` DISABLE KEYS */;
 INSERT INTO `discounts` (`id`, `name`, `description`, `discount_percent`, `active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Mã giảm giá', 'Giảm giá 40% mọi sản phẩm', 40.000000, 1, '2023-12-12 03:54:45', '2023-12-12 03:55:22', NULL),
-	(2, 'Mã giảm giá', 'Giảm giá 7% mọi sản phẩm', 7.000000, 1, '2023-12-12 03:54:45', '2023-12-12 09:57:33', NULL),
-	(3, 'Mã giảm giá', 'Giảm giá 6% mọi sản phẩm', 6.000000, 1, '2023-12-12 03:54:45', '2023-12-12 09:57:28', NULL),
-	(4, 'Mã giảm giá', 'Giảm giá 99% mọi sản phẩm', 99.000000, 1, '2023-12-12 03:54:45', '2023-12-12 09:57:23', NULL),
-	(5, 'Mã giảm giá', 'Giảm giá 1% mọi sản phẩm', 1.000000, 1, '2023-12-12 03:54:45', '2023-12-12 10:04:40', NULL);
+	(1, 'Mã giảm giá 40%', 'Giảm giá 40% mọi sản phẩm', 40.000000, 1, '2023-12-12 03:54:45', '2024-02-20 07:39:41', NULL),
+	(2, 'Mã giảm giá 7%', 'Giảm giá 7% mọi sản phẩm', 7.000000, 1, '2023-12-12 03:54:45', '2024-02-20 07:39:46', NULL),
+	(3, 'Mã giảm giá 6%', 'Giảm giá 6% mọi sản phẩm', 6.000000, 1, '2023-12-12 03:54:45', '2024-02-20 07:39:54', NULL),
+	(4, 'Mã giảm giá 99%', 'Giảm giá 99% mọi sản phẩm', 99.000000, 1, '2023-12-12 03:54:45', '2024-02-20 07:39:58', NULL),
+	(5, 'Mã giảm giá 1%', 'Giảm giá 1% mọi sản phẩm', 1.000000, 1, '2023-12-12 03:54:45', '2024-02-20 07:40:03', NULL),
+	(6, 'Giam gia 70%', '<p>Giam gia 70%</p>', 70.000000, 1, '2024-02-29 18:28:57', '2024-03-01 01:54:18', NULL),
+	(7, 'Giam gia 12%', '<p>Giam gia 12%</p>', 12.000000, 0, '2024-02-29 18:30:29', '2024-03-01 01:58:09', '2024-02-29 18:58:09');
 /*!40000 ALTER TABLE `discounts` ENABLE KEYS */;
 
 -- Dumping structure for table shop.location
@@ -768,69 +760,69 @@ CREATE TABLE IF NOT EXISTS `location` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table shop.location: 57 rows
 DELETE FROM `location`;
 /*!40000 ALTER TABLE `location` DISABLE KEYS */;
 INSERT INTO `location` (`id`, `city_id`, `name`, `created_at`, `updated_at`) VALUES
-	(1, 0, 'Tp Hồ Chí Minh', NULL, NULL),
-	(2, 1, 'Quận 1', NULL, '2024-01-09 04:26:13'),
-	(3, 1, 'Quận 3', NULL, '2024-01-09 04:26:13'),
-	(4, 1, 'Quận 4', NULL, '2024-01-09 04:26:13'),
-	(5, 1, 'Quận 5', NULL, '2024-01-09 04:26:13'),
-	(6, 1, 'Quận 6', NULL, '2024-01-09 04:26:13'),
-	(7, 1, 'Quận 7', NULL, '2024-01-09 04:26:13'),
-	(8, 1, 'Quận 8', NULL, '2024-01-09 04:26:13'),
-	(9, 1, 'Quận 10', NULL, '2024-01-09 04:26:13'),
-	(10, 1, 'Quận 11', NULL, '2024-01-09 04:26:13'),
-	(11, 1, 'Quận 12', NULL, '2024-01-09 04:26:13'),
-	(12, 1, 'Tân Binh', NULL, '2024-01-09 04:26:13'),
-	(13, 1, 'Bình Thạnh', NULL, '2024-01-09 04:26:13'),
-	(14, 1, 'Gò Vấp', NULL, '2024-01-09 04:26:13'),
-	(15, 1, 'Phú Nhuận', NULL, '2024-01-09 04:26:13'),
-	(16, 1, 'Tân Phú', NULL, '2024-01-09 04:26:13'),
-	(17, 1, 'Bình Tân', NULL, '2024-01-09 04:26:13'),
-	(18, 0, 'Hà Nội', NULL, NULL),
-	(19, 18, 'Quận Ba Đình', NULL, NULL),
-	(20, 18, 'Quận Hoàn Kiếm', NULL, NULL),
-	(21, 18, 'Quận Tây Hồ', NULL, '2024-01-09 04:30:44'),
-	(22, 18, 'Quận Long Biên', NULL, '2024-01-09 04:30:44'),
-	(23, 18, 'Quận Cầu Giấy', NULL, '2024-01-09 04:30:44'),
-	(24, 18, 'Quận Đống Đa', NULL, '2024-01-09 04:30:44'),
-	(25, 18, 'Quận Hai Bà Trưng', NULL, '2024-01-09 04:30:44'),
-	(26, 18, 'Quận Hoàng Mai', NULL, '2024-01-09 04:30:44'),
-	(27, 18, 'Quận Thanh Xuân', NULL, '2024-01-09 04:30:44'),
-	(28, 18, 'Huyện Sóc Sơn', NULL, '2024-01-09 04:30:44'),
-	(29, 18, 'Huyện Đông Anh', NULL, '2024-01-09 04:30:44'),
-	(30, 18, 'Quận Nam Từ Liêm', NULL, '2024-01-09 04:30:44'),
-	(31, 18, 'Quận Hà Đông', NULL, '2024-01-09 04:30:44'),
-	(32, 18, 'Huyện Mê Linh', NULL, '2024-01-09 04:30:44'),
-	(33, 0, 'Đà Nẵng', NULL, NULL),
-	(34, 33, 'Quận Liên Chiểu', NULL, NULL),
-	(35, 33, 'Quận Thanh Khê', NULL, NULL),
-	(36, 33, 'Quận Hải Châu', NULL, NULL),
-	(37, 33, 'Quận Sơn Trà', NULL, NULL),
-	(38, 33, 'Quận Ngũ Hành Sơn', NULL, NULL),
-	(39, 33, 'Quận Cẩm Lệ', NULL, NULL),
-	(40, 33, 'Huyện Hoàng Sa', NULL, NULL),
-	(41, 33, 'Huyện Hòa Vang', NULL, NULL),
-	(42, 0, 'Hải Phòng', NULL, NULL),
-	(43, 42, 'Quận Hồng Bàng', NULL, NULL),
-	(44, 42, 'Quận Ngô Quyền', NULL, NULL),
-	(45, 42, 'Quận Lê Chân', NULL, NULL),
-	(46, 42, 'Quận Hải An', NULL, NULL),
-	(47, 42, 'Quận Kiến An', NULL, NULL),
-	(48, 42, 'Quận Đồ Sơn', NULL, NULL),
-	(49, 42, 'Quận Dương Kinh', NULL, NULL),
-	(50, 42, 'Huyện Thuỷ Nguyên', NULL, NULL),
-	(51, 42, 'Huyện An Dương', NULL, NULL),
-	(52, 42, 'Huyện An Lão', NULL, NULL),
-	(53, 42, 'Huyện Kiến Thuỵ', NULL, NULL),
-	(54, 42, 'Huyện Tiên Lãng', NULL, NULL),
-	(55, 42, 'Huyện Vĩnh Bảo', NULL, NULL),
-	(56, 42, 'Huyện Cát Hải', NULL, NULL),
-	(57, 42, 'Huyện Bạch Long Vĩ', NULL, NULL);
+	(1, 0, 'Tp Hồ Chí Minh', '2024-03-02 15:09:31', '2024-03-02 15:09:31'),
+	(2, 1, 'Quận 1', '2024-03-02 15:51:11', '2024-03-02 15:51:12'),
+	(3, 1, 'Quận 3', '2024-03-02 15:51:12', '2024-03-02 15:51:13'),
+	(4, 1, 'Quận 4', '2024-03-02 15:51:13', '2024-03-02 15:51:13'),
+	(5, 1, 'Quận 5', '2024-03-02 15:51:14', '2024-03-02 15:51:14'),
+	(6, 1, 'Quận 6', '2024-03-02 15:51:14', '2024-03-02 15:51:15'),
+	(7, 1, 'Quận 7', '2024-03-02 15:51:15', '2024-03-02 15:51:16'),
+	(8, 1, 'Quận 8', '2024-03-02 15:51:16', '2024-03-02 15:51:16'),
+	(9, 1, 'Quận 10', '2024-03-02 15:51:17', '2024-03-02 15:51:18'),
+	(10, 1, 'Quận 11', '2024-03-02 15:51:16', '2024-03-02 15:51:17'),
+	(11, 1, 'Quận 12', '2024-03-02 15:51:32', '2024-03-02 15:51:33'),
+	(12, 1, 'Tân Binh', '2024-03-02 15:51:18', '2024-03-02 15:51:19'),
+	(13, 1, 'Bình Thạnh', '2024-03-02 15:51:31', '2024-03-02 15:51:32'),
+	(14, 1, 'Gò Vấp', '2024-03-02 15:51:30', '2024-03-02 15:51:31'),
+	(15, 1, 'Phú Nhuận', '2024-03-02 15:51:29', '2024-03-02 15:51:30'),
+	(16, 1, 'Tân Phú', '2024-03-02 15:51:29', '2024-03-02 15:51:29'),
+	(17, 1, 'Bình Tân', '2024-03-02 15:51:27', '2024-03-02 15:51:29'),
+	(18, 0, 'Hà Nội', '2024-03-02 15:51:27', '2024-03-02 15:51:27'),
+	(19, 18, 'Quận Ba Đình', '2024-03-02 15:51:25', '2024-03-02 15:51:26'),
+	(20, 18, 'Quận Hoàn Kiếm', '2024-03-02 15:51:24', '2024-03-02 15:51:25'),
+	(21, 18, 'Quận Tây Hồ', '2024-03-02 15:51:24', '2024-03-02 15:51:24'),
+	(22, 18, 'Quận Long Biên', '2024-03-02 15:51:23', '2024-03-02 15:51:23'),
+	(23, 18, 'Quận Cầu Giấy', '2024-03-02 15:51:21', '2024-03-02 15:51:22'),
+	(24, 18, 'Quận Đống Đa', '2024-03-02 15:51:22', '2024-03-02 15:51:23'),
+	(25, 18, 'Quận Hai Bà Trưng', '2024-03-02 15:51:20', '2024-03-02 15:51:21'),
+	(26, 18, 'Quận Hoàng Mai', '2024-03-02 15:51:34', '2024-03-02 15:51:35'),
+	(27, 18, 'Quận Thanh Xuân', '2024-03-02 15:51:36', '2024-03-02 15:51:36'),
+	(28, 18, 'Huyện Sóc Sơn', '2024-03-02 15:51:36', '2024-03-02 15:51:37'),
+	(29, 18, 'Huyện Đông Anh', '2024-03-02 15:51:37', '2024-03-02 15:51:37'),
+	(30, 18, 'Quận Nam Từ Liêm', '2024-03-02 15:51:41', '2024-03-02 15:51:42'),
+	(31, 18, 'Quận Hà Đông', '2024-03-02 15:51:38', '2024-03-02 15:51:38'),
+	(32, 18, 'Huyện Mê Linh', '2024-03-02 15:51:40', '2024-03-02 15:51:41'),
+	(33, 0, 'Đà Nẵng', '2024-03-02 15:51:38', '2024-03-02 15:51:39'),
+	(34, 33, 'Quận Liên Chiểu', '2024-03-02 15:51:42', '2024-03-02 15:51:44'),
+	(35, 33, 'Quận Thanh Khê', '2024-03-02 15:51:39', '2024-03-02 15:51:40'),
+	(36, 33, 'Quận Hải Châu', '2024-03-02 15:51:45', '2024-03-02 15:51:45'),
+	(37, 33, 'Quận Sơn Trà', '2024-03-02 15:51:45', '2024-03-02 15:51:46'),
+	(38, 33, 'Quận Ngũ Hành Sơn', '2024-03-02 15:51:08', '2024-03-02 15:51:11'),
+	(39, 33, 'Quận Cẩm Lệ', '2024-03-02 15:51:07', '2024-03-02 15:51:08'),
+	(40, 33, 'Huyện Hoàng Sa', '2024-03-02 15:51:06', '2024-03-02 15:51:07'),
+	(41, 33, 'Huyện Hòa Vang', '2024-03-02 15:51:05', '2024-03-02 15:51:06'),
+	(42, 0, 'Hải Phòng', '2024-03-02 15:51:04', '2024-03-02 15:51:05'),
+	(43, 42, 'Quận Hồng Bàng', '2024-03-02 15:51:04', '2024-03-02 15:51:04'),
+	(44, 42, 'Quận Ngô Quyền', '2024-03-02 15:51:01', '2024-03-02 15:51:02'),
+	(45, 42, 'Quận Lê Chân', '2024-03-02 15:51:02', '2024-03-02 15:51:03'),
+	(46, 42, 'Quận Hải An', '2024-03-02 15:51:00', '2024-03-02 15:51:01'),
+	(47, 42, 'Quận Kiến An', '2024-03-02 15:50:59', '2024-03-02 15:51:00'),
+	(48, 42, 'Quận Đồ Sơn', '2024-03-02 15:50:58', '2024-03-02 15:50:59'),
+	(49, 42, 'Quận Dương Kinh', '2024-03-02 15:50:57', '2024-03-02 15:50:58'),
+	(50, 42, 'Huyện Thuỷ Nguyên', '2024-03-02 15:50:56', '2024-03-02 15:50:57'),
+	(51, 42, 'Huyện An Dương', '2024-03-02 15:50:56', '2024-03-02 15:50:56'),
+	(52, 42, 'Huyện An Lão', '2024-03-02 15:50:55', '2024-03-02 15:50:55'),
+	(53, 42, 'Huyện Kiến Thuỵ', '2024-03-02 15:50:52', '2024-03-02 15:50:53'),
+	(54, 42, 'Huyện Tiên Lãng', '2024-03-02 15:50:53', '2024-03-02 15:50:54'),
+	(55, 42, 'Huyện Vĩnh Bảo', '2024-03-02 15:50:51', '2024-03-02 15:50:52'),
+	(56, 42, 'Huyện Cát Hải', '2024-03-02 15:50:50', '2024-03-02 15:50:51'),
+	(57, 42, 'Huyện Bạch Long Vĩ', '2024-03-02 15:50:50', '2024-03-02 15:50:50');
 /*!40000 ALTER TABLE `location` ENABLE KEYS */;
 
 -- Dumping structure for table shop.orders
@@ -845,14 +837,20 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `phone_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `order_date` date DEFAULT NULL,
   `total_amount` int DEFAULT '0',
+  `status` tinyint DEFAULT '0' COMMENT '0 chờ xác nhận, 1 xác nhận và giao hàng, 2 hủy đơn, 3 thành công, 10 user hủy đơn',
+  `code_order` varchar(20) DEFAULT NULL,
+  `hidden` tinyint DEFAULT '0',
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.orders: 0 rows
+-- Dumping data for table shop.orders: 3 rows
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`id`, `user_id`, `fullname`, `email_address`, `shipping_address`, `city`, `district`, `phone_number`, `order_date`, `total_amount`) VALUES
-	(1, 1, 'Lê Huy Hiệu', 'lehuyhieu@gmail.com', '50 hiệp bình chánh tp thủ đức', '1', '3', '0386208003', '2024-01-09', 53780000);
+INSERT INTO `orders` (`id`, `user_id`, `fullname`, `email_address`, `shipping_address`, `city`, `district`, `phone_number`, `order_date`, `total_amount`, `status`, `code_order`, `hidden`, `deleted_at`) VALUES
+	(1, 2, 'Lê Huy Hiệu', 'lehuyhieupro0682@gmail.com', '50 hiệp bình chánh tp thủ đức', 'Tp Hồ Chí Minh', 'Quận 5', '0386208003', '2024-02-22', 123420000, 0, '#272363', 0, NULL),
+	(2, 4, 'Hiệu Lê', 'lehuyhieupro06182@gmail.com', '50 hiep binh chanh', 'Tp Hồ Chí Minh', 'Quận 3', '0386208003', '2024-03-03', 12000000, 10, '#882300', 1, NULL),
+	(3, 4, 'Hiệu Lê', 'lehuyhieupro06182@gmail.com', '50 hiep binh', 'Đà Nẵng', 'Quận Sơn Trà', '0386208003', '2024-03-03', 160000, 3, '#803755', 1, '2024-03-04 02:46:35');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table shop.order_details
@@ -864,20 +862,19 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `title` varchar(255) DEFAULT NULL,
   `size_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `color_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
   `quantity` int NOT NULL DEFAULT '0',
   `unit_price` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.order_details: 0 rows
+-- Dumping data for table shop.order_details: 4 rows
 DELETE FROM `order_details`;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `note`, `title`, `size_name`, `color_name`, `status`, `quantity`, `unit_price`) VALUES
-	(1, 1, 23, '123', 'Google Pixel 6', 'No Size', 'Xanh lá', 'Wait for confirmation', 1, 18600000),
-	(2, 1, 58, '123', 'JBL Charge 5', 'No Size', 'Hồng', 'Wait for confirmation', 2, 180000),
-	(3, 1, 11, '123', 'ASUS ROG Zephyrus G14', 'No Size', 'Cam', 'Wait for confirmation', 1, 13000000),
-	(4, 1, 27, '123', 'Asus Zenfone 8', 'No Size', 'Vàng', 'Wait for confirmation', 1, 22000000);
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `note`, `title`, `size_name`, `color_name`, `quantity`, `unit_price`) VALUES
+	(1, 1, 5, '', 'Macbook Air with M1 chip', 'No Size', 'Orange', 2, 26400000),
+	(2, 1, 16, '', 'Macbook Pro (16-inch)', 'No Size', '', 2, 97020000),
+	(3, 2, 5, '', 'Macbook Air with M1 chip', 'No Size', 'Violet', 1, 12000000),
+	(4, 3, 74, '', 'Oppo Find X3 Pro Transparent Silicone Case', 'S', 'Yellow', 1, 160000);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 
 -- Dumping structure for table shop.products
@@ -894,9 +891,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   KEY `title` (`title`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.products: 80 rows
+-- Dumping data for table shop.products: 82 rows
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `category_id`, `product_hot`, `title`, `description`, `discount_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -976,10 +973,12 @@ INSERT INTO `products` (`id`, `category_id`, `product_hot`, `title`, `descriptio
 	(74, 124, 0, 'Oppo Find X3 Pro Transparent Silicone Case', 'Description for Oppo Find X3 Pro Transparent Silicone Case - This is a longer description for the product. It includes more details about the features and specifications of the Oppo Find X3 Pro Transparent Silicone Case to provide a comprehensive understanding.', 0, '2024-01-07 13:08:48', '2024-01-07 13:08:48', NULL),
 	(75, 137, 1, 'Motorola Edge+ Slim Fit Case', 'Description for Motorola Edge+ Slim Fit Case - This is a longer description for the product. It includes more details about the features and specifications of the Motorola Edge+ Slim Fit Case to provide a comprehensive understanding.', 0, '2024-01-07 13:08:47', '2024-01-07 13:12:33', NULL),
 	(76, 123, 0, 'BlackBerry Key2 Holster Belt Clip Case', 'Description for BlackBerry Key2 Holster Belt Clip Case - This is a longer description for the product. It includes more details about the features and specifications of the BlackBerry Key2 Holster Belt Clip Case to provide a comprehensive understanding.', 0, '2024-01-07 13:08:48', '2024-01-07 13:08:48', NULL),
-	(77, 133, 0, 'Caseology Parallax for LG Velvet', 'Description for Caseology Parallax for LG Velvet - This is a longer description for the product. It includes more details about the features and specifications of the Caseology Parallax for LG Velvet to provide a comprehensive understanding.', 0, '2024-01-07 13:08:51', '2024-01-07 13:08:53', NULL),
+	(77, 133, 1, 'Caseology Parallax for LG Velvet 122', '<p>Description for Caseology Parallax for LG Velvet - This is a longer description for the product. It includes more details about the features and specifications of the Caseology Parallax for LG Velvet to provide a comprehensive understanding.</p>', 0, '2024-01-07 13:08:51', '2024-02-02 09:48:35', NULL),
 	(78, 125, 1, 'OnePlus 9 Pro Silicone Protective Case', 'Description for OnePlus 9 Pro Silicone Protective Case - This is a longer description for the product. It includes more details about the features and specifications of the OnePlus 9 Pro Silicone Protective Case to provide a comprehensive understanding.', 0, '2024-01-07 13:08:50', '2024-01-07 13:12:30', NULL),
 	(79, 117, 0, 'Spigen Ultra Hybrid Compatible with iPhone 13 Pro', 'Description for Spigen Ultra Hybrid Compatible with iPhone 13 Pro - This is a longer description for the product. It includes more details about the features and specifications of the Spigen Ultra Hybrid Compatible with iPhone 13 Pro to provide a comprehensive understanding.', 1, '2024-01-07 13:08:50', '2024-01-07 13:15:07', NULL),
-	(80, 126, 0, 'HTC U12+ Anti-Scratch Protective Cover', 'Description for HTC U12+ Anti-Scratch Protective Cover - This is a longer description for the product. It includes more details about the features and specifications of the HTC U12+ Anti-Scratch Protective Cover to provide a comprehensive understanding.', 0, '2024-01-07 13:08:49', '2024-01-07 13:08:49', NULL);
+	(80, 126, 0, 'HTC U12+ Anti-Scratch Protective Cover', 'Description for HTC U12+ Anti-Scratch Protective Cover - This is a longer description for the product. It includes more details about the features and specifications of the HTC U12+ Anti-Scratch Protective Cover to provide a comprehensive understanding.', 0, '2024-01-07 13:08:49', '2024-02-02 11:04:26', '2024-02-02 04:04:26'),
+	(140, 3, 0, 'hhaha', '<p>kkakka</p>', 0, '2024-02-10 06:15:24', '2024-02-10 13:16:21', '2024-02-10 06:16:21'),
+	(141, 1, 0, 'assaa', '<p>taatas</p>', 4, '2024-02-29 07:42:56', '2024-03-01 01:57:09', '2024-02-29 18:57:09');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table shop.product_images
@@ -990,9 +989,9 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=490 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=706 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.product_images: 489 rows
+-- Dumping data for table shop.product_images: 488 rows
 DELETE FROM `product_images`;
 /*!40000 ALTER TABLE `product_images` DISABLE KEYS */;
 INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`, `updated_at`) VALUES
@@ -1465,11 +1464,7 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`, `update
 	(467, 76, 'op_18.webp', '2024-01-07 04:46:59', '2024-01-07 12:20:08'),
 	(468, 76, 'op_19.webp', '2024-01-07 04:46:59', '2024-01-07 12:20:09'),
 	(469, 76, 'op_20.webp', '2024-01-07 04:46:59', '2024-01-07 12:20:13'),
-	(470, 77, 'op_1.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:11'),
-	(471, 77, 'op_2.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:13'),
-	(472, 77, 'op_3.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:14'),
-	(473, 77, 'op_4.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:15'),
-	(474, 77, 'op_5.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:16'),
+	(705, 141, '1709217776_category-13.svg', '2024-02-29 07:42:56', NULL),
 	(475, 78, 'op_6.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:18'),
 	(476, 78, 'op_7.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:19'),
 	(477, 78, 'op_8.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:20'),
@@ -1484,7 +1479,10 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`, `update
 	(486, 80, 'op_17.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:30'),
 	(487, 80, 'op_18.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:30'),
 	(488, 80, 'op_19.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:31'),
-	(489, 80, 'op_20.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:32');
+	(489, 80, 'op_20.webp', '2024-01-07 04:46:59', '2024-01-07 12:21:32'),
+	(702, 140, '1707570924_iphone_1_7.webp', '2024-02-10 06:15:24', NULL),
+	(703, 140, '1707570924_iphone_2_2.webp', '2024-02-10 06:15:24', NULL),
+	(704, 141, '1709217776_icon-3.svg', '2024-02-29 07:42:56', NULL);
 /*!40000 ALTER TABLE `product_images` ENABLE KEYS */;
 
 -- Dumping structure for table shop.product_sale
@@ -1497,25 +1495,54 @@ CREATE TABLE IF NOT EXISTS `product_sale` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.product_sale: 12 rows
+-- Dumping data for table shop.product_sale: 13 rows
 DELETE FROM `product_sale`;
 /*!40000 ALTER TABLE `product_sale` DISABLE KEYS */;
 INSERT INTO `product_sale` (`id`, `time_sale`, `product_id`, `active`, `created_at`, `updated_at`) VALUES
-	(1, '2024-01-12', 23, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(2, '2024-01-12', 30, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(3, '2024-01-12', 35, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(4, '2024-01-12', 40, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(5, '2024-01-12', 17, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(6, '2024-01-12', 5, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(7, '2024-01-12', 65, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(8, '2024-01-12', 70, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(9, '2024-01-12', 79, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(10, '2024-01-12', 58, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(11, '2024-01-12', 44, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21'),
-	(12, '2024-01-12', 52, 1, '2024-01-07 11:32:25', '2024-01-07 11:33:21');
+	(1, '2024-03-12', 23, 1, '2024-01-07 11:32:25', '2024-01-16 08:37:30'),
+	(2, '2024-03-12', 30, 1, '2024-01-07 11:32:25', '2024-01-16 08:37:34'),
+	(3, '2024-03-12', 35, 1, '2024-01-07 11:32:25', '2024-01-16 08:37:38'),
+	(4, '2024-03-12', 40, 1, '2024-01-07 11:32:25', '2024-01-16 08:37:41'),
+	(5, '2024-03-11', 17, 1, '2024-01-07 11:32:25', '2024-02-22 01:38:24'),
+	(6, '2024-03-12', 5, 1, '2024-01-07 11:32:25', '2024-01-16 08:37:48'),
+	(7, '2024-03-12', 65, 1, '2024-01-07 11:32:25', '2024-01-16 08:37:51'),
+	(8, '2024-03-12', 70, 1, '2024-01-07 11:32:25', '2024-01-16 08:37:55'),
+	(9, '2024-02-11', 79, 1, '2024-01-07 11:32:25', '2024-02-22 01:40:13'),
+	(10, '2024-03-12', 58, 1, '2024-01-07 11:32:25', '2024-01-16 08:38:02'),
+	(11, '2024-03-12', 44, 1, '2024-01-07 11:32:25', '2024-01-16 08:38:05'),
+	(12, '2024-03-12', 52, 1, '2024-01-07 11:32:25', '2024-01-16 08:38:07'),
+	(13, '2024-03-01', 141, 1, '2024-02-29 15:12:19', '2024-02-29 15:12:19');
 /*!40000 ALTER TABLE `product_sale` ENABLE KEYS */;
+
+-- Dumping structure for table shop.reviews
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT '0',
+  `product_id` int DEFAULT '0',
+  `review_id` int DEFAULT '0',
+  `review` varchar(500) DEFAULT NULL,
+  `rating` smallint DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table shop.reviews: 10 rows
+DELETE FROM `reviews`;
+/*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `review_id`, `review`, `rating`, `created_at`) VALUES
+	(1, 5, 6, 0, 'Sản phẩm đẹp', 5, '2024-02-20 00:06:42'),
+	(2, 2, 6, 0, 'oke cũng ổn lắm', 4, '2024-02-20 00:07:32'),
+	(3, 2, 6, 1, '@Lê Huy Hiệu pro không ổn lắm\n', 1, '2024-02-20 00:08:04'),
+	(4, 3, 6, 2, '@Lê Huy Hiệu Binh thuong ma', 1, '2024-02-20 00:18:30'),
+	(5, 3, 6, 0, 'Sản phẩm bình thường nhưng phục vụ tốt 5sao', 5, '2024-02-20 00:23:21'),
+	(6, 1, 23, 0, 'â', 5, '2024-02-21 17:51:21'),
+	(7, 1, 5, 0, 'a', 4, '2024-02-21 17:54:50'),
+	(8, 2, 40, 0, 'ok', 4, '2024-02-21 18:47:00'),
+	(9, 4, 5, 7, '@Admin ok', 1, '2024-02-21 18:52:48'),
+	(10, 4, 35, 0, 'ok', 4, '2024-03-04 03:23:13');
+/*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 
 -- Dumping structure for table shop.shipping
 CREATE TABLE IF NOT EXISTS `shipping` (
@@ -1523,45 +1550,67 @@ CREATE TABLE IF NOT EXISTS `shipping` (
   `order_id` int NOT NULL DEFAULT '0',
   `shipping_date` date DEFAULT NULL,
   `estimated_delivery_date` date DEFAULT NULL,
-  `shipping_status` tinyint DEFAULT '0',
+  `shipping_status` tinyint DEFAULT '0' COMMENT '0 đang trên đường giao, 1 giao thành công, 2 giao thất bại',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.shipping: 0 rows
+-- Dumping data for table shop.shipping: 1 rows
 DELETE FROM `shipping`;
 /*!40000 ALTER TABLE `shipping` DISABLE KEYS */;
+INSERT INTO `shipping` (`id`, `order_id`, `shipping_date`, `estimated_delivery_date`, `shipping_status`) VALUES
+	(1, 3, '2024-03-13', '2024-03-20', 1);
 /*!40000 ALTER TABLE `shipping` ENABLE KEYS */;
 
 -- Dumping structure for table shop.size
 CREATE TABLE IF NOT EXISTS `size` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.size: 12 rows
+-- Dumping data for table shop.size: 6 rows
 DELETE FROM `size`;
 /*!40000 ALTER TABLE `size` DISABLE KEYS */;
-INSERT INTO `size` (`id`, `name`, `created_at`, `updated_at`) VALUES
-	(1, 'No Size', '2023-12-18 14:34:11', '2024-01-07 07:05:00'),
-	(2, '60x90mm', '2023-12-18 14:34:11', '2023-12-18 14:34:32'),
-	(3, '90x120mm', '2023-12-18 14:34:11', '2023-12-18 14:34:38'),
-	(4, '120x150mm', '2023-12-18 14:34:11', '2023-12-18 14:34:46'),
-	(5, '20x40mm', '2023-12-18 14:34:11', '2023-12-18 14:34:57'),
-	(6, '40x60mm', '2023-12-18 14:34:11', '2023-12-18 14:35:00'),
-	(7, '60x80mm', '2023-12-18 14:34:11', '2023-12-18 14:35:06'),
-	(8, '100x120mm', '2023-12-18 14:34:11', '2023-12-18 14:35:11'),
-	(9, 'S', '2023-12-18 14:34:11', '2023-12-18 15:20:20'),
-	(10, 'M', '2023-12-18 14:34:11', '2023-12-18 15:20:26'),
-	(11, 'L', '2023-12-18 14:34:11', '2023-12-18 15:20:28'),
-	(12, 'XL', '2023-12-18 14:34:11', '2023-12-18 15:20:32');
+INSERT INTO `size` (`id`, `name`) VALUES
+	(1, 'No Size'),
+	(2, 'S'),
+	(3, 'M'),
+	(4, 'L'),
+	(5, 'XL'),
+	(6, 'XXl');
 /*!40000 ALTER TABLE `size` ENABLE KEYS */;
+
+-- Dumping structure for table shop.staff
+CREATE TABLE IF NOT EXISTS `staff` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(191) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `role` tinyint DEFAULT '1' COMMENT '0 nhân viên thường, 5 nhân viên thêm sửa sản phẩm, 10 admin',
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `status` tinyint DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table shop.staff: 3 rows
+DELETE FROM `staff`;
+/*!40000 ALTER TABLE `staff` DISABLE KEYS */;
+INSERT INTO `staff` (`id`, `name`, `email`, `password`, `avatar`, `birthday`, `phone`, `address`, `role`, `token`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 'Le Huy Hieu', 'lehuyhieu_admin@gmail.com', 'db3ef9f4dccec29db535e6a87872d407', '1709442447_vendor-16.png', '2004-10-29', '0386208003', '50 hiep binh', 10, NULL, 1, '2024-03-01 03:34:07', '2024-03-03 05:35:11'),
+	(2, 'Le Huy Hieu', 'lehuyhieu_staff@gmail.com', 'db3ef9f4dccec29db535e6a87872d407', '1709545867_vendor-16.png', '2004-10-29', '0386208003', '60 Hiep binh ', 1, NULL, 1, '2024-03-01 03:34:07', '2024-03-04 09:51:07'),
+	(3, 'Hieu Le', 'hieule_staff@gmail.com', 'db3ef9f4dccec29db535e6a87872d407', NULL, NULL, NULL, NULL, 1, NULL, 1, '2024-03-01 08:48:44', '2024-03-01 15:55:33');
+/*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 
 -- Dumping structure for table shop.users
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `fullname` varchar(255) DEFAULT NULL,
@@ -1570,19 +1619,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `phone` varchar(255) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `confirm_email` tinyint DEFAULT '0',
+  `role` tinyint DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `username` (`username`(250)),
   KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table shop.users: 2 rows
+-- Dumping data for table shop.users: 5 rows
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `username`, `email`, `fullname`, `password`, `address`, `phone`, `token`, `confirm_email`, `created_at`, `updated_at`) VALUES
-	(1, 'lehuyhieu', 'lehuyhieupro06182@gmail.com', 'Lê Huy Hiệu', '392aabdf08177c0e4b5423158679fb87', '50 Hiệp Bình Chánh, Tp Thủ Đức', '03862080003', NULL, 1, '2023-12-27 19:06:02', '2024-01-09 04:01:49'),
-	(2, 'lehuyhieu123', 'lehuyhieu.dev.fontend@gmail.com', 'User', '392aabdf08177c0e4b5423158679fb87', NULL, NULL, NULL, 1, '2023-12-29 00:57:49', '2024-01-04 03:11:59');
+INSERT INTO `users` (`id`, `username`, `email`, `fullname`, `password`, `address`, `phone`, `token`, `confirm_email`, `role`, `created_at`, `updated_at`) VALUES
+	(1, 'admin', 'admin@gmail.com', 'Admin', '392aabdf08177c0e4b5423158679fb87', NULL, NULL, NULL, 1, 5, '2024-02-20 06:59:06', '2024-02-22 00:30:55'),
+	(2, 'lehuyhieu', 'lehuyhieu@gmail.com', 'Lê Huy Hiệu', '392aabdf08177c0e4b5423158679fb87', NULL, NULL, NULL, 1, 0, '2024-02-20 06:59:45', '2024-02-20 07:03:30'),
+	(3, 'jackle', 'jackle@gmail.com', 'Jack Le', '392aabdf08177c0e4b5423158679fb87', NULL, NULL, NULL, 1, 0, '2024-02-20 07:00:32', '2024-02-20 07:03:31'),
+	(4, 'hieule', 'hieule@gmail.com', 'Hiệu Lê', '392aabdf08177c0e4b5423158679fb87', NULL, NULL, '03c2fd45ec7d261b2ab749a4c043a068', 1, 0, '2024-02-22 01:51:30', '2024-03-04 08:36:34'),
+	(5, 'lehuyhieupro', 'lehuyhieupro06182@gmail.com', 'Lê Huy Hiệu pro', '392aabdf08177c0e4b5423158679fb87', NULL, NULL, NULL, 1, 0, '2024-02-20 00:02:23', '2024-02-20 07:05:59');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
