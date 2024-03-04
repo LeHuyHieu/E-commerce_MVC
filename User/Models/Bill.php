@@ -9,7 +9,7 @@ class Bill extends DB
 
     public function getUserOrder($user_id)
     {
-        $select = "SELECT *, shipping.shipping_date, shipping.estimated_delivery_date, shipping.shipping_status FROM orders LEFT JOIN shipping ON shipping.order_id = orders.id WHERE user_id = $user_id";
+        $select = "SELECT orders.*, shipping.shipping_date, shipping.estimated_delivery_date, shipping.shipping_status FROM orders LEFT JOIN shipping ON shipping.order_id = orders.id WHERE user_id = $user_id AND `hidden` = 0";
         $result = $this->db->getList($select);
         return $result;
     }

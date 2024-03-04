@@ -97,7 +97,7 @@ switch ($handel) {
                                     $quantity = $value['quantity'];
                                     $color = $value['color_name'];
                                     $size = $value['size_name'];
-                                    $unit_price = $value['unit_price'];
+                                    $unit_price = number_format($value['unit_price']);
                                 $message .= "<tr>
                                                 <td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$title</td>
                                                 <td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$quantity</td>
@@ -106,10 +106,11 @@ switch ($handel) {
                                                 <td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>$ $unit_price</td>
                                             </tr>";
                                 }
+                    $format_total_amount = number_format($total_amount);
                     $message   .= "</tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan='5' style='border: 1px solid #dddddd; text-align: left; padding: 8px; font-weight: bold;'>$ $total_amount</td>
+                                        <td colspan='5' style='border: 1px solid #dddddd; text-align: left; padding: 8px; font-weight: bold;'>$ $format_total_amount</td>
                                     </tr>
                                 </tfoot>
                             </table>

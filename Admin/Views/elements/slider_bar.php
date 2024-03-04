@@ -47,11 +47,23 @@
                     <div class="menu-title">Staff</div>
                 </a>
             </li>
+            <li>
+                <a href="index.php?action=seller">
+                    <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
+                    <div class="menu-title">Seller</div>
+                </a>
+            </li>
         <?php } ?>
         <li>
             <a href="index.php?action=location">
                 <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
                 <div class="menu-title">Location</div>
+            </a>
+        </li>
+        <li>
+            <a href="index.php?action=shipping">
+                <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
+                <div class="menu-title">Shipping</div>
             </a>
         </li>
     </ul>

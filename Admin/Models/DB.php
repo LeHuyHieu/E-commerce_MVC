@@ -64,7 +64,7 @@ class DB
     {
         $set = '';
         foreach ($data as $key => $value) {
-            $value = (is_numeric($value) && $key != 'phone') ? $value : "'" . ($value) . "'";
+            $value = (is_numeric($value) && $key != 'phone' && $key != 'phone_number') ? $value : "'" . ($value) . "'";
             $set .= "$key = $value, ";
         }
         $set = rtrim($set, ', ');

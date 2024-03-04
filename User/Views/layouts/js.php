@@ -1,5 +1,3 @@
-<!-- jquery -->
-<script src="./Public/js/jquery-3.7.1.min.js"></script>
 <!-- Modernizr js -->
 <script src="./Public/js/vendor/modernizr-2.8.3.min.js?"></script>
 <!-- toast js -->

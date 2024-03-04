@@ -42,3 +42,5 @@
 <link rel="stylesheet" href="./Public/css/jquery-confirm.min.css">
 <!-- custom -->
 <link rel="stylesheet" href="./Public/scss/custom.css?<?php time();?>">
+<!-- jquery -->
+<script src="./Public/js/jquery-3.7.1.min.js"></script>

@@ -26,6 +26,7 @@
                                         <?php if(isset($_SESSION['user'])) { ?>
                                             <li><a href="index.php?action=login&handle=logout">logout</a></li>
                                             <li><a href="index.php?action=user"><?php echo $_SESSION['user']['fullname'];?></a></li>
+                                            <li><a href="index.php?action=bill">Bill</a></li>
                                             <?php if($_SESSION['user']['role'] == 5) { ?>
                                                 <li><a href="index.php?action=confirm_order">Confirm order</a></li>
                                             <?php } ?>
