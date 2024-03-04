@@ -30,8 +30,8 @@ Dự án này là một trang web ecommerce được xây dựng để cung cấ
 - **/Controller**: Chứa các tệp controller, điều khiển logic của ứng dụng.
 - **/Views**: Chứa các tệp view, biểu diễn giao diện người dùng của ứng dụng.
 
-truy cập vào đường dẫn admin: http://localhost/ecommerce/admin/public/index.php?action=login
-truy cập vào đường dẫn user: http://localhost/ecommerce/user/index.php
+- truy cập vào đường dẫn admin: http://localhost/ecommerce/admin/public/index.php
+- truy cập vào đường dẫn user: http://localhost/ecommerce/user/index.php
 
 ## Tài khoản đăng nhập
 user:
