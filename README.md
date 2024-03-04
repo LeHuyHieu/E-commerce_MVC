@@ -21,22 +21,27 @@ Dự án này là một trang web ecommerce được xây dựng để cung cấ
 1. Tải mã nguồn từ repository GitHub.
 2. Sao chép hoặc di chuyển thư mục mã nguồn vào thư mục chính của máy chủ web local của bạn (thường là thư mục `www` trong WampServer).
 3. Tạo cơ sở dữ liệu MySQL mới và nhập dữ liệu từ tệp SQL có sẵn trong thư mục `database`.
-4. Đổi tên tệp `.env.example` thành `.env` và cấu hình các thông số cơ sở dữ liệu của bạn trong tệp này.
-5. Mở trình duyệt web và truy cập vào địa chỉ `http://localhost/` (hoặc địa chỉ tương ứng của máy chủ web local của bạn) để truy cập vào trang web ecommerce.
+4. Mở trình duyệt web và truy cập vào địa chỉ `http://localhost/` (hoặc địa chỉ tương ứng của máy chủ web local của bạn) để truy cập vào trang web ecommerce.
 
 ## Cấu Trúc Dự Án
 
-- **/assets**: Chứa các tài nguyên như hình ảnh, stylesheet và script.
-- **/database**: Chứa tệp SQL để tạo cơ sở dữ liệu và nhập dữ liệu ban đầu.
-- **/includes**: Chứa các tệp mã nguồn PHP được sử dụng để xây dựng trang web.
-- **/templates**: Chứa các mẫu HTML của trang web.
+- **/public**: Chứa các tài nguyên như hình ảnh, stylesheet và script.
+- **/Model**: Chứa các tệp model, đại diện cho các đối tượng dữ liệu trong ứng dụng và tệp sql chứa data.
+- **/Controller**: Chứa các tệp controller, điều khiển logic của ứng dụng.
+- **/Views**: Chứa các tệp view, biểu diễn giao diện người dùng của ứng dụng.
 
 ## Tính Năng Chính
 
-1. **Xem Sản Phẩm**: Người dùng có thể xem danh sách các sản phẩm cùng với thông tin chi tiết về từng sản phẩm.
-2. **Thêm vào Giỏ Hàng**: Người dùng có thể thêm sản phẩm vào giỏ hàng và xem giỏ hàng của mình.
-3. **Thanh Toán**: Người dùng có thể thực hiện thanh toán cho đơn hàng của mình thông qua cổng thanh toán được tích hợp sẵn.
-4. **Quản Lý Đơn Hàng**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+1. **Xem sản phẩm**: Người dùng có thể xem danh sách các sản phẩm cùng với thông tin chi tiết về từng sản phẩm.
+2. **Thêm, xóa, sửa giỏ hàng**: Người dùng có thể thêm sản phẩm vào giỏ hàng và xem giỏ hàng của mình.
+3. **Tìm kiếm sản phẩm**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+4. **Quản lý đơn hàng**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+5. **Đặt hàng**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+6. **Remember me**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+7. **Forgot password**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+8. **Đăng nhập, đăng ký**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+9. **Review, comment**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+10. **Và có những tính năng như một trang web bán hàng**
 
 ## Hỗ Trợ
 
@@ -48,7 +53,7 @@ Dự án này được phân phối dưới giấy phép MIT. Xem file LICENSE �
 
 ## Tác Giả
 
-Được phát triển bởi [Tên của bạn]
+Được phát triển bởi Lê Huy Hiệu
 
 ## Ảnh Demo
 
