@@ -58,7 +58,3 @@ Nếu bạn gặp bất kỳ vấn đề nào trong quá trình cài đặt ho�
 
 Được phát triển bởi Lê Huy Hiệu
 
-## Ảnh Demo
-
-Dưới đây là một ví dụ về cách để chèn ảnh demo của trang web của bạn:
-
