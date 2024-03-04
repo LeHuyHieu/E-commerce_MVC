@@ -33,17 +33,22 @@ Dự án này là một trang web ecommerce được xây dựng để cung cấ
 ## Tính Năng Chính
 
 1. **Xem sản phẩm**: Người dùng có thể xem danh sách các sản phẩm cùng với thông tin chi tiết về từng sản phẩm.
-2. **Thêm, xóa, sửa giỏ hàng**: Người dùng có thể thêm sản phẩm vào giỏ hàng và xem giỏ hàng của mình.
-3. **Tìm kiếm sản phẩm**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
-4. **Quản lý đơn hàng**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
-5. **Đặt hàng**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
-6. **Remember me**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
-7. **Forgot password**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
-8. **Đăng nhập, đăng ký**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
-9. **Review, comment**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/aa9c902f-5cab-4ae9-8f36-a043bcb06c5c)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/e0318655-95a7-44c5-9a3d-ca71622275d1)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/da947e56-cc62-4178-9fa8-ad636e8af536)
+3. **Thêm, xóa, sửa giỏ hàng**: Người dùng có thể thêm sản phẩm vào giỏ hàng và xem giỏ hàng của mình.
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/e3f01eac-3e85-42de-a3a4-97e28a20eeb8)
+4. **Tìm kiếm sản phẩm**: Tìm những sản phẩm phù hợp với nhu cầu của người dùng.
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/dce18fe1-7ed6-473f-bed6-fdf9360db58c)
+7. **Đặt hàng, Quản lý đơn hàng**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/f38e9674-8241-451d-b83e-59292dd1fdea)
+11. **Đăng nhập, đăng ký, Forgot password, Remember me**: Đăng nhập, tạo tài khoản, nhớ tài khoản, quên mật khẩu và cấp lại mật khẩu
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/8b758f1e-6652-42ea-aa9b-5159dbcf7452)
+![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/b2b0be93-3017-4e0d-bb33-f3866f029cb1)
+12. **Review, comment**: Người dùng có thể xem và quản lý các đơn hàng của mình, bao gồm cập nhật trạng thái đơn hàng.
 ![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/6d0210d1-4bee-4eeb-97d1-acfdd85bb406)
 ![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/4ae34416-1965-40ec-84ff-99138fd6a942)
-10. **Và có những tính năng như một trang web bán hàng**
+13. **Và có những tính năng như một trang web bán hàng**
 
 ## Hỗ Trợ
 
@@ -56,13 +61,4 @@ Nếu bạn gặp bất kỳ vấn đề nào trong quá trình cài đặt ho�
 ## Ảnh Demo
 
 Dưới đây là một ví dụ về cách để chèn ảnh demo của trang web của bạn:
-
-![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/aa9c902f-5cab-4ae9-8f36-a043bcb06c5c)
-![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/e0318655-95a7-44c5-9a3d-ca71622275d1)
-![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/da947e56-cc62-4178-9fa8-ad636e8af536)
-![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/8b758f1e-6652-42ea-aa9b-5159dbcf7452)
-![image](https://github.com/LeHuyHieu/E-commerce_MVC/assets/126578220/b2b0be93-3017-4e0d-bb33-f3866f029cb1)
-
-
-
 
