@@ -45,13 +45,14 @@ switch ($process) {
             $data_image = [];
             $data_detail = [];
             if (isset($_FILES['product_images']) && !empty($_FILES["product_images"]["name"])) {
-                $target_dir = "uploads/products/list_image_product/";
+                $target_dir = "uploads/products/";
 
                 foreach ($_FILES["product_images"]["name"] as $key => $image_name) {
                     $fileName = time() . '_' . $image_name;
                     $data_image = ['image' => $fileName, 'product_id' => $product_id, 'created_at' => date('Y-m-d H:i:s')];
                     $insert_image_product = $db->insert('product_images', $data_image);
                     $targetFile   = $target_dir . $fileName;
+                    $targetFileFrontend   = dirname(dirname(dirname(__FILE__))).'/User/Public/images/uploads/'.$fileName;
                     $allowUpload   = true;
                     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
@@ -67,9 +68,10 @@ switch ($process) {
 
                     if ($allowUpload) {
                         if (move_uploaded_file($_FILES['product_images']['tmp_name'][$key], $targetFile)) {
+                            copy($targetFile, $targetFileFrontend);
                             echo "The file has been uploaded.";
                         } else {
-                            echo "Sorry, there was an error uploading your file.";
+                            echo "Sorry, there was an error uploading your file." . error_get_last()['message'];
                         }
                     }
                 }
@@ -88,11 +90,12 @@ switch ($process) {
             }
             $data_image = [];
             if (isset($_FILES['detail_product']) && $_FILES["detail_product"]['name']['image_color_product'] != '') {
-                $target_dir = "uploads/products/product_color/";
+                $target_dir = "uploads/products/";
                 foreach ($_FILES["detail_product"]['name']['image_color_product'] as $key => $image_color) {
                     $fileName = time() . '_' . $image_color;
                     $data_image[$key] = ['image_product' => $fileName];
                     $targetFile   = $target_dir . $fileName;
+                    $targetFileFrontend   = dirname(dirname(dirname(__FILE__))).'/User/Public/images/uploads/'.$fileName;
                     $allowUpload   = true;
                     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
@@ -108,9 +111,10 @@ switch ($process) {
 
                     if ($allowUpload) {
                         if (move_uploaded_file($_FILES['detail_product']['tmp_name']['image_color_product'][$key], $targetFile)) {
+                            copy($targetFile, $targetFileFrontend);
                             echo "The file has been uploaded.";
                         } else {
-                            echo "Sorry, there was an error uploading your file.";
+                            echo "Sorry, there was an error uploading your file." . error_get_last()['message'];
                         }
                     }
                 }
@@ -160,12 +164,12 @@ switch ($process) {
             $data_image = [];
             $data_detail = [];
             $product_images = $_POST['product_images'] ?? array();
-            $target_dir = "uploads/products/list_image_product/";
+            $target_dir = "uploads/products/";
             if (isset($_FILES['product_images'])) {
                 foreach ($_FILES["product_images"]["name"] as $key => $image_name) {
                     if (!empty($_FILES["product_images"]["name"][$key])) {
                         $products = $db->find($product_images[$key], 'product_images');
-                        $public = 'uploads/products/list_image_product/';
+                        $public = 'uploads/products/';
                         $file_name_db = $products['image'];
                         $files = glob($public . '/*');
 
@@ -184,6 +188,7 @@ switch ($process) {
                         $data_image = ['image' => $fileName];
                         $insert_image_product = $db->update('product_images', $data_image, "id = $product_images[$key]");
                         $targetFile   = $target_dir . $fileName;
+                        $targetFileFrontend   = dirname(dirname(dirname(__FILE__))).'/User/Public/images/uploads/'.$fileName;
                         $allowUpload   = true;
                         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
@@ -199,6 +204,7 @@ switch ($process) {
 
                         if ($allowUpload) {
                             if (move_uploaded_file($_FILES['product_images']['tmp_name'][$key], $targetFile)) {
+                                copy($targetFile, $targetFileFrontend);
                                 echo "The file has been uploaded.";
                             } else {
                                 echo "Sorry, there was an error uploading your file.";
@@ -223,11 +229,11 @@ switch ($process) {
             $data_image_color_product = [];
             $detail_product_id = $_POST['detail_product']['id'];
             if (isset($_FILES['detail_product'])) {
-                $target_dir = "uploads/products/product_color/";
+                $target_dir = "uploads/products/";
                 foreach ($_FILES["detail_product"]['name']['image_color_product'] as $key => $image_color) {
                     if (!empty($_FILES["detail_product"]['name']['image_color_product'][$key])) {
                         $products = $db->find($detail_product_id[$key], 'detail_product');
-                        $public = 'uploads/products/product_color/';
+                        $public = 'uploads/products/';
                         $file_name_db = $products['image_product'];
                         $files = glob($public . '/*');
 
@@ -245,6 +251,7 @@ switch ($process) {
                         $fileName = time() . '_' . $image_color;
                         $data_image_color_product[$key] = ['image_product' => $fileName];
                         $targetFile   = $target_dir . $fileName;
+                        $targetFileFrontend   = dirname(dirname(dirname(__FILE__))).'/User/Public/images/uploads/'.$fileName;
                         $allowUpload   = true;
                         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
@@ -260,6 +267,7 @@ switch ($process) {
 
                         if ($allowUpload) {
                             if (move_uploaded_file($_FILES['detail_product']['tmp_name']['image_color_product'][$key], $targetFile)) {
+                                copy($targetFile, $targetFileFrontend);
                                 echo "The file has been uploaded.";
                             } else {
                                 echo "Sorry, there was an error uploading your file.";

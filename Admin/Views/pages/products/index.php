@@ -64,13 +64,13 @@ if ($condition) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($products as $product) { ?>
+                                <?php foreach ($products as $key => $product) { ?>
                                     <tr>
-                                        <td>#<?php echo $product['id']; ?></td>
+                                        <td>#<?php echo $key+1; ?></td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="recent-product-img">
-                                                    <img src="uploads/products/product_color/<?php echo (!empty($tb_products->getDetailProductOneRow($product['id'])['image_product'])) ? $tb_products->getDetailProductOneRow($product['id'])['image_product'] : ''; ?>" alt="">
+                                                    <img src="uploads/products/<?php echo (!empty($tb_products->getDetailProductOneRow($product['id'])['image_product'])) ? $tb_products->getDetailProductOneRow($product['id'])['image_product'] : ''; ?>" alt="">
                                                 </div>
                                             </div>
                                         </td>

@@ -84,7 +84,7 @@ if ($condition) {
                                                 <button type="button" class="btn-remove-image-item btn-remove-item-list-image" data-id="<?php echo $item_image_product['id']; ?>"><i class="bx bx-trash-alt"></i></button>
                                                 <input type="hidden" name="product_images[]" value="<?php echo $item_image_product['id']; ?>">
                                                 <input id="imageUploadListProduct<?php echo $item_image_product['id']; ?>" class="form-control d-none change-image-product" name="product_images[]" value="<?php echo $item_image_product['image']; ?>" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf">
-                                                <label for="imageUploadListProduct<?php echo $item_image_product['id']; ?>" class="form-label"><img src="uploads/products/list_image_product/<?php echo $item_image_product['image']; ?>" id="showImage<?php echo $item_image_product['id']; ?>" class="img-fluid rounded" width="100px" alt="Show image" /></label>
+                                                <label for="imageUploadListProduct<?php echo $item_image_product['id']; ?>" class="form-label"><img src="uploads/products/<?php echo $item_image_product['image']; ?>" id="showImage<?php echo $item_image_product['id']; ?>" class="img-fluid rounded" width="100px" alt="Show image" /></label>
                                             </div>
                                         <?php } ?>
                                         <div class="image-product-item-append"></div>
@@ -150,7 +150,7 @@ if ($condition) {
                                             <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                                 <div class="form-group mb-3">
                                                     <input type="file" name="detail_product[image_color_product][]" value="<?php echo $item_detail['image_product'] ?>" id="changeImageDetail<?php echo $item_detail['id']; ?>" class="change-image-product form-control-file mb-3" onchange="preview()">
-                                                    <label for="changeImageDetail<?php echo $item_detail['id']; ?>" style="cursor: pointer;"><img src="uploads/products/product_color/<?php echo $item_detail['image_product']; ?>" id="showImage" class="img-fluid rounded" width="100px" alt="Show image" /></label>
+                                                    <label for="changeImageDetail<?php echo $item_detail['id']; ?>" style="cursor: pointer;"><img src="uploads/products/<?php echo $item_detail['image_product']; ?>" id="showImage" class="img-fluid rounded" width="100px" alt="Show image" /></label>
                                                 </div>
                                             </div>
                                             <hr />

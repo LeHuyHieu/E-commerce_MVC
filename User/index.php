@@ -7,6 +7,8 @@
         include_once $path . $className . '.php';
     }
 
+    $db = new DB();
+
     //set layout list_product
     $view_layout = '';
     if(isset($_GET['view'])) {
@@ -43,6 +45,19 @@
         unset($_COOKIE['token_login']); 
         session_unset();
     }
+
+    // set cookie counter
+    if(!isset($_COOKIE['cookie_counter']) && empty($_COOKIE['cookie_counter'])) {
+        $cookie_counter = uniqid(); 
+        $insert = $db->insert('view_page', ['visitor' => $cookie_counter, 'date' => date('Y-m-d H:i:s')]);
+        $select = "select cnt from counter";
+        $cnt = $db->getInstance($select);
+        $db->update('counter', ['cnt' => $cnt['cnt'] + 1], '1');
+        if ($insert) {
+            setcookie('cookie_counter', $cookie_counter, time() + (3600 * 24), "/");
+        }
+    }
+    // end set cookie counter
 
     //replace price
     function formatPrice($price) {

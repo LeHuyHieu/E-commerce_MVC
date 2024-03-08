@@ -1,260 +1,186 @@
 <?php
+$tb_dashboard = new Dashboard();
+
 if ($condition) {
+    $getTotalOrder = $tb_dashboard->getTotalOrders();
+    $getTotalRevenue = $tb_dashboard->getTotalRevenue();
+    $getCounter = $tb_dashboard->getCounter();
+    $countProduct = $tb_dashboard->getCountproduct();
+    $geSiteTraffic = $tb_dashboard->getSiteTraffic()->fetchAll();
+    function getValue($item) {
+        return $item['count_visitor'];
+    }
+    $visitorArr = array_map('getValue', $geSiteTraffic);
 ?>
     <div class="page-wrapper">
         <div class="page-content">
-            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
                 <div class="col">
-                    <div class="card radius-10">
+                    <div class="card radius-10 bg-gradient-deepblue">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary">Revenue</p>
-                                    <h4 class="my-1">$4805</h4>
-                                    <p class="mb-0 font-13 text-success"><i class='bx bxs-up-arrow align-middle'></i>$34 Since last week</p>
-                                </div>
-                                <div class="widgets-icons bg-light-success text-success ms-auto"><i class='bx bxs-wallet'></i>
+                                <h5 class="mb-0 text-white"><?php echo $getTotalOrder['total_order'];?></h5>
+                                <div class="ms-auto">
+                                    <i class='bx bx-cart fs-3 text-white'></i>
                                 </div>
                             </div>
-                            <div id="chart1"></div>
+                            <div class="progress my-3 bg-light-transparent" style="height:3px;">
+                                <div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex align-items-center text-white">
+                                <p class="mb-0">Total Orders</p>
+                                <!-- <p class="mb-0 ms-auto">+4.2%<span><i class='bx bx-up-arrow-alt'></i></span></p> -->
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card radius-10">
+                    <div class="card radius-10 bg-gradient-orange">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary">Total Customers</p>
-                                    <h4 class="my-1">8.4K</h4>
-                                    <p class="mb-0 font-13 text-success"><i class='bx bxs-up-arrow align-middle'></i>14% Since last week</p>
-                                </div>
-                                <div class="widgets-icons bg-light-warning text-warning ms-auto"><i class='bx bxs-group'></i>
+                                <h5 class="mb-0 text-white"><?php echo number_format($getTotalRevenue['total_revenue']);?></h5>
+                                <div class="ms-auto">
+                                    <i class='bx bx-dollar fs-3 text-white'></i>
                                 </div>
                             </div>
-                            <div id="chart2"></div>
+                            <div class="progress my-3 bg-light-transparent" style="height:3px;">
+                                <div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex align-items-center text-white">
+                                <p class="mb-0">Total Revenue</p>
+                                <!-- <p class="mb-0 ms-auto">+1.2%<span><i class='bx bx-up-arrow-alt'></i></span></p> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <div class="card radius-10">
+                <div class="col">
+                    <div class="card radius-10 bg-gradient-ohhappiness">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary">Store Visitors</p>
-                                    <h4 class="my-1">59K</h4>
-                                    <p class="mb-0 font-13 text-danger"><i class='bx bxs-down-arrow align-middle'></i>12.4% Since last week</p>
-                                </div>
-                                <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class='bx bxs-binoculars'></i>
+                                <h5 class="mb-0 text-white"><?php echo $getCounter['cnt'];?></h5>
+                                <div class="ms-auto">
+                                    <i class='bx bx-group fs-3 text-white'></i>
                                 </div>
                             </div>
-                            <div id="chart3"></div>
+                            <div class="progress my-3 bg-light-transparent" style="height:3px;">
+                                <div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex align-items-center text-white">
+                                <p class="mb-0">Visitors</p>
+                                <!-- <p class="mb-0 ms-auto">+5.2%<span><i class='bx bx-up-arrow-alt'></i></span></p> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--end row-->
-            <div class="row row-cols-1 row-cols-xl-2">
-                <div class="col d-flex">
+                <div class="col">
+                    <div class="card radius-10 bg-gradient-ibiza">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <h5 class="mb-0 text-white"><?php echo $countProduct['count_product'];?></h5>
+                                <div class="ms-auto">
+                                    <i class='bx bx-envelope fs-3 text-white'></i>
+                                </div>
+                            </div>
+                            <div class="progress my-3 bg-light-transparent" style="height:3px;">
+                                <div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex align-items-center text-white">
+                                <p class="mb-0">Total Product</p>
+                                <!-- <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end row-->
+            <div class="row">
+                <div class="col-12 col-lg-8 col-xl-8 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h5 class="mb-1">Store Metrics</h5>
-                                    <p class="mb-0 font-13 text-secondary"><i class='bx bxs-calendar'></i>in last 30 days revenue</p>
+                                    <h6 class="mb-0">Site Traffic</h6>
                                 </div>
-                                <div class="font-22 ms-auto"><i class='bx bx-dots-horizontal-rounded'></i>
-                                </div>
-                            </div>
-                            <div class="row row-cols-1 row-cols-sm-3 mt-4">
-                                <div class="col">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Revenue</p>
-                                        <h4 class="my-1">$4805</h4>
-                                        <p class="mb-0 font-13 text-success"><i class='bx bxs-up-arrow align-middle'></i>$1458 Since last month</p>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Total Customers</p>
-                                        <h4 class="my-1">8.4K</h4>
-                                        <p class="mb-0 font-13 text-success"><i class='bx bxs-up-arrow align-middle'></i>12.3% Since last month</p>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Store Visitors</p>
-                                        <h4 class="my-1">59K</h4>
-                                        <p class="mb-0 font-13 text-danger"><i class='bx bxs-down-arrow align-middle'></i>2.4% Since last month</p>
-                                    </div>
+                                <div class="font-22 ms-auto"><i class="bx bx-dots-horizontal-rounded"></i>
                                 </div>
                             </div>
-                            <div id="chart4"></div>
+                            <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
+                                <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #14abef"></i>Visitor</span>
+                                <!-- <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #ade2f9"></i>Old Visitor</span> -->
+                            </div>
+                            <div class="chart-container-1">
+                                <canvas id="chartSiteTraffic"></canvas>
+                            </div>
                         </div>
+                        <!-- <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
+                            <div class="col">
+                                <div class="p-3">
+                                    <h5 class="mb-0">45.87M</h5>
+                                    <small class="mb-0">Overall Visitor <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3">
+                                    <h5 class="mb-0">15:48</h5>
+                                    <small class="mb-0">Visitor Duration <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3">
+                                    <h5 class="mb-0">245.65</h5>
+                                    <small class="mb-0">Pages/Visit <span> <i class="bx bx-up-arrow-alt align-middle"></i> 5.62%</span></small>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
-                <div class="col d-flex">
-                    <div class="card radius-10 w-100">
+
+                <div class="col-12 col-lg-4 col-xl-4 d-flex">
+                    <div class="card radius-10 overflow-hidden w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h5 class="mb-1">Top Products</h5>
-                                    <p class="mb-0 font-13 text-secondary"><i class='bx bxs-calendar'></i>in last 30 days revenue</p>
+                                    <h6 class="mb-0">Weekly sales</h6>
                                 </div>
-                                <div class="font-22 ms-auto"><i class='bx bx-dots-horizontal-rounded'></i>
+                                <div class="font-22 ms-auto text-white"><i class="bx bx-dots-horizontal-rounded"></i>
                                 </div>
+                            </div>
+                            <div class="chart-container-2 my-3">
+                                <canvas id="chart2"></canvas>
                             </div>
                         </div>
-                        <div class="product-list p-3 mb-3">
-                            <div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="product-img">
-                                            <img src="assets/images/icons/chair.png" alt="" />
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1">Light Blue Chair</h6>
-                                            <p class="mb-0">$240.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <h6 class="mb-1">$2140.00</h6>
-                                    <p class="mb-0">345 Sales</p>
-                                </div>
-                                <div class="col-sm">
-                                    <div id="chart5"></div>
-                                </div>
-                            </div>
-                            <div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="product-img">
-                                            <img src="assets/images/icons/user-interface.png" alt="" />
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1">Honor Mobile 7x</h6>
-                                            <p class="mb-0">$159.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <h6 class="mb-1">$3570.00</h6>
-                                    <p class="mb-0">148 Sales</p>
-                                </div>
-                                <div class="col-sm">
-                                    <div id="chart6"></div>
-                                </div>
-                            </div>
-                            <div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="product-img">
-                                            <img src="assets/images/icons/watch.png" alt="" />
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1">Hand Watch</h6>
-                                            <p class="mb-0">$250.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <h6 class="mb-1">$3650.00</h6>
-                                    <p class="mb-0">122 Sales</p>
-                                </div>
-                                <div class="col-sm">
-                                    <div id="chart7"></div>
-                                </div>
-                            </div>
-                            <div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="product-img">
-                                            <img src="assets/images/icons/idea.png" alt="" />
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1">Mini Laptop</h6>
-                                            <p class="mb-0">$260.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <h6 class="mb-1">$6320.00</h6>
-                                    <p class="mb-0">452 Sales</p>
-                                </div>
-                                <div class="col-sm">
-                                    <div id="chart8"></div>
-                                </div>
-                            </div>
-                            <div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="product-img">
-                                            <img src="assets/images/icons/tshirt.png" alt="" />
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1">Slim-T-Shirt</h6>
-                                            <p class="mb-0">$112.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <h6 class="mb-1">$2360.00</h6>
-                                    <p class="mb-0">572 Sales</p>
-                                </div>
-                                <div class="col-sm">
-                                    <div id="chart9"></div>
-                                </div>
-                            </div>
-                            <div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="product-img">
-                                            <img src="assets/images/icons/headphones.png" alt="" />
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1">Smart Headphones</h6>
-                                            <p class="mb-0">$360.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <h6 class="mb-1">$9840.00</h6>
-                                    <p class="mb-0">275 Sales</p>
-                                </div>
-                                <div class="col-sm">
-                                    <div id="chart10"></div>
-                                </div>
-                            </div>
-                            <div class="row border mx-0 py-2 radius-10 cursor-pointer">
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="product-img">
-                                            <img src="assets/images/icons/shoes.png" alt="" />
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1">Green Sports Shoes</h6>
-                                            <p class="mb-0">$410.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <h6 class="mb-1">$3840.00</h6>
-                                    <p class="mb-0">265 Sales</p>
-                                </div>
-                                <div class="col-sm">
-                                    <div id="chart11"></div>
-                                </div>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <tbody>
+                                <tr>
+                                    <td><i class="bx bxs-circle me-2" style="color: #14abef"></i> Direct</td>
+                                    <td>$5856</td>
+                                    <td>+55%</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="bx bxs-circle me-2" style="color: #02ba5a"></i>Affiliate</td>
+                                    <td>$2602</td>
+                                    <td>+25%</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="bx bxs-circle me-2" style="color: #d13adf"></i>E-mail</td>
+                                    <td>$1802</td>
+                                    <td>+15%</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="bx bxs-circle me-2" style="color: #fba540"></i>Other</td>
+                                    <td>$1105</td>
+                                    <td>+5%</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--end row-->
+            </div><!--End Row-->
         </div>
     </div>
 <?php
 } else {
     echo '<script>   window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=login"  </script>';
 }
-?>
+?> 
