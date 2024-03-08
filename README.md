@@ -1,5 +1,4 @@
-# E-commerce_MVC
-# Tên Dự Án
+# Limupa ecommerce
 
 [![Ngôn ngữ](https://img.shields.io/badge/language-PHP-blue.svg)](https://www.php.net/)
 [![Phiên bản PHP](https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg)](https://www.php.net/)
