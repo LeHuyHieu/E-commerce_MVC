@@ -87,7 +87,7 @@
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+                    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
                     datasets: [{
                         label: 'New Visitor',
                         data: <?php echo isset($visitorArr) && is_array($visitorArr) ? '['.join(',',$visitorArr).']' : '[3, 3, 8, 5, 7, 4, 6]';?>,

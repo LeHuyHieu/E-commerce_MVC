@@ -7,19 +7,21 @@ if ($condition) {
     $getCounter = $tb_dashboard->getCounter();
     $countProduct = $tb_dashboard->getCountproduct();
     $geSiteTraffic = $tb_dashboard->getSiteTraffic()->fetchAll();
-    function getValue($item) {
+    function getValue($item)
+    {
         return $item['count_visitor'];
     }
     $visitorArr = array_map('getValue', $geSiteTraffic);
+    $top_order_products = $tb_dashboard->getTopProduct()->fetchAll();
 ?>
     <div class="page-wrapper">
         <div class="page-content">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
                 <div class="col">
                     <div class="card radius-10 bg-gradient-deepblue">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <h5 class="mb-0 text-white"><?php echo $getTotalOrder['total_order'];?></h5>
+                                <h5 class="mb-0 text-white"><?php echo $getTotalOrder['total_order']; ?></h5>
                                 <div class="ms-auto">
                                     <i class='bx bx-cart fs-3 text-white'></i>
                                 </div>
@@ -38,7 +40,7 @@ if ($condition) {
                     <div class="card radius-10 bg-gradient-orange">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <h5 class="mb-0 text-white"><?php echo number_format($getTotalRevenue['total_revenue']);?></h5>
+                                <h5 class="mb-0 text-white"><?php echo number_format($getTotalRevenue['total_revenue']); ?></h5>
                                 <div class="ms-auto">
                                     <i class='bx bx-dollar fs-3 text-white'></i>
                                 </div>
@@ -57,7 +59,7 @@ if ($condition) {
                     <div class="card radius-10 bg-gradient-ohhappiness">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <h5 class="mb-0 text-white"><?php echo $getCounter['cnt'];?></h5>
+                                <h5 class="mb-0 text-white"><?php echo $getCounter['cnt']; ?></h5>
                                 <div class="ms-auto">
                                     <i class='bx bx-group fs-3 text-white'></i>
                                 </div>
@@ -76,9 +78,10 @@ if ($condition) {
                     <div class="card radius-10 bg-gradient-ibiza">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <h5 class="mb-0 text-white"><?php echo $countProduct['count_product'];?></h5>
+                                <h5 class="mb-0 text-white"><?php echo $countProduct['count_product']; ?></h5>
                                 <div class="ms-auto">
-                                    <i class='bx bx-envelope fs-3 text-white'></i>
+                                    <!-- <i class='bx bx-envelope fs-3 text-white'></i> -->
+                                    <i class="lni lni-shopify fs-3 text-white"></i>
                                 </div>
                             </div>
                             <div class="progress my-3 bg-light-transparent" style="height:3px;">
@@ -93,7 +96,7 @@ if ($condition) {
                 </div>
             </div><!--end row-->
             <div class="row">
-                <div class="col-12 col-lg-8 col-xl-8 d-flex">
+                <div class="col-12 col-lg-6 col-xl-6 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -134,45 +137,41 @@ if ($condition) {
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-4 col-xl-4 d-flex">
-                    <div class="card radius-10 overflow-hidden w-100">
+                <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                    <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h6 class="mb-0">Weekly sales</h6>
+                                    <h5 class="mb-1">Top Order Products</h5>
+                                    <!-- <p class="mb-0 font-13 text-secondary"><i class='bx bxs-calendar'></i>in last 30 days revenue</p> -->
                                 </div>
-                                <div class="font-22 ms-auto text-white"><i class="bx bx-dots-horizontal-rounded"></i>
-                                </div>
-                            </div>
-                            <div class="chart-container-2 my-3">
-                                <canvas id="chart2"></canvas>
+                                <!-- <div class="font-22 ms-auto"><i class='bx bx-dots-horizontal-rounded'></i>
+                                </div> -->
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center mb-0">
-                                <tbody>
-                                <tr>
-                                    <td><i class="bx bxs-circle me-2" style="color: #14abef"></i> Direct</td>
-                                    <td>$5856</td>
-                                    <td>+55%</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="bx bxs-circle me-2" style="color: #02ba5a"></i>Affiliate</td>
-                                    <td>$2602</td>
-                                    <td>+25%</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="bx bxs-circle me-2" style="color: #d13adf"></i>E-mail</td>
-                                    <td>$1802</td>
-                                    <td>+15%</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="bx bxs-circle me-2" style="color: #fba540"></i>Other</td>
-                                    <td>$1105</td>
-                                    <td>+5%</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div class="product-list p-3 mb-3">
+                            <?php foreach($top_order_products as $item) { 
+                                $detail_order = $tb_dashboard->getDetailTopProduct($item['product_id'], $item['size_name'], $item['color_name']);
+                                $discount = $tb_dashboard->getDetailTopProductDiscount($item['product_id']);    
+                            ?>
+                                <div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
+                                    <div class="col-sm-8">
+                                        <div class="d-flex align-items-center">
+                                            <div class="product-img">
+                                                <img src="uploads/products/<?php echo $detail_order['image_product'];?>" alt="" />
+                                            </div>
+                                            <div class="ms-2">
+                                                <h6 class="mb-1"><?php echo $item['title'];?></h6>
+                                                <p class="mb-0">Total: $<?php echo number_format($detail_order['price']);?>  <?php echo isset($discount['discount_percent']) && !empty($discount['discount_percent']) ? ' <i class="bx bx-down-arrow-alt"></i> '. number_format($discount['discount_percent']) .'%' : '';?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <h6 class="mb-1">$<?php echo number_format($item['total_price']);?></h6>
+                                        <p class="mb-0"><?php echo $item['total_quantity'];?> Sales</p>
+                                    </div>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -183,4 +182,4 @@ if ($condition) {
 } else {
     echo '<script>   window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=login"  </script>';
 }
-?> 
+?>
