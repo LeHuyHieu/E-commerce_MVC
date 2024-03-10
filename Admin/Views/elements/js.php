@@ -89,8 +89,8 @@
                 data: {
                     labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
                     datasets: [{
-                        label: 'New Visitor',
-                        data: <?php echo isset($visitorArr) && is_array($visitorArr) ? '['.join(',',$visitorArr).']' : '[3, 3, 8, 5, 7, 4, 6]';?>,
+                        label: 'Visitor',
+                        data: <?php echo isset($visitorArr) && is_array($visitorArr) ? '[' . join(',', $visitorArr) . ']' : '[3, 3, 8, 5, 7, 4, 6]'; ?>,
                         backgroundColor: 'rgba(20, 171, 239, 0.35)',
                         borderColor: "transparent",
                         pointRadius: "0",
@@ -132,6 +132,47 @@
                         }]
                     }
 
+                }
+            });
+        }
+
+        <?php 
+        $pending = isset($pending) && !empty($pending) ? $pending['order_status_count'] : 0;
+        $completed = isset($completed) && !empty($completed) ? $completed['order_status_count'] : 0;
+        $unfinished = isset($unfinished) && !empty($unfinished) ? $unfinished['order_status_count'] : 0;
+        ?>
+
+        var ctx = document.getElementById("chartOrderStatus")?.getContext('2d');
+        if (ctx) {
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Completed", "Pending", "Unfinished"],
+                    datasets: [{
+                        backgroundColor: [
+                            "#17a00e",
+                            "#f41127",
+                            "#fba540"
+                        ],
+                        data: [<?php echo $completed;?>, <?php echo $pending;?>, <?php echo $unfinished;?>],
+                        borderWidth: [0, 0, 0]
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutoutPercentage: 60,
+                    legend: {
+                        position: "bottom",
+                        display: false,
+                        labels: {
+                            fontColor: '#ddd',
+                            boxWidth: 15
+                        }
+                    }
+                    ,
+                    tooltips: {
+                        displayColors: false
+                    }
                 }
             });
         }

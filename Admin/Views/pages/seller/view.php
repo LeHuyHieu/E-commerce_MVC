@@ -95,7 +95,7 @@ if ($condition) {
                                                         </h3>
                                                     </td>
                                                     <td class="unit"><?php echo $item['note'];?></td>
-                                                    <td class="qty"><?php echo $item['size'] ?? 'No size';?>, <?php echo $item['color'] ?? 'No color';?>, <?php echo $item['quantity'];?></td>
+                                                    <td class="qty"><?php echo $item['size_name'] ?? 'No size';?>, <?php echo $item['color_name'] ?? 'No color';?>, <?php echo $item['quantity'];?></td>
                                                     <td class="total">$<?php echo number_format($item['unit_price']);?></td>
                                                 </tr>
                                             <?php } ?>

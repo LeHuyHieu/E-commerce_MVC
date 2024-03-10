@@ -53,4 +53,11 @@ class Dashboard extends DB
         $result = $this->db->getInstance($select);
         return $result;
     }
+
+    public function getOrderStatus($status) {
+        $status_join = join(',', $status);
+        $select = "SELECT COUNT(`status`) AS order_status_count, SUM(total_amount) AS total_amount FROM orders WHERE `status` IN($status_join)";
+        $result = $this->db->getInstance($select);
+        return $result;
+    }
 }

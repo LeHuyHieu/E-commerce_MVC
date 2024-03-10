@@ -48,6 +48,12 @@
                 </a>
             </li>
             <li>
+                <a href="index.php?action=users">
+                    <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
+                    <div class="menu-title">Users</div>
+                </a>
+            </li>
+            <li>
                 <a href="index.php?action=seller">
                     <div class="parent-icon"><i class="bx bx-grid-alt"></i></div>
                     <div class="menu-title">Seller</div>

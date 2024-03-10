@@ -13,6 +13,10 @@ if ($condition) {
     }
     $visitorArr = array_map('getValue', $geSiteTraffic);
     $top_order_products = $tb_dashboard->getTopProduct()->fetchAll();
+
+    $pending = $tb_dashboard->getOrderStatus([2,10]);
+    $completed = $tb_dashboard->getOrderStatus([3]);
+    $unfinished = $tb_dashboard->getOrderStatus([0,1]);
 ?>
     <div class="page-wrapper">
         <div class="page-content">
@@ -96,7 +100,7 @@ if ($condition) {
                 </div>
             </div><!--end row-->
             <div class="row">
-                <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                <div class="col-12 col-lg-12 col-xl-12 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -137,7 +141,7 @@ if ($condition) {
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 col-xl-6 d-flex">
+                <div class="col-12 col-lg-7 col-xl-7 d-flex">
                     <div class="card radius-10 w-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -172,6 +176,43 @@ if ($condition) {
                                     </div>
                                 </div>
                             <?php } ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5 col-xl-5 d-flex">
+                    <div class="card radius-10 overflow-hidden w-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h6 class="mb-0">Order status</h6>
+                                </div>
+                                <div class="font-22 ms-auto text-white"><i class="bx bx-dots-horizontal-rounded"></i>
+                                </div>
+                            </div>
+                            <div class="chart-container-2 my-3">
+                                <canvas id="chartOrderStatus"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td><i class="bx bxs-circle me-2" style="color: #17a00e"></i> Completed</td>
+                                        <td>$<?php echo isset($completed['total_amount']) && !empty($completed['total_amount']) ? number_format($completed['total_amount']) : 0;?></td>
+                                        <td><?php echo ($completed['order_status_count'] / $getTotalOrder['total_order']) * 100;?>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="bx bxs-circle me-2" style="color: #f41127"></i> Pending</td>
+                                        <td>$<?php echo isset($pending['total_amount']) && !empty($pending['total_amount']) ? number_format($pending['total_amount']) : 0;?></td>
+                                        <td><?php echo ($pending['order_status_count'] / $getTotalOrder['total_order']) * 100;?>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="bx bxs-circle me-2" style="color: #fba540"></i> Unfinished</td>
+                                        <td>$<?php echo isset($unfinished['total_amount']) && !empty($unfinished['total_amount']) ? number_format($unfinished['total_amount']) : 0;?></td>
+                                        <td><?php echo ($unfinished['order_status_count'] / $getTotalOrder['total_order']) * 100;?>%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

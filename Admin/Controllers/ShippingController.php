@@ -10,9 +10,7 @@ switch ($process) {
         if (isset($_GET['id']) && !empty($_GET['id'])) {
             $id = $_GET['id'];
             $update_success = $db->update('shipping', ['shipping_status' => 1], "id = $id");
-            if ($update_success) {
-                echo '<script>window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=shipping&success=1"</script>';
-            }
+            echo '<script>window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=shipping&success=1"</script>';
         }else {
             echo '<script>window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=shipping&failed=1"</script>';
         }
@@ -21,9 +19,7 @@ switch ($process) {
         if (isset($_GET['id']) && !empty($_GET['id'])) {
             $id = $_GET['id'];
             $update_failed = $db->update('shipping', ['shipping_status' => 2], "id = $id");
-            if ($update_failed) {
-                echo '<script>window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=shipping&success=1"</script>';
-            }
+            echo '<script>window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=shipping&success=1"</script>';
         }else {
             echo '<script>window.location.href = "http://localhost/ecommerce/admin/public/index.php?action=shipping&failed=1"</script>';
         }

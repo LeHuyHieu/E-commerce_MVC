@@ -106,14 +106,18 @@ if ($condition) {
                                             </td>
                                             <td><?php echo $shipping['fullname']; ?></td>
                                             <td>
-                                                <div class="badge rounded-pill text-<?php echo replaceOrderType($shipping['shipping_status']); ?> bg-light-<?php echo replaceOrderType($shipping['shipping_status']); ?> p-2 text-uppercase px-3"><i class='bx bxs-circle me-1'></i><?php echo replaceStatusorder($shipping['shipping_status']); ?></div>
+                                                <div class="d-flex align-items-center text-<?php echo replaceOrderType($shipping['shipping_status']); ?>">	<i class="bx bx-radio-circle-marked bx-burst bx-rotate-90 align-middle font-18 me-1"></i>
+                                                    <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo replaceStatusorder($shipping['shipping_status']); ?></font></font></span>
+                                                </div>
                                             </td>
                                             <td>$<?php echo number_format($shipping['total_amount']); ?></td>
                                             <td><?php echo $shipping['phone_number'];?></td>
                                             <td>
                                                 <div class="d-flex order-actions">
-                                                    <a href="index.php?action=shipping&process=success&id=<?php echo $shipping['id']; ?>" class="bg-success text-white"><i class='bx bx-check'></i></a>
-                                                    <a href="index.php?action=shipping&process=failed&id=<?php echo $shipping['id'];?>" class="ms-3 bg-warning text-white"><i class='bx bx-x'></i></a>
+                                                    <?php if ($shipping['shipping_status'] == 0) { ?>
+                                                        <a href="index.php?action=shipping&process=success&id=<?php echo $shipping['id']; ?>" class="bg-success text-white"><i class='bx bx-check'></i></a>
+                                                        <a href="index.php?action=shipping&process=failed&id=<?php echo $shipping['id'];?>" class="ms-3 bg-warning text-white"><i class='bx bx-x'></i></a>
+                                                    <?php } ?>
                                                     <a href="index.php?action=shipping&process=delete&id=<?php echo $shipping['id'];?>" class="ms-3 bg-danger text-white"><i class='bx bx-trash'></i></a>
                                                 </div>
                                             </td>

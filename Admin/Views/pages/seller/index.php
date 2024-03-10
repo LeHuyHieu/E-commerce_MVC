@@ -119,7 +119,9 @@ if ($condition) {
                                                 </td>
                                                 <td><?php echo $order['fullname']; ?></td>
                                                 <td>
-                                                    <div class="badge rounded-pill text-<?php echo replaceOrderType($order['status']); ?> bg-light-<?php echo replaceOrderType($order['status']); ?> p-2 text-uppercase px-3"><i class='bx bxs-circle me-1'></i><?php echo replaceStatusorder($order['status']); ?></div>
+                                                    <div class="d-flex align-items-center text-<?php echo replaceOrderType($order['status']); ?>">	<i class="bx bx-radio-circle-marked bx-burst bx-rotate-90 align-middle font-18 me-1"></i>
+                                                        <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo replaceStatusorder($order['status']); ?></font></font></span>
+                                                    </div>
                                                 </td>
                                                 <td>$<?php echo number_format($order['total_amount']); ?></td>
                                                 <td><?php echo !empty($order['order_date']) ? date_format(date_create($order['order_date']), 'd M Y') : ''; ?></td>
