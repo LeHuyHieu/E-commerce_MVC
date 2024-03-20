@@ -115,10 +115,10 @@ if ($condition) {
                                             <td>
                                                 <div class="d-flex order-actions">
                                                     <?php if ($shipping['shipping_status'] == 0) { ?>
-                                                        <a href="index.php?action=shipping&process=success&id=<?php echo $shipping['id']; ?>" class="bg-success text-white"><i class='bx bx-check'></i></a>
-                                                        <a href="index.php?action=shipping&process=failed&id=<?php echo $shipping['id'];?>" class="ms-3 bg-warning text-white"><i class='bx bx-x'></i></a>
+                                                        <a href="index.php?action=shipping&process=success&id=<?php echo $shipping['id'];?>&order_id=<?php echo $shipping['order_id'];?>" class="bg-success text-white"><i class='bx bx-check'></i></a>
+                                                        <a href="index.php?action=shipping&process=failed&id=<?php echo $shipping['id'];?>&order_id=<?php echo $shipping['order_id'];?>" class="ms-3 bg-warning text-white"><i class='bx bx-x'></i></a>
                                                     <?php } ?>
-                                                    <a href="index.php?action=shipping&process=delete&id=<?php echo $shipping['id'];?>" class="ms-3 bg-danger text-white"><i class='bx bx-trash'></i></a>
+                                                    <!-- <a href="index.php?action=shipping&process=delete&id=<?php echo $shipping['id'];?>" class="ms-3 bg-danger text-white"><i class='bx bx-trash'></i></a> -->
                                                 </div>
                                             </td>
                                         </tr>

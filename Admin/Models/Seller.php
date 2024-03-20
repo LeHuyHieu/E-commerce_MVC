@@ -54,7 +54,7 @@ class Seller extends DB
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
         }
-        $select = "SELECT shipping.id, shipping.shipping_status, orders.fullname,orders.phone_number,orders.total_amount FROM shipping LEFT JOIN orders ON orders.id = shipping.order_id";
+        $select = "SELECT shipping.id, shipping.order_id, shipping.shipping_status, orders.fullname,orders.phone_number,orders.total_amount FROM shipping LEFT JOIN orders ON orders.id = shipping.order_id";
         isset($search) ? $select .= " AND (orders.fullname like '%$search%' OR orders.phone_number like '%$search%' OR orders.total_amount like '%$search%')" : "";
         $select .= " ORDER BY id DESC LIMIT $start, $limit";
         $result = $this->db->getList($select);

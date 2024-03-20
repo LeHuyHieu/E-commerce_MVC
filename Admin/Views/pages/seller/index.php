@@ -132,7 +132,7 @@ if ($condition) {
                                                         <?php } ?>
                                                         <a href="index.php?action=seller&process=view&id=<?php echo $order['id'];?>" class="me-3"><i class='bx bx-show-alt'></i></a>
                                                         <?php if ($order['status'] != 0) { ?>
-                                                            <a href="index.php?action=seller&process=delete&id=<?php echo $order['id'];?>" class="me-3"><i class='bx bx-trash'></i></a>
+                                                            <!-- <a href="index.php?action=seller&process=delete&id=<?php echo $order['id'];?>" class="me-3"><i class='bx bx-trash'></i></a> -->
                                                         <?php } ?>
                                                     </div>
                                                     <div class="modal fade" id="confirmOrder<?php echo $order['id'];?>" tabindex="-1" aria-labelledby="confirmOrderLabel<?php echo $order['id'];?>" aria-hidden="true">
